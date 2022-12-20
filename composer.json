@@ -1,0 +1,46 @@
+{
+    "name": "kanexy/banking",
+    "description": "This is my package banking",
+    "keywords": [
+        "kanexy",
+        "laravel",
+        "banking"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "banking",
+            "email": "team@kanexy.com",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Kanexy\\Banking\\": "src",
+            "Kanexy\\Banking\\Database\\Factories\\": "database/factories"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Kanexy\\Banking\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "psalm": "vendor/bin/psalm",
+        "test": "./vendor/bin/testbench package:test --parallel --no-coverage",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Kanexy\\Banking\\BankingServiceProvider"
+            ]
+
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
