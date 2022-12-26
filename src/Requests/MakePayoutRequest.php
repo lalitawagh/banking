@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Kanexy\Cms\Rules\Reference;
 use Kanexy\Banking\Models\Account;
 use Kanexy\Banking\Models\AccountMeta;
-use Kanexy\Banking\Models\Transaction;
+use Kanexy\PartnerFoundation\Core\Models\Transaction;
 use Kanexy\Banking\Policies\TransactionPolicy;
 use Kanexy\PartnerFoundation\Membership\Models\MembershipLog;
 use Kanexy\PartnerFoundation\Saas\Models\PlanSubscription;
@@ -76,6 +76,7 @@ class MakePayoutRequest extends FormRequest
                 if ($transactionLimit?->value != 0 && $transactionLimit?->value < $amount) {
                     $validator->errors()->add('amount', 'You have exceeded the maximum transaction limit');
                 }
+
 
                 if(!is_null(@$feature['used']) && @$feature['used'] <= 0 || $membershipLog?->value > $feature['used'])
                 {

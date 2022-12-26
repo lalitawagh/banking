@@ -17,10 +17,10 @@
                         <div
                             class="sm:flex justify-end flex-wrap items-center sm:py-1 border-b border-gray-200 dark:border-dark-5 gap-1">
                             <x-list-view-filters />
-                            @can(\Kanexy\PartnerFoundation\Banking\Policies\CardPolicy::CREATE,
-                                \Kanexy\PartnerFoundation\Banking\Models\Card::class)
+                            @can(\Kanexy\Banking\Policies\CardPolicy::CREATE,
+                                \Kanexy\Banking\Models\Card::class)
                                 <div>
-                                    <a href="{{ route('dashboard.cards.create', ['workspace_id' => $workspace->id]) }}"
+                                    <a href="{{ route('dashboard.cards.create', ['workspace_id' => @$workspace?->id]) }}"
                                         class="btn btn-sm btn-primary shadow-md sm:ml-1 sm:-mt-2 sm:mb-0 mb-2 py-2">Request
                                         New Card</a>
                                 </div>
@@ -148,7 +148,7 @@
                                                         </li>
 
                                                         <li>
-                                                            @can(\Kanexy\PartnerFoundation\Banking\Policies\CardPolicy::APPROVE,
+                                                            @can(\Kanexy\Banking\Policies\CardPolicy::APPROVE,
                                                                 $card)
                                                                 <form
                                                                     action="{{ route('dashboard.cards.approve', $card->id) }}"
@@ -164,7 +164,7 @@
                                                             @endcan
                                                         </li>
                                                         <li>
-                                                            @can(\Kanexy\PartnerFoundation\Banking\Policies\CardPolicy::ACTIVATE,
+                                                            @can(\Kanexy\Banking\Policies\CardPolicy::ACTIVATE,
                                                                 $card)
                                                                 <form
                                                                     action="{{ route('dashboard.cards.activate', $card->id) }}"
@@ -180,7 +180,7 @@
                                                             @endcan
                                                         </li>
                                                         <li>
-                                                            @can(\Kanexy\PartnerFoundation\Banking\Policies\CardPolicy::CLOSE,
+                                                            @can(\Kanexy\Banking\Policies\CardPolicy::CLOSE,
                                                                 $card)
                                                                 <a href="javascript:void(0);"
                                                                     onclick="Livewire.emit('cardCloseId', {{ $card->id }})"

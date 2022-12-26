@@ -2,7 +2,7 @@
 
 namespace Kanexy\Banking\Livewire;
 
-use Kanexy\Banking\Models\Transaction;
+use Kanexy\PartnerFoundation\Core\Models\Transaction;
 use Livewire\Component;
 
 class TransactionDetail extends Component
@@ -24,6 +24,6 @@ class TransactionDetail extends Component
 
     public function render()
     {
-        return view('partner-foundation::banking.livewire.transaction-detail');
+        return view('banking::banking.livewire.transaction-detail');
     }
 }

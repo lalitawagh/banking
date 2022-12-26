@@ -9,12 +9,11 @@ use Kanexy\Cms\I18N\Models\Country;
 use Kanexy\Cms\Notifications\SmsOneTimePasswordNotification;
 use Kanexy\Cms\Setting\Models\Setting;
 use Kanexy\Banking\Models\Account;
-use Kanexy\Banking\Models\Transaction;
+use Kanexy\PartnerFoundation\Core\Models\Transaction;
 use Kanexy\Banking\Policies\TransactionPolicy;
 use Kanexy\Banking\Requests\MakePayoutRequest;
 use Kanexy\Banking\Services\PayoutService;
 use Kanexy\PartnerFoundation\Cxrm\Models\Contact;
-use Kanexy\PartnerFoundation\Saas\Models\PlanFeature;
 use Kanexy\PartnerFoundation\Saas\Models\PlanSubscription;
 use Kanexy\PartnerFoundation\Workspace\Models\Workspace;
 
@@ -63,7 +62,7 @@ class PayoutController extends Controller
     {
         $transaction = Transaction::find($request->query('id'));
         $sender = Account::findOrFail($transaction->meta['sender_id']);
-       
+
         try {
             $this->payoutService->process($transaction);
             PlanSubscription::reduceFeatureLimit($sender->workspaces()->first(),'Free Transactions');
@@ -83,5 +82,10 @@ class PayoutController extends Controller
             'message' => 'Processing the payment. It may take a while.',
             'status' => 'success',
         ]);
+    }
+
+    public static function payoutInitialize($sender,$beneficiary,$info){
+        /** @var Account $sender */
+        $sender = Account::findOrFail($request->input('sender_account_id'));
     }
 }

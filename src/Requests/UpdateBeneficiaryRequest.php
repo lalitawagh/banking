@@ -7,7 +7,7 @@ use Illuminate\Validation\Rule;
 use Kanexy\Cms\Rules\AlphaSpaces;
 use Kanexy\Cms\Rules\LandlineNumber;
 use Kanexy\Cms\Rules\MobileNumber;
-use Kanexy\Banking\Enums\ContactType;
+use Kanexy\PartnerFoundation\Cxrm\Enums\ContactType;
 use Kanexy\PartnerFoundation\Cxrm\Policies\ContactPolicy;
 
 class UpdateBeneficiaryRequest extends FormRequest

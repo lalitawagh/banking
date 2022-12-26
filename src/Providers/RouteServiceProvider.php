@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Lending\Providers;
+namespace Modules\Banking\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
@@ -12,7 +12,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $moduleNamespace = 'Modules\Lending\Http\Controllers';
+    protected $moduleNamespace = 'Modules\Banking\Http\Controllers';
 
     /**
      * Called before routes are registered.
@@ -49,7 +49,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::middleware('web')
             ->namespace($this->moduleNamespace)
-            ->group(module_path('Lending', '/Routes/web.php'));
+            ->group(module_path('Banking', '/Routes/web.php'));
     }
 
     /**
@@ -64,6 +64,6 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('api')
             ->middleware('api')
             ->namespace($this->moduleNamespace)
-            ->group(module_path('Lending', '/Routes/api.php'));
+            ->group(module_path('Banking', '/Routes/api.php'));
     }
 }

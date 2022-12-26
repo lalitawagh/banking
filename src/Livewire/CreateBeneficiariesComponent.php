@@ -9,9 +9,9 @@ use Kanexy\Cms\Rules\AlphaSpaces;
 use Kanexy\Cms\Rules\LandlineNumber;
 use Kanexy\Cms\Rules\MobileNumber;
 use Kanexy\Banking\Enums\BankEnum;
-use Kanexy\Banking\Enums\ContactBeneficiaryType;
-use Kanexy\Banking\Enums\ContactClassificationType;
-use Kanexy\Banking\Enums\ContactType;
+use Kanexy\PartnerFoundation\Cxrm\Enums\ContactBeneficiaryType;
+use Kanexy\PartnerFoundation\Cxrm\Enums\ContactClassificationType;
+use Kanexy\PartnerFoundation\Cxrm\Enums\ContactType;
 use Kanexy\PartnerFoundation\Core\Rules\BeneficiaryUnique;
 use Kanexy\PartnerFoundation\Workspace\Models\Workspace;
 use Livewire\Component;
@@ -182,6 +182,6 @@ class CreateBeneficiariesComponent extends Component
 
         $this->dispatchBrowserEvent('setBeneficiaryType',['type' => $this->type]);
 
-        return view('partner-foundation::banking.livewire.create-beneficiaries');
+        return view('banking::banking.livewire.create-beneficiaries');
     }
 }

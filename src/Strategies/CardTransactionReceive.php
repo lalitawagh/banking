@@ -4,7 +4,7 @@ namespace Kanexy\Banking\Strategies;
 
 use Kanexy\Banking\Models\Account;
 use Kanexy\Banking\Models\Card;
-use Kanexy\Banking\Models\Transaction;
+use Kanexy\PartnerFoundation\Core\Models\Transaction;
 use Kanexy\PartnerFoundation\Core\Interfaces\WebhookHandler;
 
 class CardTransactionReceive implements WebhookHandler

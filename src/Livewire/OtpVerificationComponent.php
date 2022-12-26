@@ -104,6 +104,6 @@ class OtpVerificationComponent extends Component
 
     public function render()
     {
-        return view('partner-foundation::banking.livewire.otp-verification');
+        return view('banking::banking.livewire.otp-verification');
     }
 }

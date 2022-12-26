@@ -256,7 +256,7 @@
 
     <script>
         function contactTypeChange(val) {
-            if (val == "{{ \Kanexy\PartnerFoundation\Banking\Enums\ContactType::COMPANY }}") {
+            if (val == "{{ \Kanexy\PartnerFoundation\Cxrm\Enums\ContactType::COMPANY }}") {
                 $(".contact-company").removeClass('hidden');
                 $(".contact-company").addClass('visible');
                 $(".contact-company #company_name").attr('required', 'required');

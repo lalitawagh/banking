@@ -5,9 +5,9 @@ namespace Kanexy\Banking\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
-use Kanexy\Cms\Controllers\Controller;
-use Kanexy\Banking\Models\Transaction;
 use Kanexy\Banking\Policies\TransactionPolicy;
+use Kanexy\Cms\Controllers\Controller;
+use Kanexy\PartnerFoundation\Core\Models\Transaction;
 use Kanexy\PartnerFoundation\Workspace\Models\Workspace;
 
 class TransactionController extends Controller

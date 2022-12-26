@@ -3,7 +3,7 @@
 namespace Kanexy\Banking\Livewire;
 
 use Illuminate\Support\Facades\Auth;
-use Kanexy\Banking\Models\Transaction;
+use Kanexy\PartnerFoundation\Core\Models\Transaction;
 use PDF;
 use Livewire\Component;
 
@@ -94,6 +94,6 @@ class StatementExportPdf extends Component
     public function render()
     {
         $this->dispatchBrowserEvent('UpdateLivewireStatementSelect');
-        return view('partner-foundation::banking.livewire.statementexport-pdf');
+        return view('banking::banking.livewire.statementexport-pdf');
     }
 }

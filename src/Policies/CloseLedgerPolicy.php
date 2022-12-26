@@ -4,9 +4,7 @@ namespace Kanexy\Banking\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Kanexy\Banking\Models\Transaction;
 use Kanexy\PartnerFoundation\Core\Enums\Permission;
-use Kanexy\PartnerFoundation\Workspace\Models\Workspace;
 
 class CloseLedgerPolicy
 {

@@ -12,7 +12,7 @@ use Kanexy\Banking\Exceptions\FailedToApproveCardException;
 use Kanexy\Banking\Exceptions\FailedToCloseCardException;
 use Kanexy\Banking\Models\Account;
 use Kanexy\Banking\Models\Card;
-use Kanexy\Banking\Models\Transaction;
+use Kanexy\PartnerFoundation\Core\Models\Transaction;
 use Kanexy\Banking\Policies\CardPolicy;
 use Kanexy\Banking\Requests\StoreCardAddressRequest;
 use Kanexy\PartnerFoundation\Core\Dtos\CardCloseDto;
@@ -235,7 +235,7 @@ class CardController extends Controller
             'holder_id' => auth()->id(),
         ]);
 
-        
+
         PlanSubscription::reduceFeatureLimit($workspace,'Max Virtual Cards');
 
         session()->forget('card_request');

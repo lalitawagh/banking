@@ -4,7 +4,6 @@ namespace Kanexy\Banking\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Kanexy\PartnerFoundation\Membership\Models\ConfigurationSetting;
 use Kanexy\PartnerFoundation\Workspace\Models\LedgerVerification;
 use Kanexy\PartnerFoundation\Workspace\Models\Workspace;
 use Spatie\Activitylog\LogOptions;

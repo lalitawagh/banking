@@ -4,9 +4,8 @@ namespace Kanexy\Banking\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Kanexy\Cms\Controllers\Controller;
-use Kanexy\Banking\Enums\TransactionStatus;
 use Kanexy\Banking\Policies\CloseLedgerPolicy;
+use Kanexy\Cms\Controllers\Controller;
 use Kanexy\Banking\Requests\StoreCloseLedgerRequest;
 use Kanexy\PartnerFoundation\Core\Models\ArchivedMember;
 use Kanexy\PartnerFoundation\Core\Services\WrappexService;
