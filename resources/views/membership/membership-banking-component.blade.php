@@ -11,8 +11,8 @@
     </div>
 @endif
 
-<div class="grid grid-cols-12 gap-2 mt-5">
-    
+
+
     <div
         class="text-center sm:text-left bg-gray-200 col-span-12 sm:col-span-6 xxl:col-span-6 box p-5 cursor-pointer zoom-in">
         <a href="{{ route('dashboard.banking.transactions.index',['table[filters][workspace_id]'=>$workspace->id])}}">
@@ -20,13 +20,5 @@
             <div class="text-gray-600 break-all">£ {{ $account?->balance ? $account?->balance : '0.00' }} </div>
         </a>
     </div>
-    <div
-        class="text-center sm:text-left bg-gray-200 col-span-12 sm:col-span-6 xxl:col-span-6 box p-5 cursor-pointer zoom-in">
-        <div class="font-medium text-theme-1 dark:text-theme-10 text-l">Account Status</div>
-        @if ($workspace?->status == 'active')
-            <div class="text-theme-9 block">Active </div>
-        @else
-            <div class="text-theme-6 block">Inactive </div>
-        @endif
-    </div>
-</div> 
+
+
