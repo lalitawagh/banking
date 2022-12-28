@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Kanexy\Cms\Controllers\Controller;
+use Kanexy\Cms\Enums\Status;
 use Kanexy\Cms\I18N\Models\Country;
 use Kanexy\Banking\Exceptions\FailedToActivateCardException;
 use Kanexy\Banking\Exceptions\FailedToApproveCardException;
@@ -51,7 +52,7 @@ class CardController extends Controller
             $workspace = Workspace::findOrFail($request->input('filter.workspace_id'));
         }
 
-        return view("partner-foundation::cards.index", compact('cards', 'workspace'));
+        return view("banking::cards.index", compact('cards', 'workspace'));
     }
 
     public function show(Card $card)
@@ -68,7 +69,7 @@ class CardController extends Controller
 
         $transactions = Transaction::forCard($card)->where('status', '!=', 'pending-confirmation')->latest()->take(15)->get();
 
-        return view("partner-foundation::cards.show", compact('card', 'cardImage', 'transactions'));
+        return view("banking::cards.show", compact('card', 'cardImage', 'transactions'));
     }
 
     public function create(Request $request)
@@ -80,7 +81,7 @@ class CardController extends Controller
         $countries = Country::get();
         $accounts = Account::forHolder($workspace)->get();
 
-        return view('partner-foundation::cards.request-new.create', compact('countries', 'accounts', 'workspace'));
+        return view('banking::cards.request-new.create', compact('countries', 'accounts', 'workspace'));
     }
 
     public function store(Request $request)
@@ -99,7 +100,7 @@ class CardController extends Controller
         if(!is_null(@$feature['used']) && @$feature['used'] <= 0 || $membershipLog?->value > $feature['used'])
         {
             throw ValidationException::withMessages(['account_id' => 'The maximum card limit is over for this subscription.']);
-        }else if(is_null(@$feature['used']) && $feature?->status == 'active')
+        }else if(is_null(@$feature['used']) && $feature?->status == Status::ACTIVE)
         {
             if($feature?->used <= 0)
             {
@@ -118,7 +119,7 @@ class CardController extends Controller
 
         $workspace = Workspace::findOrFail(session()->get('card_request.workspace_id'));
 
-        return view('partner-foundation::cards.request-new.card-mode', compact('workspace'));
+        return view('banking::cards.request-new.card-mode', compact('workspace'));
     }
 
     public function storeCardMode(Request $request)
@@ -144,7 +145,7 @@ class CardController extends Controller
         $shippingAddresses = Address::forTarget($workspace)->ofType('shipping')->get();
         $billingAddresses = Address::forTarget($workspace)->ofType('billing')->get();
 
-        return view('partner-foundation::cards.request-new.card-address', compact('workspace', 'shippingAddresses', 'billingAddresses'));
+        return view('banking::cards.request-new.card-address', compact('workspace', 'shippingAddresses', 'billingAddresses'));
     }
 
     public function storeCardAddress(StoreCardAddressRequest $request)
@@ -171,7 +172,7 @@ class CardController extends Controller
 
         $workspace = Workspace::findOrFail(session()->get('card_request.workspace_id'));
 
-        return view('partner-foundation::cards.request-new.card-detail', compact('workspace'));
+        return view('banking::cards.request-new.card-detail', compact('workspace'));
     }
 
     public function storeCardDetail(Request $request)
@@ -211,7 +212,7 @@ class CardController extends Controller
         }
 
 
-        return view('partner-foundation::cards.request-new.card-finalize', compact('workspace', 'requestCard', 'cardBillingAddress', 'cardDeliveryAddress'));
+        return view('banking::cards.request-new.card-finalize', compact('workspace', 'requestCard', 'cardBillingAddress', 'cardDeliveryAddress'));
     }
 
     public function finalizeCard()

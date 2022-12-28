@@ -20,7 +20,6 @@
                             @csrf
                             @php
                                 $setting = $account->meta()->pluck('value', 'key');
-                                // = $account->settings()->pluck('value', 'key');
                             @endphp
                             <input type="hidden" name="ledger_id" value="{{ $account?->id }}">
 

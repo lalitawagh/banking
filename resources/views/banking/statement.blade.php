@@ -49,27 +49,3 @@
 
 @endsection
 
-@push('scripts')
-    <script>
-        window.addEventListener('UpdateLivewireStatementSelect', event => {
-            tail.select(".year-export",{});
-            tail.select(".month-export", { search: true,
-        descriptions: true,
-        hideSelected: true,
-        hideDisabled: true,
-        multiLimit: 15,
-        multiShowCount: false,
-        multiContainer: true });
-
-        tail.select(".select-deselect", {
-            search: true,
-            descriptions: true,
-            hideSelected: true,
-            hideDisabled: true,
-            multiLimit: 15,
-            multiShowCount: false,
-            multiContainer: ".tail-move-container"
-        });
-        })
-    </script>
-@endpush

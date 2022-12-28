@@ -99,11 +99,8 @@
                                     <input id="email" name="email" type="email"
                                         class="form-control @error('') border-theme-6 @enderror"
                                         value="{{ old('email') }}">
-
-
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="grid grid-cols-12 md:gap-0 lg:gap-3 xl:gap-10 mt-0 contact-company hidden">
@@ -127,8 +124,6 @@
                                     <input id="email" name="email" type="email"
                                         class="form-control @error('email') border-theme-6 @enderror"
                                         value="{{ old('email') }}">
-
-
                                 </div>
                             </div>
                         </div>
@@ -252,43 +247,3 @@
         </div>
     </div>
 @endsection
-@push('scripts')
-
-    <script>
-        function contactTypeChange(val) {
-            if (val == "{{ \Kanexy\PartnerFoundation\Cxrm\Enums\ContactType::COMPANY }}") {
-                $(".contact-company").removeClass('hidden');
-                $(".contact-company").addClass('visible');
-                $(".contact-company #company_name").attr('required', 'required');
-                $("#first_name, #middle_name, #last_name").val('');
-
-                $(".contact-personal").removeClass('visible');
-                $(".contact-personal").addClass('hidden');
-                $(".contact-personal #first_name, #last_name").removeAttr('required');
-            } else {
-                $(".contact-company").removeClass('visible');
-                $(".contact-company").addClass('hidden');
-                $(".contact-company #company_name").removeAttr('required');
-
-
-
-                $(".contact-personal").removeClass('hidden');
-                $(".contact-personal").addClass('visible');
-                $(".contact-personal #first_name, #last_name").attr('required', 'required');
-                $(".contact-personal #middle_name").removeAttr('required');
-                $(".contact-personal #email").removeAttr('required');
-                $("#company_name").val('');
-            }
-        }
-        $(".contact-type").each(function() {
-            if ($(this).is(':checked')) {
-                contactTypeChange($(this).val());
-            }
-        });
-
-        $(".contact-type").click(function() {
-            contactTypeChange($(this).val());
-        });
-    </script>
-
-@endpush

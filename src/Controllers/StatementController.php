@@ -23,6 +23,6 @@ class StatementController extends Controller
             $workspace = Workspace::findOrFail($request->input('filter.workspace_id'));
         }
 
-        return view("partner-foundation::banking.statement", compact('workspace', 'user'));
+        return view("banking::banking.statement", compact('workspace', 'user'));
     }
 }

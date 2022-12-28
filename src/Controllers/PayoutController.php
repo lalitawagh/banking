@@ -40,7 +40,7 @@ class PayoutController extends Controller
 
         $beneficiaries = Contact::beneficiaries()->whereRefType('wrappex')->forWorkspace($workspace)->verified()->latest()->get();
 
-        return view("partner-foundation::banking.payouts", compact('workspace', 'beneficiaries', 'accounts', 'countries', 'defaultCountry'));
+        return view("banking::banking.payouts", compact('workspace', 'beneficiaries', 'accounts', 'countries', 'defaultCountry'));
     }
 
     public function store(MakePayoutRequest $request)
@@ -54,7 +54,7 @@ class PayoutController extends Controller
         $transaction = $this->payoutService->initialize($sender, $beneficiary, $request->validated());
 
         $transaction->notify(new SmsOneTimePasswordNotification($transaction->generateOtp("sms")));
-        //$transaction->generateOtp("sms");
+
         return $transaction->redirectForVerification(URL::temporarySignedRoute('dashboard.banking.payouts.verify', now()->addMinutes(30), ["id" => $transaction->id]), 'sms');
     }
 
@@ -66,7 +66,7 @@ class PayoutController extends Controller
         try {
             $this->payoutService->process($transaction);
             PlanSubscription::reduceFeatureLimit($sender->workspaces()->first(),'Free Transactions');
-            // $sender->updateBalance($transaction);
+
         } catch (\Exception $exception) {
             if ($exception->getCode() === 500) {
                 return redirect()->route("dashboard.banking.payouts.index", ["workspace_id" => $transaction->workspace_id])->with([

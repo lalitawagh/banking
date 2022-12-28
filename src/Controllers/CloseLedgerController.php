@@ -35,7 +35,7 @@ class CloseLedgerController extends Controller
         }
 
 
-        return view('partner-foundation::closeledger.index', compact('closeLedgerRequests'));
+        return view('banking::closeledger.index', compact('closeLedgerRequests'));
     }
 
     public function store(StoreCloseLedgerRequest $request)

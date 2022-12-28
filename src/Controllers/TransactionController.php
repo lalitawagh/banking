@@ -3,7 +3,6 @@
 namespace Kanexy\Banking\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use Kanexy\Banking\Policies\TransactionPolicy;
 use Kanexy\Cms\Controllers\Controller;
@@ -22,7 +21,7 @@ class TransactionController extends Controller
             $workspace = Workspace::findOrFail($request->input('filter.workspace_id'));
         }
 
-        return view("partner-foundation::banking.transactions", compact('workspace'));
+        return view("banking::banking.transactions", compact('workspace'));
     }
 
     public function update(Request $request, Transaction $transaction)

@@ -218,26 +218,17 @@
 
                 </form>
             </div>
-
-
         </div>
-        <script>
-            $(".edit-transaction").removeClass('hidden');
-            $(".edit-transaction").addClass('flex');
-            $(".save-transaction").addClass('hidden');
-            $(".save-transaction").click(function() {
-                $("#transaction-form").submit();
-            });
-        </script>
     @endif
 </div>
 @push('scripts')
     <script>
-        // document.addEventListener("DOMContentLoaded", () => {
-        //     Livewire.hook('element.updated', (el, component) => {
-        //         lucide.replace();
-        //     });
-        // });
+        $(".edit-transaction").removeClass('hidden');
+        $(".edit-transaction").addClass('flex');
+        $(".save-transaction").addClass('hidden');
+        $(".save-transaction").click(function() {
+            $("#transaction-form").submit();
+        });
 
         $(".edit-transaction").click(function() {
             $(this).addClass('hidden');

@@ -11,6 +11,7 @@ class BankingServiceSelectionContent extends Component
     {
         /** @var \App\Models\User $user */
         $user = Auth::user();
+
         return view("banking::registration.banking-component", compact("user"));
     }
 }

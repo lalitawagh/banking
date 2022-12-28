@@ -14,7 +14,7 @@
                         Account Information
                     </h2>
                 </div>
-              
+
                 <div class="preview p-5">
                     <div class="grid grid-cols-12 lg:gap-10">
                         <div class="col-span-12 md:col-span-12 lg:col-span-6 form-inline mt-2">
@@ -89,12 +89,8 @@
                                         disabled>
                                 </div>
                             </div>
-
-
                         </div>
                         <div class="grid grid-cols-12 md:gap-0 lg:gap-3 xl:gap-10 mt-0">
-
-
                             <div class="col-span-12 md:col-span-12 lg:col-span-6 form-inline mt-2">
                                 <label for="created_date" class="form-label sm:w-30 tooltip" data-theme="light"
                                     title="Created Date">Created Date</label>

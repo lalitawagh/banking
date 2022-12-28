@@ -244,12 +244,6 @@
                                         class="text-theme-6">*</span></label>
                                 <div class="sm:w-5/6">
 
-                                    {{-- <select id="bank_country" name="meta[bank_country]" data-search="true" class="tom-select form-control w-full @error('meta.bank_country') border-theme-6 @enderror" disabled>
-                                    @foreach ($countries as $country)
-                                        <option value="{{ $country->getKey() }}" @if ($country->getKey() == old('meta.bank_country', $beneficiary->meta['bank_country'])) selected @endif>{{ $country->name }}</option>
-                                @endforeach
-                                </select> --}}
-
                                     @php $country_name = '' @endphp
                                     @foreach ($countries as $country)
                                         @if ($country->getKey() == @$beneficiary->meta['bank_country'])
@@ -279,37 +273,3 @@
         </div>
     </div>
 @endsection
-@push('scripts')
-    <script>
-        function contactTypeChange(val) {
-            if (val == "{{ \Kanexy\PartnerFoundation\Cxrm\Enums\ContactType::COMPANY }}") {
-                $(".contact-company").removeClass('hidden');
-                $(".contact-company").addClass('visible');
-                $(".contact-company #company_name").attr('required', 'required');
-                $("#first_name, #middle_name, #last_name").val('');
-
-                $(".contact-personal").removeClass('visible');
-                $(".contact-personal").addClass('hidden');
-                $(".contact-personal #first_name, #last_name").removeAttr('required');
-            } else {
-                $(".contact-company").removeClass('visible');
-                $(".contact-company").addClass('hidden');
-                $(".contact-company #company_name").removeAttr('required');
-
-                $(".contact-personal").removeClass('hidden');
-                $(".contact-personal").addClass('visible');
-                $(".contact-personal #first_name, #last_name").attr('required', 'required');
-                $(".contact-personal #middle_name").removeAttr('required');
-                $("#company_name").val('');
-            }
-        }
-        $(".contact-type").each(function() {
-            if ($(this).is(':checked')) {
-                contactTypeChange($(this).val());
-            }
-        });
-        $(".contact-type").click(function() {
-            contactTypeChange($(this).val());
-        });
-    </script>
-@endpush

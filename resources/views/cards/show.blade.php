@@ -161,36 +161,12 @@
                                         </td>
                                         <td class="border-b dark:border-dark-5 whitespace-nowrap">
                                             {{ ucfirst($transaction->status) }}</td>
-                                        {{-- <td class="border-b dark:border-dark-5">
-                                        <div class="dropdown">
-                                            <button class="dropdown-toggle btn btn-sm" aria-expanded="false">
-                                                <i data-lucide="settings" class="w-5 h-5 text-gray-600"></i>
-                                            </button>
-
-                                            <div class="dropdown-menu w-48 z-10">
-                                                <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
-                                                    <a
-                                                        href="javascript:void(0);"
-                                                        data-tw-toggle="modal"
-                                                        data-tw-target="#transaction-detail-modal"
-                                                        onclick="Livewire.emit('showTransactionDetail', {{ $transaction->id }})"
-                                                        class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
-                                                    >
-                                                        <i data-lucide="eye" class="w-4 h-4 mr-2"></i> Show
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td> --}}
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
 
 
-                    </div>
-                    <div class="my-2">
-                        {{-- {{ $transactions->links() }} --}}
                     </div>
                 </div>
             </div>

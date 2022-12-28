@@ -8,7 +8,6 @@ use Kanexy\PartnerFoundation\Core\Helper;
 
 class TransactionWidget extends Component
 {
-
     public function render()
     {
         $user=Auth::user();

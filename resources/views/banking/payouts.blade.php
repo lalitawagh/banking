@@ -239,53 +239,6 @@
 
 @push('scripts')
     <script>
-        function contactTypeChange(val) {
-
-            if (val == "{{ \Kanexy\PartnerFoundation\Cxrm\Enums\ContactType::COMPANY }}") {
-                $(".contact-company").removeClass('hidden');
-                $(".contact-company").addClass('visible');
-                $(".contact-company input").attr('required', 'required');
-                $("#first_name, #middle_name, #last_name").val('');
-
-                $(".contact-personal").removeClass('visible');
-                $(".contact-personal").addClass('hidden');
-                $(".contact-personal input").removeAttr('required');
-            } else {
-                $(".contact-company").removeClass('visible');
-                $(".contact-company").addClass('hidden');
-                $(".contact-company input").removeAttr('required');
-
-                $(".contact-personal").removeClass('hidden');
-                $(".contact-personal").addClass('visible');
-                $(".contact-personal input").attr('required', 'required');
-                $(".contact-personal #middle_name").removeAttr('required');
-                $("#company_name").val('');
-            }
-        }
-        $(".contact-type").each(function() {
-            if ($(this).is(':checked')) {
-                contactTypeChange($(this).val());
-            }
-        });
-        $(".contact-type").click(function() {
-            contactTypeChange($(this).val());
-        });
-
-        contactTypeChange("{{ \Kanexy\PartnerFoundation\Cxrm\Enums\ContactType::PERSONAL }}")
-    </script>
-@endpush
-
-@push('scripts')
-    <script>
-        window.addEventListener('openOverLay', event => {
-            document.getElementById("create-beneficiaries-modal").click();
-            document.getElementById("" + event.detail.overlayName + "").click();
-        })
-    </script>
-@endpush
-
-@push('scripts')
-    <script>
         function createPayoutForm() {
             return {
                 accounts: {!! $accounts->toJson() !!},
@@ -334,11 +287,12 @@
                 },
             };
         }
-    </script>
-@endpush
 
-@push('scripts')
-    <script>
+        window.addEventListener('openOverLay', event => {
+            document.getElementById("create-beneficiaries-modal").click();
+            document.getElementById("" + event.detail.overlayName + "").click();
+        });
+
         function getFlagImg(the, type) {
             var img = $('option:selected', the).attr('data-source');
             $('#countryWithPhoneFlagImgTransfer' + type).html('<img src="' + img + '">');
@@ -350,3 +304,4 @@
         }
     </script>
 @endpush
+

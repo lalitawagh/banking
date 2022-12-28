@@ -12,6 +12,3 @@
 |
 */
 
-// Route::middleware('auth:api')->get('/ledgerfoundation', function (Request $request) {
-//     return $request->user();
-// });

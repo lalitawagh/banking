@@ -26,7 +26,6 @@ class Statement extends Model
 
     protected $table = 'transactions';
 
-
     protected $fillable = [
         'urn',
         'ref_id',

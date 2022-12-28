@@ -31,30 +31,6 @@ class MembershipComponentController extends Controller
         return view("banking::membership.bank-information", compact('membership', 'workspace', 'user', 'account'));
     }
 
-    // public function showVerificationInformation($workspaceId)
-    // {
-    //     $this->authorize(MembershipPolicy::VERIFICATION, Membership::class);
-
-    //     $workspace = Workspace::findOrFail($workspaceId);
-    //     $membership = $workspace->memberships()->first();
-    //     $user = $workspace->users()->first();
-    //     $account = Account::forHolder($workspace)->first();
-    //     $contact = Contact::officers()->forWorkspace($workspace)->first();
-    //     $flow = ($workspace->type == MembershipType::INDIVIDUAL) ? 'personal_banking_account' : 'business_banking_account';
-    //     $steps = CoreHelper::getRegistrationSteps('customers',$flow);
-    //     $registrationSteps = UserLog::forHolder($user)->get();
-
-    //     if($user->is_banking_user)
-    //     {
-    //         $numberOfSteps = 7;
-    //     }else
-    //     {
-    //         $numberOfSteps = ($user->country_code == 91) ? 7 : 2;
-    //     }
-
-    //     return view("partner-foundation::membership.membership-layout.verification", compact('membership', 'workspace', 'user', 'account', 'contact', 'steps', 'registrationSteps','numberOfSteps'));
-    // }
-
     public function showConfigurationInformation($workspaceId)
     {
         $workspace = Workspace::findOrFail($workspaceId);
