@@ -24,7 +24,7 @@ class CardsMenuItem extends Item
             return true;
         }
 
-        if ($user->hasPermissionTo(Permission::CARD_VIEW) && config('services.disable_banking') == false) {
+        if ($user->hasPermissionTo(Permission::CARD_VIEW) && !$user->isSubscriber()) {
             return true;
         }
 
