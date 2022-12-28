@@ -2,7 +2,6 @@
 
 namespace Kanexy\Banking\Livewire;
 
-
 use Illuminate\Validation\Rule;
 use Kanexy\Cms\Helper;
 use Kanexy\Cms\Rules\AlphaSpaces;
@@ -21,7 +20,6 @@ use Kanexy\PartnerFoundation\Core\Dtos\CreateBeneficiaryDto;
 use Kanexy\PartnerFoundation\Cxrm\Models\Contact;
 use Kanexy\PartnerFoundation\Cxrm\Events\ContactCreated;
 use Kanexy\Cms\Notifications\SmsOneTimePasswordNotification;
-
 
 class CreateBeneficiariesComponent extends Component
 {
