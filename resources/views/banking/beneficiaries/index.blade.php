@@ -152,8 +152,8 @@
                                         </td>
                                         <td class="whitespace-nowrap text-left">
                                             <div class="dropdown">
-                                                <button class="dropdown-toggle btn px-2 box" aria-expanded="false"
-                                                    data-tw-toggle="dropdown">
+                                                <button id="Setting" class="dropdown-toggle btn px-2 box"
+                                                    aria-expanded="false" data-tw-toggle="dropdown">
                                                     <span class="w-5 h-5 flex items-center justify-center">
                                                         <i data-lucide="settings" class="w-5 h-5 text-gray-600"></i>
                                                     </span>
@@ -163,7 +163,8 @@
                                                         @can(\Kanexy\PartnerFoundation\Cxrm\Policies\ContactPolicy::EDIT,
                                                             $beneficiary)
                                                             <li>
-                                                                <a href="{{ route('dashboard.banking.beneficiaries.edit', $beneficiary->id) }}"
+                                                                <a id="Edit"
+                                                                    href="{{ route('dashboard.banking.beneficiaries.edit', $beneficiary->id) }}"
                                                                     class="flex items-center block dropdown-item block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
                                                                     <i data-lucide="edit-2" class="w-4 h-4 mr-2"></i> Edit
                                                                 </a>
@@ -179,7 +180,7 @@
                                                                     @csrf
                                                                     @method('DELETE')
 
-                                                                    <button type="submit"
+                                                                    <button id="Delete" type="submit"
                                                                         class="w-full flex items-center block p-2 transition duration-300 ease-in-out dark:bg-dark-1 hover:bg-red-200 dark:hover:bg-dark-2 rounded-md">
                                                                         <i data-lucide="trash" class="w-4 h-4 mr-2"></i>
                                                                         Delete

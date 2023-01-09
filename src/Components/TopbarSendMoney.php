@@ -27,6 +27,6 @@ class TopbarSendMoney extends Component
             $activeWorkspaceId = Helper::activeWorkspaceId();
         }
 
-        return view("partner-foundation::banking.components.topbar-send-money", compact("activeWorkspaceId"));
+        return view("banking::banking.components.topbar-send-money", compact("activeWorkspaceId"));
     }
 }

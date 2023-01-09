@@ -4,11 +4,12 @@
     <div class="flex flex-col xl:flex-row xl:items-center">
         <div class="flex">
             <div>
-                <div class="text-lg font-medium mr-auto mt-2">Transaction</div>
+                <div class="text-lg font-medium mr-auto mt-2">Transactions</div>
             </div>
         </div>
         <div class="dropdown ml-auto">
-            <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
+            <button id="chevronDown" class="dropdown-toggle btn px-2 box" aria-expanded="false"
+                data-tw-toggle="dropdown">
                 <span>{{ $selectedYear }}</span> <span wire:ignore><i data-lucide="chevron-down"
                         class="w-4 h-4 ml-2"></i></span>
             </button>
@@ -16,7 +17,7 @@
                 <ul class="dropdown-content">
                     <li>
                         @foreach ($years as $year)
-                            <a wire:click="selectYear({{ $year }})"
+                            <a id="selectYear" wire:click="selectYear({{ $year }})"
                                 class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
                                 {{ $year }}
                             </a>

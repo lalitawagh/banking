@@ -12,6 +12,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Card extends Model
 {
     use HasFactory, LogsActivity;
+    protected static $recordEvents = ['updated'];
 
     protected $fillable = [
         'account_id',

@@ -12,7 +12,7 @@
                     </h2>
                 </div>
                 <div class="Livewire-datatable-modal pb-3">
-                    <livewire:data-table model='Kanexy\PartnerFoundation\Core\Models\Transaction'
+                    <livewire:data-table model='Kanexy\PartnerFoundation\Banking\Models\Transaction'
                         params="{{ $workspace?->id }}" type="transactions" />
                 </div>
             </div>
@@ -33,6 +33,9 @@
                     <a id="transactionDetailClose"
                         class="close intro-x cursor-pointer w-8 h-8 flex items-center justify-center rounded-full bg-theme-6 text-theme-10 ml-2 tooltip"
                         title="Close" data-tw-dismiss="modal"> <i data-lucide="x" class="w-30 h-30"></i> </a>
+                    <!--<a href="" class="intro-x w-8 h-8 flex items-center justify-center rounded-full bg-theme-14 dark:bg-dark-5 dark:text-gray-300 text-theme-10 ml-2 tooltip" title="Share"> <i data-lucide="share-2" class="w-3 h-3"></i> </a>
+                                                            <a href="" class="intro-x w-8 h-8 flex items-center justify-center rounded-full bg-theme-1 text-white ml-2 tooltip" title="Download PDF"> <i data-lucide="share" class="w-3 h-3"></i> </a>-->
+
                 </div>
 
                 <div class="modal-body">
@@ -55,10 +58,11 @@
                                     class="edit-transaction cursor-pointer intro-x w-8 h-8 flex items-center justify-center rounded-full bg-theme-14 dark:bg-dark-5 dark:text-gray-300 text-theme-10 ml-2 tooltip">
                                     <i data-feather="edit" class="w-3 h-3"></i>
                                 </div>
-                                <a
+                                <a id="Save"
                                     class="save-transaction cursor-pointer intro-x w-8 h-8 flex items-center justify-center rounded-full bg-theme-1 text-white ml-2 tooltip">
                                     <i data-feather="save" class="w-3 h-3"></i> </a>
-                                <a class="close intro-x cursor-pointer w-8 h-8 flex items-center justify-center rounded-full bg-theme-6 text-white ml-2 tooltip"
+                                <a id="Close"
+                                    class="close intro-x cursor-pointer w-8 h-8 flex items-center justify-center rounded-full bg-theme-6 text-white ml-2 tooltip"
                                     title="Close" data-dismiss="modal"> <i data-feather="x" class="w-3 h-3"></i> </a>
                             </div>
                             <div class="clearfix"></div>
@@ -75,7 +79,7 @@
         </div>
     </div>
 @endsection
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 @push('scripts')
     <script>
         window.addEventListener('show-transaction-detail-modal', event => {

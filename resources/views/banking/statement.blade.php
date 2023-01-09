@@ -11,16 +11,18 @@
                         Statement
                     </h2>
                     <div class="intro-x dropdown ml-auto sm:mr-3">
-                        <div class="dropdown-toggle notification cursor-pointer" href="#" id="select-monthyearexport-btn" role="button" type="button"
-                            aria-expanded="false" data-tw-toggle="modal" data-tw-target="#select-monthyearexport-modal" onclick="Livewire.emit('statementDetail')">
-                            <button class="btn btn-sm btn-primary float-right shadow-md ml-2 sm:mb-0 mb-2">Month
+                        <div class="dropdown-toggle notification cursor-pointer" href="#" id="select-monthyearexport-btn"
+                            role="button" type="button" aria-expanded="false" data-tw-toggle="modal"
+                            data-tw-target="#select-monthyearexport-modal" onclick="Livewire.emit('statementDetail')">
+                            <button id="MonthYearExport"
+                                class="btn btn-sm btn-primary float-right shadow-md ml-2 sm:mb-0 mb-2">Month
                                 & Year Export</button>
                         </div>
                     </div>
                 </div>
                 <div class="Livewire-datatable-modal pb-3">
-                    <livewire:data-table model='Kanexy\Banking\Models\Statement'
-                        params="{{ $workspace?->id }}"  type="statements"/>
+                    <livewire:data-table model='Kanexy\PartnerFoundation\Banking\Models\Statement'
+                        params="{{ $workspace?->id }}" type="statements" />
                 </div>
             </div>
         </div>
@@ -49,3 +51,29 @@
 
 @endsection
 
+@push('scripts')
+    <script>
+        window.addEventListener('UpdateLivewireStatementSelect', event => {
+            tail.select(".year-export", {});
+            tail.select(".month-export", {
+                search: true,
+                descriptions: true,
+                hideSelected: true,
+                hideDisabled: true,
+                multiLimit: 15,
+                multiShowCount: false,
+                multiContainer: true
+            });
+
+            tail.select(".select-deselect", {
+                search: true,
+                descriptions: true,
+                hideSelected: true,
+                hideDisabled: true,
+                multiLimit: 15,
+                multiShowCount: false,
+                multiContainer: ".tail-move-container"
+            });
+        })
+    </script>
+@endpush

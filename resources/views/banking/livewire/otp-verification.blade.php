@@ -51,6 +51,6 @@
         </div>
     </div>
     <div class="text-right mt-5">
-        <button wire:click="verifyOtp" type="button" class="btn btn-primary w-24">Verify</button>
+        <button id="Verify" wire:click="verifyOtp" type="button" class="btn btn-primary w-24">Verify</button>
     </div>
 </div>

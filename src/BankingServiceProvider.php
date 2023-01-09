@@ -2,6 +2,8 @@
 
 namespace Kanexy\Banking;
 
+use Kanexy\Banking\Facades\Banking;
+use Kanexy\Banking\Services\WrappexService;
 use Kanexy\Cms\Setting\Models\Setting;
 use Kanexy\Cms\Traits\InteractsWithMigrations;
 use Spatie\LaravelPackageTools\Package;
@@ -53,7 +55,7 @@ class BankingServiceProvider extends PackageServiceProvider
     public function packageBooted()
     {
         parent::packageBooted();
-
+       
         Banking::registerDefaultPolicies();
         Banking::registerDefaultLivewireComponents();
         Banking::registerDefaultMenuComponents();
@@ -63,7 +65,7 @@ class BankingServiceProvider extends PackageServiceProvider
         Banking::registerDefaultFormComponents();
         Banking::registerDefaultRedirectRouteComponents();
 
-        $this->app->singleton(\Kanexy\PartnerFoundation\Core\Services\WrappexService::class, function () {
+        $this->app->singleton(WrappexService::class, function () {
             /**
              * We will give preference to the prefixes set in the configuration
              * in case the management wants to overwrite the prefixes for the
@@ -76,7 +78,7 @@ class BankingServiceProvider extends PackageServiceProvider
                 $environment = Setting::getValue('wrappex_environment');
             }
 
-            return new \Kanexy\PartnerFoundation\Core\Services\WrappexService();
+            return new WrappexService();
         });
 
     }

@@ -8,7 +8,7 @@
             <div class="box">
                 <div class="flex items-center py-2 px-3 border-b border-gray-200 dark:border-dark-5">
                     <h2 class="font-medium text-base mr-auto">
-                           Create Beneficiary
+                        Create Beneficiary
                     </h2>
                 </div>
                 <div class="p-5">
@@ -54,7 +54,7 @@
                                 <div class="sm:w-5/6">
                                     <input id="first_name" name="first_name" type="text"
                                         class="form-control @error('first_name') border-theme-6 @enderror"
-                                        value="{{ old('first_name') }}" >
+                                        value="{{ old('first_name') }}">
 
                                     @error('first_name')
                                         <span class="block text-theme-6 mt-2">{{ $message }}</span>
@@ -83,7 +83,7 @@
                                 <div class="sm:w-5/6">
                                     <input id="last_name" name="last_name" type="text"
                                         class="form-control @error('last_name') border-theme-6 @enderror"
-                                        value="{{ old('last_name') }}" >
+                                        value="{{ old('last_name') }}">
 
                                     @error('last_name')
                                         <span class="block text-theme-6 mt-2">{{ $message }}</span>
@@ -99,8 +99,11 @@
                                     <input id="email" name="email" type="email"
                                         class="form-control @error('') border-theme-6 @enderror"
                                         value="{{ old('email') }}">
+
+
                                 </div>
                             </div>
+
                         </div>
 
                         <div class="grid grid-cols-12 md:gap-0 lg:gap-3 xl:gap-10 mt-0 contact-company hidden">
@@ -110,7 +113,7 @@
                                 <div class="sm:w-5/6">
                                     <input id="company_name" name="company_name" type="text"
                                         class="form-control @error('company_name') border-theme-6 @enderror"
-                                        value="{{ old('company_name') }}" >
+                                        value="{{ old('company_name') }}">
 
                                     @error('company_name')
                                         <span class="block text-theme-6 mt-2">{{ $message }}</span>
@@ -124,6 +127,8 @@
                                     <input id="email" name="email" type="email"
                                         class="form-control @error('email') border-theme-6 @enderror"
                                         value="{{ old('email') }}">
+
+
                                 </div>
                             </div>
                         </div>
@@ -237,9 +242,10 @@
                         </div>
 
                         <div class="text-right mt-5">
-                            <a href="{{ route('dashboard.banking.beneficiaries.index', ['filter' => ['workspace_id' => $workspace->id]]) }}"
+                            <a id="BeneficiaryCancel"
+                                href="{{ route('dashboard.banking.beneficiaries.index', ['filter' => ['workspace_id' => $workspace->id]]) }}"
                                 class="btn btn-secondary w-24 inline-block mr-1">Cancel</a>
-                            <button type="submit" class="btn btn-primary w-24">Create</button>
+                            <button id="BeneficiaryCreate" type="submit" class="btn btn-primary w-24">Create</button>
                         </div>
                     </form>
                 </div>
@@ -247,3 +253,44 @@
         </div>
     </div>
 @endsection
+
+
+@push('scripts')
+    <script>
+        function contactTypeChange(val) {
+            if (val == "{{ \Kanexy\PartnerFoundation\Banking\Enums\ContactType::COMPANY }}") {
+                $(".contact-company").removeClass('hidden hiddenform');
+                $(".contact-company").addClass('visible');
+                $(".contact-company #company_name").attr('required', 'required');
+                $("#first_name, #middle_name, #last_name").val('');
+
+                $(".contact-personal").removeClass('visible');
+                $(".contact-personal").addClass('hidden hiddenform');
+                $(".contact-personal #first_name, #last_name").removeAttr('required');
+            } else {
+                $(".contact-company").removeClass('visible');
+                $(".contact-company").addClass('hidden hiddenform');
+                $(".contact-company #company_name").removeAttr('required');
+
+
+
+                $(".contact-personal").removeClass('hidden hiddenform');
+                $(".contact-personal").addClass('visible');
+                $(".contact-personal #first_name, #last_name").attr('required', 'required');
+                $(".contact-personal #middle_name").removeAttr('required');
+                $(".contact-personal #email").removeAttr('required');
+                $("#company_name").val('');
+            }
+        }
+        $(".contact-type").each(function() {
+            if ($(this).is(':checked')) {
+                contactTypeChange($(this).val());
+            }
+        });
+
+        $(".contact-type").click(function() {
+            contactTypeChange($(this).val());
+        });
+    </script>
+@endpush
+

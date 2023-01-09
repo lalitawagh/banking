@@ -1,4 +1,4 @@
-@extends("partner-foundation::cards.request-new.wizard-skeleton")
+@extends('partner-foundation::cards.request-new.wizard-skeleton')
 
 @section('card-content')
     <div class="px-5 sm:px-20 mt-10 pt-10 border-t border-gray-200">
@@ -29,8 +29,10 @@
             @enderror
 
             <div class="text-right mt-5 form-inline text-right mt-5 float-right">
-                <a href="{{ route('dashboard.cards.create', ['workspace_id' => session()->get('card_request.workspace_id')]) }}" class="btn btn-secondary w-24 inline-block mr-2">Previous</a>
-                <button type="submit" class="btn btn-primary w-24">Next</button>
+                <a id="CardPrevious"
+                   href="{{ route('dashboard.cards.create', ['workspace_id' => session()->get('card_request.workspace_id')]) }}"
+                   class="btn btn-secondary w-24 inline-block mr-2">Previous</a>
+                <button id="CardSubmit" type="submit" class="btn btn-primary w-24">Next</button>
             </div>
         </form>
     </div>

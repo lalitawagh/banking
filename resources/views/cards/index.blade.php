@@ -17,10 +17,11 @@
                         <div
                             class="sm:flex justify-end flex-wrap items-center sm:py-1 border-b border-gray-200 dark:border-dark-5 gap-1">
                             <x-list-view-filters />
-                            @can(\Kanexy\Banking\Policies\CardPolicy::CREATE,
-                                \Kanexy\Banking\Models\Card::class)
+                            @can(\Kanexy\PartnerFoundation\Banking\Policies\CardPolicy::CREATE,
+                                \Kanexy\PartnerFoundation\Banking\Models\Card::class)
                                 <div>
-                                    <a href="{{ route('dashboard.cards.create', ['workspace_id' => @$workspace?->id]) }}"
+                                    <a id="CardRequestCard"
+                                        href="{{ route('dashboard.cards.create', ['workspace_id' => $workspace->id]) }}"
                                         class="btn btn-sm btn-primary shadow-md sm:ml-1 sm:-mt-2 sm:mb-0 mb-2 py-2">Request
                                         New Card</a>
                                 </div>
@@ -132,8 +133,8 @@
                                         <td class="whitespace-nowrap text-left capitalize">{{ $card->status }}</td>
                                         <td class="whitespace-nowrap text-center">
                                             <div class="dropdown">
-                                                <button class="dropdown-toggle btn px-2 box" aria-expanded="false"
-                                                    data-tw-toggle="dropdown">
+                                                <button id="Setting" class="dropdown-toggle btn px-2 box"
+                                                    aria-expanded="false" data-tw-toggle="dropdown">
                                                     <span class="w-5 h-5 flex items-center justify-center">
                                                         <i data-lucide="settings" class="w-5 h-5 text-gray-600"></i>
                                                     </span>
@@ -141,21 +142,22 @@
                                                 <div class="dropdown-menu w-40">
                                                     <ul class="dropdown-content">
                                                         <li>
-                                                            <a href="{{ route('dashboard.cards.show', $card->id) }}"
+                                                            <a id="Show"
+                                                                href="{{ route('dashboard.cards.show', $card->id) }}"
                                                                 class="dropdown-item flex items-center block dropdown-item flex items-center block p-2 transition duration-300 ease-in-out bg-white">
                                                                 <i data-lucide="eye" class="w-4 h-4 mr-2"></i> Show
                                                             </a>
                                                         </li>
 
                                                         <li>
-                                                            @can(\Kanexy\Banking\Policies\CardPolicy::APPROVE,
+                                                            @can(\Kanexy\PartnerFoundation\Banking\Policies\CardPolicy::APPROVE,
                                                                 $card)
                                                                 <form
                                                                     action="{{ route('dashboard.cards.approve', $card->id) }}"
                                                                     method="POST">
                                                                     @csrf
 
-                                                                    <button type="submit"
+                                                                    <button id="Approve" type="submit"
                                                                         class="w-full flex items-center block dropdown-item flex items-center block p-2 transition duration-300 ease-in-out bg-white">
                                                                         <i data-lucide="toggle-right"
                                                                             class="w-4 h-4 mr-2"></i> Approve
@@ -164,14 +166,14 @@
                                                             @endcan
                                                         </li>
                                                         <li>
-                                                            @can(\Kanexy\Banking\Policies\CardPolicy::ACTIVATE,
+                                                            @can(\Kanexy\PartnerFoundation\Banking\Policies\CardPolicy::ACTIVATE,
                                                                 $card)
                                                                 <form
                                                                     action="{{ route('dashboard.cards.activate', $card->id) }}"
                                                                     method="POST">
                                                                     @csrf
 
-                                                                    <button type="submit"
+                                                                    <button id="Activate" type="submit"
                                                                         class="w-full flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-green-200 dark:hover:bg-dark-2 rounded-md">
                                                                         <i data-lucide="toggle-right"
                                                                             class="w-4 h-4 mr-2"></i> Activate
@@ -180,9 +182,9 @@
                                                             @endcan
                                                         </li>
                                                         <li>
-                                                            @can(\Kanexy\Banking\Policies\CardPolicy::CLOSE,
+                                                            @can(\Kanexy\PartnerFoundation\Banking\Policies\CardPolicy::CLOSE,
                                                                 $card)
-                                                                <a href="javascript:void(0);"
+                                                                <a id="CardClose" href="javascript:void(0);"
                                                                     onclick="Livewire.emit('cardCloseId', {{ $card->id }})"
                                                                     data-tw-toggle="modal" data-tw-target="#card-close-modal"
                                                                     class="dropdown-item flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">

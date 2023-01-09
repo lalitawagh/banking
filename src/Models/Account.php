@@ -12,6 +12,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Account extends Model
 {
     use HasFactory, LogsActivity;
+    protected static $recordEvents = ['updated'];
 
     protected $fillable = [
         'name',
@@ -100,7 +101,8 @@ class Account extends Model
 
     public function getActivitylogOptions(): LogOptions
     {
-        return LogOptions::defaults()->useLogName('Beneficiary')->logOnly(['*'])->logOnlyDirty();
+        return LogOptions::defaults()->useLogName('Account')->logOnly(['*'])->logOnlyDirty();
         // Chain fluent methods for configuration options
     }
 }
+

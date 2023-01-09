@@ -16,7 +16,7 @@
                     <div
                         class="relative before:hidden before:lg:block before:absolute before:w-[69%] before:h-[3px] before:top-0 before:bottom-0 before:mt-4 before:bg-slate-100 before:dark:bg-darkmode-400 flex lg:flex-row justify-center px-5 sm:px-20 wizard flex flex-col lg:flex-row justify-center px-10">
                         <div class="intro-x lg:text-center flex items-center lg:block flex-1 z-10">
-                            <button
+                            <button id="AccountDetails"
                                 class="w-10 h-10 rounded-full btn text-slate-500 bg-slate-100 dark:bg-darkmode-400 dark:border-darkmode-400 btn-primary {{ request()->routeIs('dashboard.cards.create') ? 'btn-primary' : 'text-gray-600 bg-gray-200 dark:bg-dark-1' }}">1</button>
                             <div
                                 class="lg:w-32 text-base lg:mt-3 ml-3 lg:mx-auto {{ request()->routeIs('dashboard.cards.create') ? 'font-bold' : 'text-gray-700 dark:text-gray-600' }}">
@@ -24,7 +24,7 @@
                         </div>
 
                         <div class="intro-x lg:text-center flex items-center mt-5 lg:mt-0 lg:block flex-1 z-10">
-                            <button
+                            <button id="CardSelection"
                                 class="w-10 h-10 rounded-full btn text-slate-500 bg-slate-100 dark:bg-darkmode-400 dark:border-darkmode-400 btn-primary {{ request()->routeIs('dashboard.cards.show-card-mode') ? 'btn-primary' : 'text-gray-600 bg-gray-200 dark:bg-dark-1' }}">2</button>
                             <div
                                 class="lg:w-32 text-base lg:mt-3 ml-3 lg:mx-auto {{ request()->routeIs('dashboard.cards.show-card-mode') ? 'font-bold' : 'text-gray-700 dark:text-gray-600' }}">
@@ -32,7 +32,7 @@
                         </div>
 
                         <div class="intro-x lg:text-center flex items-center mt-5 lg:mt-0 lg:block flex-1 z-10">
-                            <button
+                            <button id="ConfirmAddress"
                                 class="w-10 h-10 rounded-full btn text-slate-500 bg-slate-100 dark:bg-darkmode-400 dark:border-darkmode-400 btn-primary {{ request()->routeIs('dashboard.cards.show-card-address') ? 'btn-primary' : 'text-gray-600 bg-gray-200 dark:bg-dark-1' }}">3</button>
                             <div
                                 class="lg:w-32 text-base lg:mt-3 ml-3 lg:mx-auto {{ request()->routeIs('dashboard.cards.show-card-address') ? 'font-bold' : 'text-gray-700 dark:text-gray-600' }}">
@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="intro-x lg:text-center flex items-center mt-5 lg:mt-0 lg:block flex-1 z-10">
-                            <button
+                            <button id="ConfirmDetails"
                                 class="w-10 h-10 rounded-full btn text-slate-500 bg-slate-100 dark:bg-darkmode-400 dark:border-darkmode-400 btn-primary {{ request()->routeIs('dashboard.cards.show-card-detail') ? 'btn-primary' : 'text-gray-600 bg-gray-200 dark:bg-dark-1' }}">4</button>
                             <div
                                 class="lg:w-32 text-base lg:mt-3 ml-3 lg:mx-auto {{ request()->routeIs('dashboard.cards.show-card-detail') ? 'font-bold' : 'text-gray-700 dark:text-gray-600' }}">
@@ -48,7 +48,7 @@
                         </div>
 
                         <div class="intro-x lg:text-center flex items-center mt-5 lg:mt-0 lg:block flex-1 z-10">
-                            <button
+                            <button id="Finalize"
                                 class="w-10 h-10 rounded-full btn text-slate-500 bg-slate-100 dark:bg-darkmode-400 dark:border-darkmode-400 btn-primary {{ request()->routeIs('dashboard.cards.show-card-finalize') ? 'btn-primary' : 'text-gray-600 bg-gray-200 dark:bg-dark-1' }}">5</button>
                             <div
                                 class="lg:w-32 text-base lg:mt-3 ml-3 lg:mx-auto {{ request()->routeIs('dashboard.cards.show-card-finalize') ? 'font-bold' : 'text-gray-700 dark:text-gray-600' }}">

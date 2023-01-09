@@ -23,7 +23,6 @@ use Kanexy\Cms\Notifications\SmsOneTimePasswordNotification;
 
 class CreateBeneficiariesComponent extends Component
 {
-
     use WithFileUploads;
 
     public $oneTimePassword;

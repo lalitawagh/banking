@@ -47,13 +47,13 @@
                 <tr style="padding-left: 2.5rem; padding-left: 2.5rem;">
                     <td style="text-align:left;padding:20px 20px;">
                         <div>
-                            <div style="font-size: 1.5rem;line-height: 2rem; font-weight:600; padding-bottom:10px">{{ $account->name }}</div>
+                            <div style="font-size: 1.5rem;line-height: 2rem; font-weight:600; padding-bottom:10px">{{ @$account?->name }}</div>
                         </div>
                     </td>
                     <td style="text-align:right;padding:20px 20px;">
                         <div class="lg:text-right mt-10 lg:mt-0 lg:ml-auto">
-                            <div style="font-size: 1rem;line-height: 1.5; font-weight:600;">Account Number:&nbsp; {{ $account->account_number }}</div>
-                            <div style="font-size: 1rem;line-height: 2rem; font-weight:500;">Sort code:&nbsp; {{ $account->bank_code }}</div>
+                            <div style="font-size: 1rem;line-height: 1.5; font-weight:600;">Account Number:&nbsp; {{ @$account?->account_number }}</div>
+                            <div style="font-size: 1rem;line-height: 2rem; font-weight:500;">Sort code:&nbsp; {{ @$account?->bank_code }}</div>
                         </div>
                     </td>
                 </tr>

@@ -34,8 +34,8 @@ use Kanexy\Banking\Step\PersonalBankingRegistrationStep;
 use Kanexy\PartnerFoundation\Core\Enums\WorkspaceType;
 use Kanexy\PartnerFoundation\Core\Facades\PartnerFoundation;
 use Kanexy\Banking\Dashboard\TransactionGraphWidget;
-
-
+use Kanexy\Banking\Setting\GeneralSettingContent;
+use Kanexy\Banking\Setting\GeneralSettingTab;
 
 class Banking
 {
@@ -94,6 +94,8 @@ class Banking
         \Kanexy\Cms\Facades\MembershipServiceSelection::addItem(new BankingServiceSelectionContent());
         \Kanexy\PartnerFoundation\Membership\Facades\MembershipComponent::addItem(MembershipComponent::class);
         \Kanexy\PartnerFoundation\Membership\Facades\MembershipBankingComponent::addItem(MembershipBankingComponent::class);
+        \Kanexy\Cms\Facades\SettingContent::addItem(GeneralSettingContent::class);
+        \Kanexy\Cms\Facades\SettingTab::addItem(GeneralSettingTab::class);
     }
 
     public function registerDefaultRedirectRouteComponents()

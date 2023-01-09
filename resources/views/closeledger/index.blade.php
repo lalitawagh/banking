@@ -10,7 +10,22 @@
                     <h2 class="font-medium text-base mr-auto">
                         Close Ledger Request
                     </h2>
+                    @if ($user->isSubscriber())
+                        <div class="intro-y mt-0">
+                            <div
+                                class="text-right flex-wrap sm:flex items-center justify-end sm:py-0 border-b border-gray-200 dark:border-dark-5">
+                                @can(\Kanexy\Banking\Policies\CloseLedgerPolicy::CREATE,
+                                    \Kanexy\PartnerFoundation\Core\Models\ArchivedMember::class)
+                                    <a id="closeLedger" href="#" data-tw-toggle="modal" data-tw-target="#close-ledger-modal"
+                                        class="btn btn-sm btn-primary sm:ml-2 py-2 sm:mb-2 mb-2">
+                                        New Request
+                                    </a>
+                                @endcan
+                            </div>
+                        </div>
+                    @endif
                 </div>
+
                 <div class="px-5 py-3">
 
                     <div class="overflow-x-auto overflow-y-hidden">
@@ -109,7 +124,8 @@
                             <tbody>
                                 @foreach ($closeLedgerRequests as $index => $closeLedgerRequest)
                                     <tr @if ($index % 2 === 0) class="bg-gray-200 dark:bg-dark-1" @endif>
-                                        <td class="whitespace-nowrap text-left">{{ $index + 1 }}</td>
+                                        <td class="whitespace-nowrap text-left">
+                                            {{ $index + $closeLedgerRequests->firstItem() }}</td>
                                         <td class="whitespace-nowrap text-left">{{ $closeLedgerRequest->meta['name'] }}
                                         </td>
                                         <td class="whitespace-nowrap text-left">{{ $closeLedgerRequest->meta['email'] }}
@@ -126,35 +142,39 @@
                                         </td>
                                         <td class="whitespace-nowrap text-left">
                                             <div class="dropdown">
-                                                <button class="dropdown-toggle btn px-2 box" aria-expanded="false"
-                                                    data-tw-toggle="dropdown">
+                                                <button id="Setting" class="dropdown-toggle btn px-2 box"
+                                                    aria-expanded="false" data-tw-toggle="dropdown">
                                                     <span class="w-5 h-5 flex items-center justify-center">
                                                         <i data-lucide="settings" class="w-5 h-5 text-gray-600"></i>
                                                     </span>
                                                 </button>
                                                 <div class="dropdown-menu w-40">
                                                     <ul class="dropdown-content">
-                                                        @can(\Kanexy\Banking\Policies\CloseLedgerPolicy::EDIT,
-                                                            $closeLedgerRequest)
-                                                            <li>
-                                                                <a href="{{ route('dashboard.banking.closeledger.approveRequest', $closeLedgerRequest->getKey()) }}"
-                                                                    class="flex items-center block dropdown-item flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                                                    <x-feathericon-check class="w-4 h-4 mr-1" />
-                                                                    Approve
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="{{ route('dashboard.banking.closeledger.declineRequest', $closeLedgerRequest->getKey()) }}"
-                                                                    class="flex items-center block dropdown-item flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                                                    <x-feathericon-x class="w-4 h-4 mr-1" />
-                                                                    Decline
-                                                                </a>
-                                                            </li>
-                                                        @endcan
+                                                        @if ($closeLedgerRequest->status == \Kanexy\Cms\Enums\Status::PENDING)
+                                                            @can(\Kanexy\Banking\Policies\CloseLedgerPolicy::EDIT,
+                                                                \Kanexy\PartnerFoundation\Core\Models\ArchivedMember::class)
+                                                                <li>
+                                                                    <a id="Approve"
+                                                                        href="{{ route('dashboard.banking.closeledger.approveRequest', $closeLedgerRequest->getKey()) }}"
+                                                                        class="flex items-center block dropdown-item flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                                                                        <x-feathericon-check class="w-4 h-4 mr-1" />
+                                                                        Approve
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a id="Decline"
+                                                                        href="{{ route('dashboard.banking.closeledger.declineRequest', $closeLedgerRequest->getKey()) }}"
+                                                                        class="flex items-center block dropdown-item flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                                                                        <x-feathericon-x class="w-4 h-4 mr-1" />
+                                                                        Decline
+                                                                    </a>
+                                                                </li>
+                                                            @endcan
+                                                        @endif
                                                         @can(\Kanexy\Banking\Policies\CloseLedgerPolicy::VIEW,
-                                                            $closeLedgerRequest)
+                                                            \Kanexy\PartnerFoundation\Core\Models\ArchivedMember::class)
                                                             <li>
-                                                                <a href="#" data-tw-toggle="modal"
+                                                                <a id="show" href="#" data-tw-toggle="modal"
                                                                     data-tw-target="#show-close-ledger"
                                                                     onclick="Livewire.emit('show', {{ $closeLedgerRequest->getKey() }});"
                                                                     class="flex items-center block dropdown-item flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
@@ -181,5 +201,34 @@
             </div>
         </div>
     </div>
-    @livewire('show-close-ledger')
+    <div id="show-close-ledger" class="modal modal-slide-over" data-tw-backdrop="static" tabindex="-1"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <!-- BEGIN: Slide Over Header -->
+                <div class="modal-header">
+                    <h2 class="font-medium text-base mr-auto">Show Close Account Request</h2>
+
+                    <a data-tw-dismiss="modal" href="javascript:;">
+                        <i data-lucide="x" class="w-8 h-8 text-slate-400"></i>
+                    </a>
+                    <div class="dropdown sm:hidden">
+                        <a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false"
+                            data-tw-toggle="dropdown">
+                            <i data-lucide="more-horizontal" class="w-5 h-5 text-slate-500"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- END: Slide Over Header -->
+
+                <div class="modal-body">
+                    @livewire('show-close-ledger')
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if ($user->isSubscriber())
+        @livewire('close-ledger-modal')
+    @endif
 @endsection

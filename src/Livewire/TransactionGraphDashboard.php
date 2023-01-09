@@ -41,6 +41,7 @@ class TransactionGraphDashboard extends Component
             $currentWorkspaceId = Helper::activeWorkspaceId();
             $creditTransactionGraphData = Transaction::whereWorkspaceId($currentWorkspaceId)->whereType(TransactionType::CREDIT)->whereYear("created_at", $this->selectedYear)->groupBy(["label"])->selectRaw("ROUND(sum(amount),2) as data, MONTHNAME(created_at) as label")->where('status', '!=', TransactionStatus::PENDING_CONFIRMATION)->where('ref_type', 'wrappex')->get();
             $debitTransactionGraphData = Transaction::whereWorkspaceId($currentWorkspaceId)->whereType(TransactionType::DEBIT)->whereYear("created_at", $this->selectedYear)->groupBy(["label"])->selectRaw("ROUND(sum(amount),2) as data, MONTHNAME(created_at) as label")->where('status', '!=', TransactionStatus::PENDING_CONFIRMATION)->where('ref_type', 'wrappex')->get();
+
         } else {
             $creditTransactionGraphData = Transaction::whereType(TransactionType::CREDIT)->whereYear("created_at", $this->selectedYear)->groupBy(["label"])->selectRaw("ROUND(sum(amount),2) as data, MONTHNAME(created_at) as label")->where('status', '!=', TransactionStatus::PENDING_CONFIRMATION)->where('ref_type', 'wrappex')->get();
             $debitTransactionGraphData = Transaction::whereType(TransactionType::DEBIT)->whereYear("created_at", $this->selectedYear)->groupBy(["label"])->selectRaw("ROUND(sum(amount),2) as data, MONTHNAME(created_at) as label")->where('status', '!=', TransactionStatus::PENDING_CONFIRMATION)->where('ref_type', 'wrappex')->get();
@@ -75,6 +76,6 @@ class TransactionGraphDashboard extends Component
 
     public function render()
     {
-        return view('banking::livewire.transaction-graph-dashboard');
+        return view('partner-foundation::Livewire.transaction-graph-dashboard');
     }
 }

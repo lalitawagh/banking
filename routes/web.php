@@ -22,14 +22,15 @@ use Kanexy\Cms\Middleware\ValidateRegistrationCompletedMiddleware;
 |
 */
 
-Route::group(['middleware' => ['web','auth']], function () {
+Route::group(['middleware' => ['web']], function () {
+Route::post('webhooks/wrappex', 'Kanexy\Banking\Webhooks\WrappexWebhook')->name('webhooks.wrappex');
 
-Route::group(['middleware' => [ValidateRegistrationCompletedMiddleware::class], 'prefix' => 'customer/signup', 'as' => 'customer.signup.'], function () {
+Route::group(['middleware' => [ValidateRegistrationCompletedMiddleware::class,'auth'], 'prefix' => 'customer/signup', 'as' => 'customer.signup.'], function () {
     Route::resource('ledger', RegistrationLedgerController::class)->only(['index', 'create', 'store']);
     Route::get('finalize', [RegistrationLedgerController::class, 'show'])->name('ledger-show');
 });
 
-Route::group(['middleware' => [ColorModeMiddleware::class]], function () {
+Route::group(['middleware' => [ColorModeMiddleware::class,'auth']], function () {
     
     Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
         Route::name('cards.activate')->post('cards/{card}/activate', [CardController::class, 'activate']);

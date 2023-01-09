@@ -9,21 +9,21 @@
                         <div class="sm:w-3/5 mr-3">
                             <input type="hidden" name="duration">
                             <select class="form-control w-full month-export"
-                                wire:change="changeMonth($event.target.value)" data-search="true" multiple>
+                                    wire:change="changeMonth($event.target.value)" data-search="true" multiple>
                                 @for ($i = 1; $i <= 12; $i++)
                                     <option value="{{ $i }}"
-                                        @if (in_array($i, $month)) selected @endif>
+                                            @if (in_array($i, $month)) selected @endif>
                                         {{ date('F', mktime(0, 0, 0, $i, 10)) }}
                                     </option>
                                 @endfor
                             </select>
                             @error('month')
-                                <span class="block text-theme-6 mt-2">{{ $message }}</span>
+                            <span class="block text-theme-6 mt-2">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="text-right mt-0">
-                            <button type="button" wire:click="statementMonthExport()"
-                                class="btn btn-primary w-24">Download</button>
+                            <button id="StatementMonthExport" type="button" wire:click="statementMonthExport()"
+                                    class="btn btn-primary w-24">Download</button>
                         </div>
                     </div>
                 </form>
@@ -42,22 +42,22 @@
                         <div class="sm:w-3/5 mr-3">
                             <input type="hidden" name="duration">
                             <select wire:change="changeYear($event.target.value)" data-search="true"
-                                class="tail-select w-full year-export">
+                                    class="tail-select w-full year-export">
                                 <option>Select</option>
                                 @for ($i = 2011; $i <= date('Y'); $i++)
                                     <option value="{{ $i }}"
-                                        @if ($selectedYear == $i) selected @endif>
+                                            @if ($selectedYear == $i) selected @endif>
                                         {{ $i }}
                                     </option>
                                 @endfor
                             </select>
                             @error('year')
-                                <span class="block text-theme-6 mt-2">{{ $message }}</span>
+                            <span class="block text-theme-6 mt-2">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="text-right mt-0">
-                            <button type="button" wire:click="statementYearExport()"
-                                class="btn btn-primary w-24">Download</button>
+                            <button id="StatementYearExport" type="button" wire:click="statementYearExport()"
+                                    class="btn btn-primary w-24">Download</button>
                         </div>
                     </div>
                 </form>

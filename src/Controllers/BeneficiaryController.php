@@ -45,10 +45,13 @@ class BeneficiaryController extends Controller
         if ($request->has('filter.workspace_id')) {
             $workspace = Workspace::findOrFail($request->input('filter.workspace_id'));
         }
+        if ($request->has('ref_type')) {
+            $beneficiaries = $contacts->beneficiaries()->where('ref_type', '=', $request->input('ref_type'))->verified()->latest()->paginate();
+        } else {
+            $beneficiaries = $contacts->beneficiaries()->where('ref_type', '!=', 'wallet')->verified()->latest()->paginate();
+        }
 
-        $beneficiaries = $contacts->beneficiaries()->where('ref_type','!=','wallet')->verified()->latest()->paginate();
-
-        return view("banking::banking.beneficiaries.index", compact('beneficiaries', 'workspace'));
+        return view("partner-foundation::banking.beneficiaries.index", compact('beneficiaries', 'workspace'));
     }
 
     public function create(Request $request)
@@ -62,7 +65,7 @@ class BeneficiaryController extends Controller
 
         $accounts = Account::whereNotNull('account_number')->latest()->get(['id', 'name', 'account_number']);
 
-        return view("banking::banking.beneficiaries.create", compact('countries', 'defaultCountry', 'workspace', 'accounts'));
+        return view("partner-foundation::banking.beneficiaries.create", compact('countries', 'defaultCountry', 'workspace', 'accounts'));
     }
 
     public function store(StoreBeneficiaryRequest $request)
@@ -96,11 +99,10 @@ class BeneficiaryController extends Controller
 
         /** @var \App\Models\User $user */
         $user = auth()->user();
-
-        if(config('services.disable_sms_service') == false){
+        //$user->notify(new EmailOneTimePasswordNotification($contact->generateOtp("email")));
+        if (config('services.disable_sms_service') == false) {
             $user->notify(new SmsOneTimePasswordNotification($contact->generateOtp("sms")));
-        }
-        else{
+        } else {
             $contact->generateOtp("sms");
         }
 
@@ -118,7 +120,7 @@ class BeneficiaryController extends Controller
         $countries = Country::get();
         $defaultCountry = Setting::getValue('default_country');
 
-        return view("banking::banking.beneficiaries.edit", compact('beneficiary', 'countries', 'defaultCountry'));
+        return view("partner-foundation::banking.beneficiaries.edit", compact('beneficiary', 'countries', 'defaultCountry'));
     }
 
     public function update(UpdateBeneficiaryRequest $request, Contact $beneficiary)
