@@ -1,0 +1,134 @@
+<?php
+
+namespace Kanexy\Banking\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Kanexy\Banking\Services\WrappexService;
+use Kanexy\Cms\Controllers\Controller;
+use Kanexy\Banking\Policies\CloseLedgerPolicy;
+use Kanexy\Banking\Requests\StoreCloseLedgerRequest;
+use Kanexy\PartnerFoundation\Core\Models\ArchivedMember;
+use Kanexy\PartnerFoundation\Workspace\Models\Workspace;
+use App\Models\User;
+use Illuminate\Support\Facades\Notification;
+use Kanexy\Cms\Enums\Status;
+use Kanexy\PartnerFoundation\Banking\Notifications\CloseLedgerNotification;
+
+class CloseLedgerController extends Controller
+{
+    private WrappexService $service;
+
+    public function __construct(WrappexService $service)
+    {
+        $this->service = $service;
+    }
+
+    public function index(Request $request)
+    {
+        $this->authorize(CloseLedgerPolicy::VIEW, ArchivedMember::class);
+
+        $user = Auth::user();
+
+        if ($user->isSuperAdmin()) {
+            $closeLedgerRequests = ArchivedMember::whereName('close_ledger')->latest()->paginate(10);
+        } else {
+            $closeLedgerRequests = ArchivedMember::whereName('close_ledger')->where('holder_id', $user->id)->latest()->paginate(10);
+        }
+
+
+        return view('partner-foundation::closeledger.index', compact('closeLedgerRequests', 'user'));
+    }
+
+
+    public function store(StoreCloseLedgerRequest $request)
+    {
+        $this->authorize(CloseLedgerPolicy::CREATE, ArchivedMember::class);
+
+        $data = $request->validated();
+
+
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        $existRequest = ArchivedMember::whereName('close_ledger')->where('holder_id', $user->id)->where('status', '!=', Status::DECLINED)->first();
+        if (!is_null($existRequest)) {
+            return back()->with([
+                'message' => 'Already Close Ledger Request Exists!',
+                'status' => 'failed'
+            ]);
+        }
+
+        $workspace  = Workspace::whereAdminId($user->id)->first();
+        $account = $workspace->account()->first();
+
+        if ($account->balance > 0) {
+            return redirect()->back()->with([
+                'message' => 'Please Transfer your balance, before making requests',
+                'status' => 'failed',
+            ]);
+        }
+
+        $archive = new ArchivedMember();
+        $archive->holder()->associate($user);
+        $archive->name = 'close_ledger';
+        $archive->meta = $data;
+        $archive->status = Status::PENDING;
+        $archive->save();
+        return redirect()->back()->with([
+            'status' => 'success',
+            'message' => 'Request submitted successfully.',
+        ]);
+    }
+
+
+    public function approveRequest(Request $request)
+    {
+        $archivedMember = ArchivedMember::find($request->id);
+        $user = User::find($archivedMember->holder_id);
+        $workspace  = Workspace::whereAdminId($user->id)->first();
+        $account = $workspace->account()->first();
+
+        if ($account->balance > 0) {
+
+            Notification::sendNow($user, new  CloseLedgerNotification($user));
+
+            return redirect()->back()->with([
+                'message' => 'User having balance in the account',
+                'status' => 'failed',
+            ]);
+        }
+
+        try {
+            $this->service->closeAccount($account->ref_id);
+        } catch (\Exception $exception) {
+            if ($exception->getCode() === 500) {
+                return redirect()->route("dashboard.banking.closeledger.index")->with([
+                    'message' => 'Something went wrong. Please try again later.',
+                    'status' => 'failed',
+                ]);
+            }
+
+            throw $exception;
+        }
+
+        $archivedMember->update(['status' => Status::APPROVE]);
+        return redirect()->route('dashboard.banking.closeledger.index')->with([
+            'status' => 'success',
+            'message' => 'Request Approved',
+        ]);
+    }
+
+
+    public function declineRequest(Request $request)
+    {
+        $archivedMember = ArchivedMember::find($request->id);
+
+        $archivedMember->update(['status' => Status::DECLINED]);
+
+        return redirect()->back()->with([
+            'status' => 'success',
+            'message' => 'Request Declined',
+        ]);
+    }
+}

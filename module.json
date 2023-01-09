@@ -1,0 +1,13 @@
+{
+    "name": "Banking",
+    "alias": "banking",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Kanexy\\Banking\\BankingServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
