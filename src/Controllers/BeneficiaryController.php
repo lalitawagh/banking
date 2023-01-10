@@ -3,6 +3,8 @@
 namespace Kanexy\Banking\Controllers;
 
 use Illuminate\Http\Request;
+use Kanexy\Banking\Dtos\CreateBeneficiaryDto;
+use Kanexy\Banking\Services\WrappexService;
 use Kanexy\Cms\Controllers\Controller;
 use Kanexy\Cms\Helper;
 use Kanexy\Cms\I18N\Models\Country;
@@ -11,8 +13,6 @@ use Kanexy\Cms\Setting\Models\Setting;
 use Kanexy\Banking\Models\Account;
 use Kanexy\Banking\Requests\StoreBeneficiaryRequest;
 use Kanexy\Banking\Requests\UpdateBeneficiaryRequest;
-use Kanexy\PartnerFoundation\Core\Dtos\CreateBeneficiaryDto;
-use Kanexy\PartnerFoundation\Core\Services\WrappexService;
 use Kanexy\PartnerFoundation\Cxrm\Events\ContactCreated;
 use Kanexy\PartnerFoundation\Cxrm\Events\ContactDeleted;
 use Kanexy\PartnerFoundation\Cxrm\Events\ContactDeleting;
@@ -51,7 +51,7 @@ class BeneficiaryController extends Controller
             $beneficiaries = $contacts->beneficiaries()->where('ref_type', '!=', 'wallet')->verified()->latest()->paginate();
         }
 
-        return view("partner-foundation::banking.beneficiaries.index", compact('beneficiaries', 'workspace'));
+        return view("banking::banking.beneficiaries.index", compact('beneficiaries', 'workspace'));
     }
 
     public function create(Request $request)
@@ -65,7 +65,7 @@ class BeneficiaryController extends Controller
 
         $accounts = Account::whereNotNull('account_number')->latest()->get(['id', 'name', 'account_number']);
 
-        return view("partner-foundation::banking.beneficiaries.create", compact('countries', 'defaultCountry', 'workspace', 'accounts'));
+        return view("banking::banking.beneficiaries.create", compact('countries', 'defaultCountry', 'workspace', 'accounts'));
     }
 
     public function store(StoreBeneficiaryRequest $request)
@@ -120,7 +120,7 @@ class BeneficiaryController extends Controller
         $countries = Country::get();
         $defaultCountry = Setting::getValue('default_country');
 
-        return view("partner-foundation::banking.beneficiaries.edit", compact('beneficiary', 'countries', 'defaultCountry'));
+        return view("banking::banking.beneficiaries.edit", compact('beneficiary', 'countries', 'defaultCountry'));
     }
 
     public function update(UpdateBeneficiaryRequest $request, Contact $beneficiary)

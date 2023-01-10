@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Storage;
 use Kanexy\Banking\Models\Account;
 use Kanexy\PartnerFoundation\Core\Models\Transaction;
 use Kanexy\PartnerFoundation\Core\Dtos\CreateTransactionDto;
-use Kanexy\PartnerFoundation\Core\Services\WrappexService;
+use Kanexy\Banking\Services\WrappexService;
 use Kanexy\PartnerFoundation\Cxrm\Models\Contact;
 use Kanexy\PartnerFoundation\Workspace\Models\Workspace;
 

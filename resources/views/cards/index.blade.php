@@ -17,7 +17,7 @@
                         <div
                             class="sm:flex justify-end flex-wrap items-center sm:py-1 border-b border-gray-200 dark:border-dark-5 gap-1">
                             <x-list-view-filters />
-                            @can(\Kanexy\PartnerFoundation\Banking\Policies\CardPolicy::CREATE,
+                            @can(\Kanexy\Banking\Policies\CardPolicy::CREATE,
                                 \Kanexy\PartnerFoundation\Banking\Models\Card::class)
                                 <div>
                                     <a id="CardRequestCard"
@@ -150,7 +150,7 @@
                                                         </li>
 
                                                         <li>
-                                                            @can(\Kanexy\PartnerFoundation\Banking\Policies\CardPolicy::APPROVE,
+                                                            @can(\Kanexy\Banking\Policies\CardPolicy::APPROVE,
                                                                 $card)
                                                                 <form
                                                                     action="{{ route('dashboard.cards.approve', $card->id) }}"
@@ -166,7 +166,7 @@
                                                             @endcan
                                                         </li>
                                                         <li>
-                                                            @can(\Kanexy\PartnerFoundation\Banking\Policies\CardPolicy::ACTIVATE,
+                                                            @can(\Kanexy\Banking\Policies\CardPolicy::ACTIVATE,
                                                                 $card)
                                                                 <form
                                                                     action="{{ route('dashboard.cards.activate', $card->id) }}"
@@ -182,7 +182,7 @@
                                                             @endcan
                                                         </li>
                                                         <li>
-                                                            @can(\Kanexy\PartnerFoundation\Banking\Policies\CardPolicy::CLOSE,
+                                                            @can(\Kanexy\Banking\Policies\CardPolicy::CLOSE,
                                                                 $card)
                                                                 <a id="CardClose" href="javascript:void(0);"
                                                                     onclick="Livewire.emit('cardCloseId', {{ $card->id }})"

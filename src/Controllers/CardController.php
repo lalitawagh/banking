@@ -5,8 +5,9 @@ namespace Kanexy\Banking\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
+use Kanexy\Banking\Dtos\CardCloseDto;
+use Kanexy\Banking\Dtos\CreateCardDto;
 use Kanexy\Cms\Controllers\Controller;
-use Kanexy\Cms\Enums\Status;
 use Kanexy\Cms\I18N\Models\Country;
 use Kanexy\Banking\Exceptions\FailedToActivateCardException;
 use Kanexy\Banking\Exceptions\FailedToApproveCardException;
@@ -16,10 +17,8 @@ use Kanexy\Banking\Models\Card;
 use Kanexy\PartnerFoundation\Core\Models\Transaction;
 use Kanexy\Banking\Policies\CardPolicy;
 use Kanexy\Banking\Requests\StoreCardAddressRequest;
-use Kanexy\PartnerFoundation\Core\Dtos\CardCloseDto;
-use Kanexy\PartnerFoundation\Core\Dtos\CreateCardDto;
 use Kanexy\PartnerFoundation\Core\Models\Address;
-use Kanexy\PartnerFoundation\Core\Services\WrappexService;
+use Kanexy\Banking\Services\WrappexService;
 use Kanexy\PartnerFoundation\Membership\Models\MembershipLog;
 use Kanexy\PartnerFoundation\Saas\Models\PlanSubscription;
 use Kanexy\PartnerFoundation\Workspace\Models\Workspace;
@@ -52,7 +51,7 @@ class CardController extends Controller
             $workspace = Workspace::findOrFail($request->input('filter.workspace_id'));
         }
 
-        return view("partner-foundation::cards.index", compact('cards', 'workspace'));
+        return view("banking::cards.index", compact('cards', 'workspace'));
     }
 
     public function show(Card $card)
@@ -69,7 +68,7 @@ class CardController extends Controller
 
         $transactions = Transaction::forCard($card)->where('status', '!=', 'pending-confirmation')->latest()->take(15)->get();
 
-        return view("partner-foundation::cards.show", compact('card', 'cardImage', 'transactions'));
+        return view("banking::cards.show", compact('card', 'cardImage', 'transactions'));
     }
 
     public function create(Request $request)
@@ -81,7 +80,7 @@ class CardController extends Controller
         $countries = Country::get();
         $accounts = Account::forHolder($workspace)->get();
 
-        return view('partner-foundation::cards.request-new.create', compact('countries', 'accounts', 'workspace'));
+        return view('banking::cards.request-new.create', compact('countries', 'accounts', 'workspace'));
     }
 
     public function store(Request $request)
@@ -116,7 +115,7 @@ class CardController extends Controller
 
         $workspace = Workspace::findOrFail(session()->get('card_request.workspace_id'));
 
-        return view('partner-foundation::cards.request-new.card-mode', compact('workspace'));
+        return view('banking::cards.request-new.card-mode', compact('workspace'));
     }
 
     public function storeCardMode(Request $request)
@@ -142,7 +141,7 @@ class CardController extends Controller
         $shippingAddresses = Address::forTarget($workspace)->ofType('shipping')->get();
         $billingAddresses = Address::forTarget($workspace)->ofType('billing')->get();
 
-        return view('partner-foundation::cards.request-new.card-address', compact('workspace', 'shippingAddresses', 'billingAddresses'));
+        return view('banking::cards.request-new.card-address', compact('workspace', 'shippingAddresses', 'billingAddresses'));
     }
 
     public function storeCardAddress(StoreCardAddressRequest $request)
@@ -169,7 +168,7 @@ class CardController extends Controller
 
         $workspace = Workspace::findOrFail(session()->get('card_request.workspace_id'));
 
-        return view('partner-foundation::cards.request-new.card-detail', compact('workspace'));
+        return view('banking::cards.request-new.card-detail', compact('workspace'));
     }
 
     public function storeCardDetail(Request $request)
@@ -209,7 +208,7 @@ class CardController extends Controller
         }
 
 
-        return view('partner-foundation::cards.request-new.card-finalize', compact('workspace', 'requestCard', 'cardBillingAddress', 'cardDeliveryAddress'));
+        return view('banking::cards.request-new.card-finalize', compact('workspace', 'requestCard', 'cardBillingAddress', 'cardDeliveryAddress'));
     }
 
     public function finalizeCard()

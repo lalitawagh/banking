@@ -37,7 +37,7 @@ class CloseLedgerController extends Controller
         }
 
 
-        return view('partner-foundation::closeledger.index', compact('closeLedgerRequests', 'user'));
+        return view('banking::closeledger.index', compact('closeLedgerRequests', 'user'));
     }
 
 

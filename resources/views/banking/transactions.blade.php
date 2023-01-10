@@ -12,7 +12,7 @@
                     </h2>
                 </div>
                 <div class="Livewire-datatable-modal pb-3">
-                    <livewire:data-table model='Kanexy\PartnerFoundation\Banking\Models\Transaction'
+                    <livewire:data-table model='Kanexy\PartnerFoundation\Core\Models\Transaction'
                         params="{{ $workspace?->id }}" type="transactions" />
                 </div>
             </div>

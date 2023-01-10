@@ -3,8 +3,11 @@
 namespace Kanexy\Banking;
 
 use App\Models\User;
+use Kanexy\Banking\Livewire\CardCloseDetail;
+use Kanexy\Banking\Livewire\CloseLedgerModal;
 use Kanexy\Banking\Livewire\CreateBeneficiariesComponent;
 use Kanexy\Banking\Livewire\OtpVerificationComponent;
+use Kanexy\Banking\Livewire\ShowCloseLedger;
 use Kanexy\Banking\Livewire\StatementExportPdf;
 use Kanexy\Banking\Livewire\TotalTransactionDashboard;
 use Kanexy\Banking\Livewire\TransactionGraphDashboard;
@@ -62,6 +65,9 @@ class Banking
         Livewire::component('statementexport-pdf', StatementExportPdf::class);
         Livewire::component('create-beneficiaries', CreateBeneficiariesComponent::class);
         Livewire::component('otp-verification', OtpVerificationComponent::class);
+        Livewire::component('close-ledger-modal', CloseLedgerModal::class);
+        Livewire::component('show-close-ledger', ShowCloseLedger::class);
+        Livewire::component('card-close-detail', CardCloseDetail::class);
     }
 
     public function registerDefaultMenuComponents()

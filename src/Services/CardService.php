@@ -8,7 +8,7 @@ use Kanexy\Banking\Exceptions\FailedToCloseCardException;
 use Kanexy\Banking\Models\Card;
 use Kanexy\PartnerFoundation\Core\Dtos\CardCloseDto;
 use Kanexy\PartnerFoundation\Core\Dtos\CreateCardDto;
-use Kanexy\PartnerFoundation\Core\Services\WrappexService;
+use Kanexy\Banking\Services\WrappexService;
 
 class CardService
 {

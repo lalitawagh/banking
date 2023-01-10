@@ -6,7 +6,6 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Kanexy\Banking\Models\Account;
 use Kanexy\Cms\Components\Contracts\Component;
 use Kanexy\PartnerFoundation\Membership\Policies\MembershipPolicy;
-use Kanexy\PartnerFoundation\Core\Helper;
 use Kanexy\PartnerFoundation\Workspace\Models\Workspace;
 
 class MembershipComponent extends Component
@@ -17,7 +16,7 @@ class MembershipComponent extends Component
     {
         $this->authorize(MembershipPolicy::BANKINFO, Membership::class);
 
-        $workspace = Workspace::findOrFail(Helper::activeWorkspaceId());
+        $workspace = Workspace::findOrFail(request()->route('workspace'));
         $membership = $workspace->memberships()->first();
         $user = $workspace->users()->first();
         $account = Account::forHolder($workspace)->first();
