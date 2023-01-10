@@ -76,6 +76,6 @@ class TransactionGraphDashboard extends Component
 
     public function render()
     {
-        return view('partner-foundation::Livewire.transaction-graph-dashboard');
+        return view('banking::livewire.transaction-graph-dashboard');
     }
 }
