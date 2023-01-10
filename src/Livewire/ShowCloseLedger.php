@@ -26,6 +26,6 @@ class ShowCloseLedger extends Component
     public function render()
     {
         $countryWithFlags = Country::orderBy("name")->get();
-        return view('banking::Livewire.show-close-ledger', compact("countryWithFlags"));
+        return view('banking::livewire.show-close-ledger', compact("countryWithFlags"));
     }
 }
