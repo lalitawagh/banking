@@ -25,6 +25,6 @@ class CloseLedgerModal extends Component
             $user->phone = $user?->mobile;
         }
         $this->dispatchBrowserEvent('close-ledger-modal');
-        return view('banking::Livewire.close-ledger-modal', compact("countryWithFlags", "defaultCountry", "user", "account"));
+        return view('banking::livewire.close-ledger-modal', compact("countryWithFlags", "defaultCountry", "user", "account"));
     }
 }
