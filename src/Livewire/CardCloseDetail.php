@@ -28,6 +28,6 @@ class CardCloseDetail extends Component
 
     public function render()
     {
-        return view('banking::Livewire.card-close-detail');
+        return view('banking::livewire.card-close-detail');
     }
 }
