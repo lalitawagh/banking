@@ -3,10 +3,9 @@
 namespace Kanexy\Banking\Services;
 
 use Illuminate\Support\Facades\Storage;
+use Kanexy\Banking\Dtos\CreateTransactionDto;
 use Kanexy\Banking\Models\Account;
 use Kanexy\PartnerFoundation\Core\Models\Transaction;
-use Kanexy\PartnerFoundation\Core\Dtos\CreateTransactionDto;
-use Kanexy\Banking\Services\WrappexService;
 use Kanexy\PartnerFoundation\Cxrm\Models\Contact;
 use Kanexy\PartnerFoundation\Workspace\Models\Workspace;
 

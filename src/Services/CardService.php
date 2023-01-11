@@ -2,13 +2,12 @@
 
 namespace Kanexy\Banking\Services;
 
+use Kanexy\Banking\Dtos\CardCloseDto;
+use Kanexy\Banking\Dtos\CreateCardDto;
 use Kanexy\Banking\Exceptions\FailedToActivateCardException;
 use Kanexy\Banking\Exceptions\FailedToApproveCardException;
 use Kanexy\Banking\Exceptions\FailedToCloseCardException;
 use Kanexy\Banking\Models\Card;
-use Kanexy\PartnerFoundation\Core\Dtos\CardCloseDto;
-use Kanexy\PartnerFoundation\Core\Dtos\CreateCardDto;
-use Kanexy\Banking\Services\WrappexService;
 
 class CardService
 {

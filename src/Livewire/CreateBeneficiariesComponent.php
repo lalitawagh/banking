@@ -16,7 +16,7 @@ use Kanexy\PartnerFoundation\Workspace\Models\Workspace;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Kanexy\Banking\Services\WrappexService;
-use Kanexy\PartnerFoundation\Core\Dtos\CreateBeneficiaryDto;
+use Kanexy\Banking\Dtos\CreateBeneficiaryDto;
 use Kanexy\PartnerFoundation\Cxrm\Models\Contact;
 use Kanexy\PartnerFoundation\Cxrm\Events\ContactCreated;
 use Kanexy\Cms\Notifications\SmsOneTimePasswordNotification;
