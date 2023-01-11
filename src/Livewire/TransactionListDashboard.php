@@ -3,7 +3,7 @@
 namespace Kanexy\Banking\Livewire;
 
 use Illuminate\Support\Facades\Auth;
-use Kanexy\PartnerFoundation\Banking\Enums\BankEnum;
+use Kanexy\Banking\Enums\BankEnum;
 use Kanexy\PartnerFoundation\Core\Enums\TransactionStatus;
 use Kanexy\PartnerFoundation\Core\Models\Transaction;
 use Kanexy\PartnerFoundation\Core\Helper;

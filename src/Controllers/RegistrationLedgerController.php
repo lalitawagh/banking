@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Kanexy\Cms\Enums\RegistrationStep;
-use Kanexy\PartnerFoundation\Banking\Enums\BankEnum;
+use Kanexy\Banking\Enums\BankEnum;
 use Kanexy\PartnerFoundation\Core\Enums\ServiceType;
 use Kanexy\PartnerFoundation\Core\Models\Document;
 use Kanexy\PartnerFoundation\Core\Models\DocumentType;
