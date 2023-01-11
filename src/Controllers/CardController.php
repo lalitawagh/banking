@@ -14,6 +14,7 @@ use Kanexy\Banking\Exceptions\FailedToApproveCardException;
 use Kanexy\Banking\Exceptions\FailedToCloseCardException;
 use Kanexy\Banking\Models\Account;
 use Kanexy\Banking\Models\Card;
+use Kanexy\Cms\Rules\AlphaSpaces;
 use Kanexy\PartnerFoundation\Core\Models\Transaction;
 use Kanexy\Banking\Policies\CardPolicy;
 use Kanexy\Banking\Requests\StoreCardAddressRequest;
@@ -177,7 +178,7 @@ class CardController extends Controller
         $this->authorize(CardPolicy::CREATE, Card::class);
 
         $request->validate([
-            'card_holder_name' => ['required', 'string', 'max:21', new AlphaSpaces],
+            'card_holder_name' => ['required', 'string', 'max:21', new AlphaSpaces()],
             'card_type' => ['required', Rule::in(['debit'])],
         ]);
 

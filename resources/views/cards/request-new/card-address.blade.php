@@ -1,4 +1,4 @@
-@extends('partner-foundation::cards.request-new.wizard-skeleton')
+@extends('banking::cards.request-new.wizard-skeleton')
 
 @section('card-content')
     <div class="px-5 sm:px-20 mt-5 pt-5 border-t border-gray-200 ">
@@ -105,11 +105,11 @@
             </div>
         </form>
 
-        @include('partner-foundation::cards.card-address-modal', [
+        @include('banking::cards.card-address-modal', [
             'addressType' => 'billing',
             'workspace' => $workspace,
         ])
-        @include('partner-foundation::cards.card-address-modal', [
+        @include('banking::cards.card-address-modal', [
             'addressType' => 'shipping',
             'workspace' => $workspace,
         ])

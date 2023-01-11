@@ -1,4 +1,4 @@
-@extends('partner-foundation::cards.request-new.wizard-skeleton')
+@extends('banking::cards.request-new.wizard-skeleton')
 
 @section('card-content')
     <div class="px-5 sm:mx-10 md:mx-5 lg:mx-20 mt-10 pt-10 border-t border-gray-200">

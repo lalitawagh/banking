@@ -18,7 +18,7 @@
                             class="sm:flex justify-end flex-wrap items-center sm:py-1 border-b border-gray-200 dark:border-dark-5 gap-1">
                             <x-list-view-filters />
                             @can(\Kanexy\Banking\Policies\CardPolicy::CREATE,
-                                \Kanexy\PartnerFoundation\Banking\Models\Card::class)
+                                \Kanexy\Banking\Models\Card::class)
                                 <div>
                                     <a id="CardRequestCard"
                                         href="{{ route('dashboard.cards.create', ['workspace_id' => $workspace->id]) }}"
