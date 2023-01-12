@@ -19,7 +19,14 @@ class BankingMenuItem extends Item
         /** @var $user App\Model\User */
         $user = Auth::user();
 
-        if ($user->hasAnyPermission([Permission::TRANSACTION_VIEW, Permission::TRANSACTION_CREATE, Permission::CONTACT_VIEW, Permission::CONTACT_CREATE], Permission::CLOSE_LEDGER_VIEW) || $user->isSuperAdmin()) {
+        if ($user->isSubscriber() && ($user->is_banking_user == 1)) {
+            return true;
+        }
+
+        if ($user->hasAnyPermission([Permission::TRANSACTION_VIEW, Permission::TRANSACTION_CREATE, Permission::CONTACT_VIEW, Permission::CONTACT_CREATE], Permission::CLOSE_LEDGER_VIEW)  && !$user->isSubscriber()) {
+            if (config('services.disable_banking') == true) {
+                return false;
+            }
             return true;
         }
 

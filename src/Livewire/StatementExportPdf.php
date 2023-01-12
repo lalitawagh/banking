@@ -60,7 +60,7 @@ class StatementExportPdf extends Component
             $account = auth()->user()->workspaces()->first()?->accounts()?->first();
             $user = Auth::user();
 
-            $view = PDF::loadView('partner-foundation::banking.statementpdf', compact('transactions', 'account', 'user'))
+            $view = PDF::loadView('banking::banking.statementpdf', compact('transactions', 'account', 'user'))
                 ->setPaper(array(0, 0, 1000, 800), 'landscape')
                 ->output();
 
@@ -84,7 +84,7 @@ class StatementExportPdf extends Component
         $user = Auth::user();
 
 
-        $view = PDF::loadView('partner-foundation::banking.statementpdf', compact('transactions', 'account', 'user'))
+        $view = PDF::loadView('banking::banking.statementpdf', compact('transactions', 'account', 'user'))
             ->setPaper(array(0, 0, 1000, 800), 'landscape')
             ->output();
 
