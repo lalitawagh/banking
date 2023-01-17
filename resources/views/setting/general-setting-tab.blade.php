@@ -4,7 +4,7 @@
 @if(auth()->user()->hasPermissionTo(\Kanexy\PartnerFoundation\Core\Enums\Permission::WRAPPEX_SETTINGS_VIEW))
     <li class="nav-item"><a id="WrappexSettings-tab" href="javascript:;" data-tw-toggle="tab" data-tw-target="#wrappex-settings"
         role="tab" aria-controls="WrappexSettings" aria-selected="false"
-        class="nav-link flex items-center px-3 py-2 mt-2">
+        class="nav-link flex items-center px-3 py-2 mt-2 @if(session('tab') == 'wrappexsetting') active @endif">
         Wrappex Settings
     </a></li>
 @endif
