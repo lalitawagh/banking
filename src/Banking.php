@@ -84,10 +84,10 @@ class Banking
 
     public function registerDefaultDashboardComponents()
     {
-        \Kanexy\Cms\Facades\Dashboard::addItem(DashboardTileWidget::class,900);
-        \Kanexy\Cms\Facades\Dashboard::addItem(TransactionGraphWidget::class,10000);
-        \Kanexy\Cms\Facades\Dashboard::addItem(CardWidget::class,20000);
-        \Kanexy\Cms\Facades\Dashboard::addItem(TransactionWidget::class,30000);
+        \Kanexy\Cms\Facades\Dashboard::addItem(DashboardTileWidget::class, 900);
+        \Kanexy\Cms\Facades\Dashboard::addItem(TransactionGraphWidget::class, 10000);
+        \Kanexy\Cms\Facades\Dashboard::addItem(CardWidget::class, 20000);
+        \Kanexy\Cms\Facades\Dashboard::addItem(TransactionWidget::class, 30000);
     }
 
     public function registerDefaultTopbarComponents()
@@ -124,9 +124,8 @@ class Banking
             return route('dashboard.memberships.ledger-bank-verification');
         });
 
-        PartnerFoundation::setBankingPayment(function (User $user){
+        PartnerFoundation::setBankingPayment(function (User $user) {
             return true;
         });
-
     }
 }
