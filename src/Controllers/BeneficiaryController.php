@@ -49,7 +49,7 @@ class BeneficiaryController extends Controller
         $beneficiaries = $contacts->beneficiaries()->where('ref_type', '!=', 'wallet')->verified()->latest()->paginate();
 
 
-        return view("partner-foundation::banking.beneficiaries.index", compact('beneficiaries', 'workspace'));
+        return view("banking::banking.beneficiaries.index", compact('beneficiaries', 'workspace'));
     }
 
 
