@@ -133,9 +133,12 @@
                             </thead>
 
                             <tbody>
+                                @php
+                                    $i = 0;
+                                @endphp
                                 @foreach ($beneficiaries as $index => $beneficiary)
                                     <tr @if ($index % 2 === 0) class="bg-gray-200 dark:bg-dark-1" @endif>
-                                        <td class="whitespace-nowrap text-left">{{ $index + 1 }}</td>
+                                        <td class="whitespace-nowrap text-left">{{ $beneficiaries->firstItem() + $i }}</td>
                                         <td class="whitespace-nowrap text-left">{{ $beneficiary->getFullName() }} </td>
                                         <td class="whitespace-nowrap text-left">{{ $beneficiary->email }}</td>
                                         <td class="whitespace-nowrap text-left">{{ $beneficiary->mobile }}</td>
@@ -193,6 +196,9 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    @php
+                                        $i++;
+                                    @endphp
                                 @endforeach
                             </tbody>
                         </table>
