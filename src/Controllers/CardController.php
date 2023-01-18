@@ -97,7 +97,7 @@ class CardController extends Controller
         $feature = PlanSubscription::checkFeatureLimit($workspace, 'Max Virtual Cards');
         $membershipLog = MembershipLog::where(['key' => 'Max Virtual Cards', 'holder_id' => $workspace->memberships()->first()->id])->first();
 
-        if (!is_null(@$feature['used']) && @$feature['used'] <= 0 || $membershipLog?->value > $feature['used']) {
+        if (!is_null(@$feature['used']) && @$feature['used'] <= 0 || $membershipLog?->value >= $feature['used']) {
             throw ValidationException::withMessages(['account_id' => 'The maximum card limit is over for this subscription.']);
         } else if (is_null(@$feature['used']) && $feature?->status == 'active') {
             if ($feature?->used <= 0) {
