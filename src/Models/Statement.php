@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Kanexy\Cms\Traits\InteractsWithOneTimePassword;
 use Kanexy\Banking\Exports\StatementExport;
+use Kanexy\PartnerFoundation\Core\Models\Transaction;
 use Kanexy\PartnerFoundation\Core\Traits\InteractsWithUrn;
 use Kanexy\PartnerFoundation\Workspace\Models\Workspace;
 use Maatwebsite\Excel\Facades\Excel;
@@ -112,7 +113,7 @@ class Statement extends Model
         }
         $account = auth()->user()->workspaces()->first()?->accounts()->first();
         $user = Auth::user();
-        $view = PDF::loadView('partner-foundation::banking.statementpdf', compact('transactions', 'account', 'user'))
+        $view = PDF::loadView('banking::banking.statementpdf', compact('transactions', 'account', 'user'))
             ->setPaper(array(0, 0, 1000, 800), 'landscape')
             ->output();
 

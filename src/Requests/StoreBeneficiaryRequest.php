@@ -26,9 +26,9 @@ class StoreBeneficiaryRequest extends FormRequest
     {
         return [
             'workspace_id' => ['required', 'exists:workspaces,id'],
-            'first_name' => ['required_if:type,' . ContactType::PERSONAL, 'nullable', new AlphaSpaces, 'string'],
-            'middle_name' => ['nullable', new AlphaSpaces, 'string'],
-            'last_name' => ['nullable', new AlphaSpaces, 'string'],
+            'first_name' => ['required_if:type,' . ContactType::PERSONAL, 'nullable', new AlphaSpaces, 'string', 'max:40'],
+            'middle_name' => ['nullable', new AlphaSpaces, 'string', 'max:40'],
+            'last_name' => ['nullable', new AlphaSpaces, 'string', 'max:40'],
             'company_name' => ['required_if:type,' . ContactType::COMPANY, 'nullable', new AlphaSpaces, 'string'],
             'email' => ['nullable', 'email'],
             'landline' => ['nullable', 'string', new LandlineNumber],
@@ -43,7 +43,7 @@ class StoreBeneficiaryRequest extends FormRequest
             'meta.bank_account_number' => ['required', 'string', 'numeric', 'digits:8', new BeneficiaryUnique($this->input('meta.bank_code'), $this->input('workspace_id'))],
             'meta.bank_code' => ['required', 'string', 'numeric', 'digits:6'],
             'meta.bank_code_type' => ['required', 'string', Rule::in([BankEnum::SORTCODE])],
-            'meta.bank_account_name' => ['required', 'string',new AlphaSpaces],
+            'meta.bank_account_name' => ['required', 'string', new AlphaSpaces],
             'meta.bank_country' => ['required', 'exists:countries,id'],
             'meta.beneficiary_type' => ['nullable', 'array', Rule::in(ContactBeneficiaryType::toArray())],
         ];

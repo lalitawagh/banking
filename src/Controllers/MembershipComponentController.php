@@ -7,8 +7,10 @@ use Kanexy\Banking\Models\Account;
 use Kanexy\Banking\Models\AccountMeta;
 use Kanexy\Cms\Controllers\Controller;
 use Kanexy\Cms\Models\User;
+use Kanexy\Cms\Setting\Models\Setting;
 use Kanexy\PartnerFoundation\Core\Enums\WorkspaceStatus;
 use Kanexy\PartnerFoundation\Core\Enums\WorkspaceType;
+use Kanexy\PartnerFoundation\Core\Models\RiskMgntAnswer;
 use Kanexy\PartnerFoundation\Membership\Enums\MembershipStatus;
 use Kanexy\PartnerFoundation\Membership\Models\Membership;
 use Kanexy\PartnerFoundation\Membership\Policies\MembershipPolicy;
@@ -27,8 +29,11 @@ class MembershipComponentController extends Controller
         $membership = $workspace->memberships()->first();
         $user = $workspace->users()->first();
         $account = Account::forHolder($workspace)->first();
+        $risk_mgnt_answers = RiskMgntAnswer::where('holder_id', $membership->id)->first();
+        $score = RiskMgntAnswer::where('holder_id', $membership->id)->sum('score');
+        $riskscore = Setting::getValue("risk_scores");
 
-        return view("banking::membership.bank-information", compact('membership', 'workspace', 'user', 'account'));
+        return view("banking::membership.bank-information", compact('membership', 'workspace', 'user', 'account', 'score', 'riskscore', 'risk_mgnt_answers'));
     }
 
     public function showConfigurationInformation($workspaceId)
@@ -37,8 +42,11 @@ class MembershipComponentController extends Controller
         $membership = $workspace->memberships()->first();
         $user = $workspace->users()->first();
         $account = Account::forHolder($workspace)->first();
+        $risk_mgnt_answers = RiskMgntAnswer::where('holder_id', $membership->id)->first();
+        $score = RiskMgntAnswer::where('holder_id', $membership->id)->sum('score');
+        $riskscore = Setting::getValue("risk_scores");
 
-        return view("banking::membership.configuration", compact('membership', 'workspace', 'user', 'account'));
+        return view("banking::membership.configuration", compact('membership', 'workspace', 'user', 'account', 'score', 'riskscore', 'risk_mgnt_answers'));
     }
 
     public function storeVerification(Request $request)

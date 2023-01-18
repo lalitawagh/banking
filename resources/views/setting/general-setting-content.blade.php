@@ -1,4 +1,4 @@
-<div id="wrappex-settings" class="tab-pane grid grid-cols-12 gap-3" role="tabpanel" aria-labelledby="wrappex-settings-tab">
+<div id="wrappex-settings" class="tab-pane grid grid-cols-12 gap-3 @if(session('tab') == 'wrappexsetting') active @endif" role="tabpanel" aria-labelledby="wrappex-settings-tab">
     <div class="col-span-12">
         <div class="box">
 
