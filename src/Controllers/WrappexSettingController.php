@@ -38,6 +38,7 @@ class WrappexSettingController extends Controller
         foreach ($data as $key => $value) {
             Setting::updateOrCreate(['key' => $key], ['value' => $value]);
         }
+        session(['tab' => 'wrappexsetting']);
 
         return redirect()->route("dashboard.settings.index")->with([
             'status' => 'success',

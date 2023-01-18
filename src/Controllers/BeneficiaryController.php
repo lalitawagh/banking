@@ -45,14 +45,13 @@ class BeneficiaryController extends Controller
         if ($request->has('filter.workspace_id')) {
             $workspace = Workspace::findOrFail($request->input('filter.workspace_id'));
         }
-        if ($request->has('ref_type')) {
-            $beneficiaries = $contacts->beneficiaries()->where('ref_type', '=', $request->input('ref_type'))->verified()->latest()->paginate();
-        } else {
-            $beneficiaries = $contacts->beneficiaries()->where('ref_type', '!=', 'wallet')->verified()->latest()->paginate();
-        }
+
+        $beneficiaries = $contacts->beneficiaries()->where('ref_type', '!=', 'wallet')->verified()->latest()->paginate();
+
 
         return view("banking::banking.beneficiaries.index", compact('beneficiaries', 'workspace'));
     }
+
 
     public function create(Request $request)
     {
