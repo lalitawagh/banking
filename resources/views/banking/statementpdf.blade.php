@@ -11,7 +11,7 @@
       <!-- Visually Hidden Preheader Text : BEGIN -->
       <div style="width:100%; margin: auto;font-family: box-shadow: 0px 3px 20px #0000000b; border-radius: 0.375rem;">
          <!-- Email Body : BEGIN -->
-         @if($user->isSuperAdmin())
+         @if(!$user->isSubscriber())
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="background-color: #fff; max-width: 6000px;">
                 <!-- Hero Image, Flush : BEGIN -->
                 <tbody>
@@ -29,7 +29,7 @@
                 </tbody>
             </table>
          @endif
-         @if(!$user->isSuperAdmin())
+         @if($user->isSubscriber())
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="background-color: #fff; max-width: 6000px;">
                 <!-- Hero Image, Flush : BEGIN -->
                 <tbody>
