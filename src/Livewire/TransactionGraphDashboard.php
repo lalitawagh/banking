@@ -38,7 +38,7 @@ class TransactionGraphDashboard extends Component
         $user = Auth::user();
 
         if ($user->isSubscriber()) {
-            $currentWorkspaceId = Helper::activeWorkspaceId();
+            $currentWorkspaceId = app('activeWorkspaceId');
             $creditTransactionGraphData = Transaction::whereWorkspaceId($currentWorkspaceId)->whereType(TransactionType::CREDIT)->whereYear("created_at", $this->selectedYear)->groupBy(["label"])->selectRaw("ROUND(sum(amount),2) as data, MONTHNAME(created_at) as label")->where('status', '!=', TransactionStatus::PENDING_CONFIRMATION)->where('ref_type', 'wrappex')->get();
             $debitTransactionGraphData = Transaction::whereWorkspaceId($currentWorkspaceId)->whereType(TransactionType::DEBIT)->whereYear("created_at", $this->selectedYear)->groupBy(["label"])->selectRaw("ROUND(sum(amount),2) as data, MONTHNAME(created_at) as label")->where('status', '!=', TransactionStatus::PENDING_CONFIRMATION)->where('ref_type', 'wrappex')->get();
 

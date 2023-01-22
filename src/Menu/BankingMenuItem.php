@@ -41,22 +41,22 @@ class BankingMenuItem extends Item
         $menus = [];
 
         if ($user->hasPermissionTo(Permission::TRANSACTION_VIEW)) {
-            $menus[] = new MenuItem('Transactions', 'activity', url: route('dashboard.banking.transactions.index', ['filter' => ['workspace_id' => Helper::activeWorkspaceId()]]));
+            $menus[] = new MenuItem('Transactions', 'activity', url: route('dashboard.banking.transactions.index', ['filter' => ['workspace_id' => app('activeWorkspaceId')]]));
         }
 
         if ($user->hasPermissionTo(Permission::TRANSACTION_CREATE) && $user->isSubscriber()) {
-            $menus[] =  new MenuItem('Send Money', 'activity', url: route('dashboard.banking.payouts.index', ['workspace_id' => Helper::activeWorkspaceId()]));
+            $menus[] =  new MenuItem('Send Money', 'activity', url: route('dashboard.banking.payouts.index', ['workspace_id' => app('activeWorkspaceId')]));
         }
 
         if ($user->hasPermissionTo(Permission::CONTACT_VIEW)) {
-            $menus[] = new MenuItem('Beneficiaries', 'activity', url: route('dashboard.banking.beneficiaries.index', ['filter' => ['workspace_id' => Helper::activeWorkspaceId()]]));
+            $menus[] = new MenuItem('Beneficiaries', 'activity', url: route('dashboard.banking.beneficiaries.index', ['filter' => ['workspace_id' => app('activeWorkspaceId')]]));
         }
 
         if ($user->hasPermissionTo(Permission::STATEMENT_VIEW)) {
-            $menus[] =  new MenuItem('Statement', 'activity', url: route('dashboard.banking.statement.index', ['filter' => ['workspace_id' => Helper::activeWorkspaceId()]]));
+            $menus[] =  new MenuItem('Statement', 'activity', url: route('dashboard.banking.statement.index', ['filter' => ['workspace_id' => app('activeWorkspaceId')]]));
         }
         if ($user->hasPermissionTo(Permission::CLOSE_LEDGER_VIEW)) {
-            $menus[] =  new MenuItem('Close Ledger Requests', 'activity', url: route('dashboard.banking.closeledger.index', ['filter' => ['workspace_id' => Helper::activeWorkspaceId()]]));
+            $menus[] =  new MenuItem('Close Ledger Requests', 'activity', url: route('dashboard.banking.closeledger.index', ['filter' => ['workspace_id' => app('activeWorkspaceId')]]));
         }
 
         return $menus;

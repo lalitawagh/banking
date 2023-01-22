@@ -24,7 +24,7 @@ class TopbarSendMoney extends Component
 
         $activeWorkspaceId = null;
         if ($workspaces->count() > 0) {
-            $activeWorkspaceId = Helper::activeWorkspaceId();
+            $activeWorkspaceId = app('activeWorkspaceId');
         }
 
         return view("banking::banking.components.topbar-send-money", compact("activeWorkspaceId"));

@@ -32,7 +32,7 @@ class TotalTransactionDashboard extends Component
         $user = Auth::user();
 
         if ($user->isSubscriber()) {
-            $currentWorkspaceId = Helper::activeWorkspaceId();
+            $currentWorkspaceId = app('activeWorkspaceId');
             $creditTransaction = Transaction::whereWorkspaceId($currentWorkspaceId)->whereType(TransactionType::CREDIT)->whereYear("created_at", $this->selectedYear)->selectRaw("sum(amount) as amount")->where('status', '!=', TransactionStatus::PENDING)->where('ref_type', 'wrappex')->get();
             $debitTransaction = Transaction::whereWorkspaceId($currentWorkspaceId)->whereType(TransactionType::DEBIT)->whereYear("created_at", $this->selectedYear)->selectRaw("sum(amount) as amount")->where('status', '!=', TransactionStatus::PENDING)->where('ref_type', 'wrappex')->get();
         } else {
