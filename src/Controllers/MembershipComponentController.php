@@ -64,7 +64,7 @@ class MembershipComponentController extends Controller
        
         if($user->checkAccountRegistrationCompleted($user) == false)
         {
-            return redirect()->back()->with(['status'=>'failed','message'=>"Can't activate account. Account registration process is incomplete."]);
+            return redirect()->back()->with(['status'=>'failed','message'=>"Incomplete registration, can't activate the account."]);
         }
 
         if($workspace->is_registered == true)

@@ -37,7 +37,7 @@ class CardsMenuItem extends Item
         $user = Auth::user();
 
         if ($user->hasPermissionTo(Permission::CARD_VIEW)) {
-            return route('dashboard.cards.index', ['filter' => ['workspace_id' => Helper::activeWorkspaceId()]]);
+            return route('dashboard.cards.index', ['filter' => ['workspace_id' => app('activeWorkspaceId')]]);
         }
 
         return route('dashboard.cards.index');

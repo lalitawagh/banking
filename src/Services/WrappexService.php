@@ -25,7 +25,7 @@ class WrappexService
     public function __construct() {
         $baseUrl = config('partner-foundation.wrappex_dev_url');
 
-        if (Setting::getValue('wrappex_environment') === 'production') {
+        if (config('partner-foundation.services.wrappex.environment') === 'production') {
             $baseUrl = config('partner-foundation.wrappex_live_url');
         }
 

@@ -26,7 +26,7 @@ class BusinessBankingRegistrationStep extends Item
         $workspace = $user->workspaces()->first();
         if(is_null($workspace))
         {
-            $workspace = Workspace::find(Helper::activeWorkspaceId());
+            $workspace = Workspace::find(app('activeWorkspaceId'));
         }
 
         $steps = [
@@ -44,10 +44,10 @@ class BusinessBankingRegistrationStep extends Item
         {
             $steps[] = new StepItem(membership_type: 'business', label: 'KYB Documents', step: RegistrationStep::COMPANY_DOCUMENTS ,source :'web', url: route('customer.signup.company-documents.index'),priority:11000);
         }
-       
+
         $steps[] = new StepItem(membership_type: 'business', label: 'Confirmation', step: RegistrationStep::ACCOUNT_PREVIEW ,source :'web', url: route('customer.signup.ledger.index'),priority:12000);
         $steps[] = new StepItem(membership_type: 'business', label: 'Preview Ledger', step: RegistrationStep::LEDGER ,source :'web', url: route('customer.signup.ledger-show'),priority:13000);
-        
+
         return $steps;
     }
 }
