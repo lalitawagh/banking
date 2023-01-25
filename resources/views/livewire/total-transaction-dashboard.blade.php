@@ -2,7 +2,7 @@
     <div class="flex flex-col xl:flex-row xl:items-center">
         <div class="flex">
             <div>
-                <div class="text-lg font-medium mr-auto">Total Transactions111</div>
+                <div class="text-lg font-medium mr-auto">Total Transactions</div>
             </div>
         </div>
         <div class="dropdown ml-auto">
