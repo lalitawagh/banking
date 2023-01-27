@@ -11,11 +11,11 @@
                         class="w-4 h-4 ml-2"></i></span>
             </button>
             <div class="dropdown-menu w-40">
-                <ul class="dropdown-content">
+                <ul class="dropdown-content dark:bg-darkmode-400 dark:border-darkmode-400">
                     <li>
                         @foreach ($years as $year)
                             <a id="SelectYear" wire:click="selectYear({{ $year }})"
-                                class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                                class="mb-2 dropdown-item flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
                                 {{ $year }}
                             </a>
                         @endforeach
