@@ -26,7 +26,7 @@ class BusinessBankingRegistrationStep extends Item
         $workspace = $user->workspaces()->first();
         if(is_null($workspace))
         {
-            $workspace = Workspace::find(Helper::activeWorkspaceId());
+            $workspace = Workspace::find(app('activeWorkspaceId'));
         }
 
         $steps = [

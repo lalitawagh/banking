@@ -134,7 +134,7 @@
                             <label for="reason" class="form-label sm:w-40">Close Reason<span
                                     class="text-theme-6">*</span></label>
                             <div class="sm:w-5/6">
-                                <textarea class="w-full" id="reason" name="reason" rows="3" cols="20"></textarea>
+                                <textarea class="w-full" id="reason" name="reason" rows="3" cols="20" required></textarea>
 
                                 @error('reason')
                                     <span class="block text-theme-6 mt-2">{{ $message }}</span>

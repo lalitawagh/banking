@@ -78,7 +78,7 @@ class MakePayoutRequest extends FormRequest
                 }
 
 
-                if(!is_null(@$feature['used']) && @$feature['used'] <= 0 || $membershipLog?->value > $feature['used'])
+                if(!is_null(@$feature['used']) && @$feature['used'] <= 0 || $membershipLog?->value >= $feature['used'])
                 {
                     $validator->errors()->add('feature', 'The Transaction Feature limit is over for this subscription.');
                 }else if(is_null(@$feature['used']))

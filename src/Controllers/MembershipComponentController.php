@@ -2,11 +2,11 @@
 
 namespace Kanexy\Banking\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Kanexy\Banking\Models\Account;
 use Kanexy\Banking\Models\AccountMeta;
 use Kanexy\Cms\Controllers\Controller;
-use Kanexy\Cms\Models\User;
 use Kanexy\Cms\Setting\Models\Setting;
 use Kanexy\PartnerFoundation\Core\Enums\WorkspaceStatus;
 use Kanexy\PartnerFoundation\Core\Enums\WorkspaceType;
@@ -51,16 +51,21 @@ class MembershipComponentController extends Controller
 
     public function storeVerification(Request $request)
     {
-
         $this->authorize(MembershipPolicy::UPDATE, Membership::class);
 
         $user_id = $request->input('user_id');
         $user = User::find($user_id);
+      
         $support_verification = false;
         $compliance_verification = false;
         $ledger = Account::find($request->ledger_id);
 
         $workspace = $user->workspaces()->first();
+       
+        if($user->checkAccountRegistrationCompleted($user) == false)
+        {
+            return redirect()->back()->with(['status'=>'failed','message'=>"Incomplete registration, can't activate the account."]);
+        }
 
         if($workspace->is_registered == true)
         {

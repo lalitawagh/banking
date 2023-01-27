@@ -107,6 +107,7 @@ class Banking
     public function registerDefaultRedirectRouteComponents()
     {
         \Kanexy\Cms\Facades\Cms::setRegistrationFlow(function (User $user) {
+            
             if ($user->is_banking_user == 1) {
                 $workspace = $user->workspaces()->first();
                 if ($workspace?->type == WorkspaceType::INDIVIDUAL && is_null($user->officer())) {
