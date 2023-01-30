@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use Kanexy\Banking\Exports\CardsExport;
-use Kanexy\Banking\Exports\Export;
 use Kanexy\PartnerFoundation\Core\Models\Address;
 use Kanexy\PartnerFoundation\Workspace\Models\Workspace;
 use Maatwebsite\Excel\Facades\Excel;
@@ -16,6 +14,7 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 use Rappasoft\LaravelLivewireTables\Views\Filters\TextFilter;
 use Kanexy\PartnerFoundation\Core\Enums\Permission;
+use Kanexy\PartnerFoundation\Exports\Export;
 
 class Card extends Model
 {
