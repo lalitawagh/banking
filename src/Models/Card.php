@@ -14,7 +14,7 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 use Rappasoft\LaravelLivewireTables\Views\Filters\TextFilter;
 use Kanexy\PartnerFoundation\Core\Enums\Permission;
-use Kanexy\PartnerFoundation\Exports\Export;
+use Kanexy\PartnerFoundation\Core\Exports\Export;
 
 class Card extends Model
 {
