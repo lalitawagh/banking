@@ -94,8 +94,7 @@ class Statement extends Model
     public static function setRecordsToDownload($records, $type)
     {
         $list = collect();
-        $columnsValue = [];
-
+       
         foreach ($records as $record) {
             $transaction = Transaction::with('workspace.account')->find($record);
             if ($transaction->type === 'debit') {
@@ -113,8 +112,7 @@ class Statement extends Model
             } else {
                 $transaction['third_party'] =  @$transaction->meta['sender_name'];
             }
-            $list->push($transaction);
-
+           
             $columnDetail = [
                 @$transaction->urn,
                 @$transaction['third_party'],
@@ -127,7 +125,7 @@ class Statement extends Model
                 $transaction->workspace->account?->balance,
             ];
 
-            array_push($columnsValue, $columnDetail);
+            $list->push($columnDetail);
         }
 
         $columnsHeading = [
@@ -142,7 +140,7 @@ class Statement extends Model
             'BALANCE',
         ];
 
-        return Excel::download(new Export($list, $columnsValue, $columnsHeading), 'statement.' . $type . '');
+        return Excel::download(new Export($list, $columnsHeading), 'statement.' . $type . '');
     }
 
     public static function setBuilder($workspace_id, $type): Builder
