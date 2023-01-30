@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Kanexy\Cms\Traits\InteractsWithOneTimePassword;
 use Kanexy\PartnerFoundation\Core\Models\Transaction;
 use Kanexy\PartnerFoundation\Core\Traits\InteractsWithUrn;
-use Kanexy\PartnerFoundation\Exports\Export;
+use Kanexy\PartnerFoundation\Core\Exports\Export;
 use Kanexy\PartnerFoundation\Workspace\Models\Workspace;
 use Maatwebsite\Excel\Facades\Excel;
 use Rappasoft\LaravelLivewireTables\Views\Column;
