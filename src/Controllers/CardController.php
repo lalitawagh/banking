@@ -39,7 +39,7 @@ class CardController extends Controller
     {
         $this->authorize(CardPolicy::INDEX, Card::class);
 
-        $cards = QueryBuilder::for(Card::class)
+        $cards = QueryBuilder::for(Card::class)->with('account')
             ->allowedFilters([
                 AllowedFilter::exact('workspace_id'),
             ])
