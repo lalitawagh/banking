@@ -9,7 +9,7 @@ class GeneralSettingContent extends Component
 {
     public function render()
     {
-        $settings = Setting::pluck('value', 'key');
+        $settings = app('settingDetails');
         return view("banking::setting.general-setting-content", compact('settings'));
     }
 }

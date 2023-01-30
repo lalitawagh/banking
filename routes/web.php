@@ -33,8 +33,8 @@ Route::group(['middleware' => [ValidateRegistrationCompletedMiddleware::class,'a
 Route::group(['middleware' => [ColorModeMiddleware::class,'auth']], function () {
     
     Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
-        Route::name('cards.activate')->post('cards/{card}/activate', [CardController::class, 'activate']);
-        Route::name('cards.approve')->post('cards/{card}/approve', [CardController::class, 'approve']);
+        Route::name('cards.activate')->get('cards/{card}/activate', [CardController::class, 'activate']);
+        Route::name('cards.approve')->get('cards/{card}/approve', [CardController::class, 'approve']);
         Route::name('cards.close')->post('cards/{card}/close', [CardController::class, 'close']);
         Route::name('cards.finalize-card')->post('cards/wizard/finalize', [CardController::class, 'finalizeCard']);
         Route::name('cards.show-finalize-card')->get('cards/wizard/finalize', [CardController::class, 'showFinalizeCard']);
