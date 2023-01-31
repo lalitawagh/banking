@@ -10,6 +10,8 @@ use Kanexy\PartnerFoundation\Core\Helper;
 
 class BankingMenuItem extends Item
 {
+    public int $priority = 1002;
+
     protected string $label = 'Banking';
 
     protected string $icon = 'globe';
