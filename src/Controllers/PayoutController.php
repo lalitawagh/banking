@@ -16,7 +16,7 @@ use Kanexy\Banking\Services\PayoutService;
 use Kanexy\PartnerFoundation\Cxrm\Models\Contact;
 use Kanexy\PartnerFoundation\Saas\Models\PlanSubscription;
 use Kanexy\PartnerFoundation\Workspace\Models\Workspace;
-
+use Kanexy\PartnerFoundation\Workspace\Enums\WorkspaceStatus;
 class PayoutController extends Controller
 {
     private PayoutService $payoutService;
@@ -45,6 +45,13 @@ class PayoutController extends Controller
 
     public function store(MakePayoutRequest $request)
     {
+
+        $workspace = Workspace::findOrFail($request->input('workspace_id'));
+
+        if ($workspace->status == WorkspaceStatus::INACTIVE){
+
+              return redirect()->back();
+        }
         /** @var Account $sender */
         $sender = Account::findOrFail($request->input('sender_account_id'));
 

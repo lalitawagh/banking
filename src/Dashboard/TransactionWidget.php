@@ -11,7 +11,7 @@ class TransactionWidget extends Component
     public function render()
     {
         $user=Auth::user();
-        $workspaceId = Helper::activeWorkspaceId();
+        $workspaceId = app('activeWorkspaceId');
 
         return view("banking::widget.transaction-list",compact("user", "workspaceId"));
     }

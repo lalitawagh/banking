@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Kanexy\Cms\Traits\InteractsWithOneTimePassword;
-use Kanexy\Banking\Exports\StatementExport;
 use Kanexy\PartnerFoundation\Core\Models\Transaction;
 use Kanexy\PartnerFoundation\Core\Traits\InteractsWithUrn;
+use Kanexy\PartnerFoundation\Core\Exports\Export;
 use Kanexy\PartnerFoundation\Workspace\Models\Workspace;
 use Maatwebsite\Excel\Facades\Excel;
 use Rappasoft\LaravelLivewireTables\Views\Column;
@@ -86,17 +86,64 @@ class Statement extends Model
         return true;
     }
 
-    public static function downloadExcel($records)
+    public static function setBulkActions()
     {
-        return Excel::download(new StatementExport($records), 'statement.xlsx');
+        return true;
     }
 
-    public static function downloadCsv($records)
+    public static function setRecordsToDownload($records, $type)
     {
-        return Excel::download(new StatementExport($records), 'statement.csv');
+        $list = collect();
+       
+        foreach ($records as $record) {
+            $transaction = Transaction::with('workspace.account')->find($record);
+            if ($transaction->type === 'debit') {
+                $transaction['debit'] = \Kanexy\PartnerFoundation\Core\Helper::getFormatAmount($transaction->amount);
+            } else {
+                $transaction['debit'] =  '-';
+            }
+            if ($transaction->type === 'credit') {
+                $transaction['credit'] = \Kanexy\PartnerFoundation\Core\Helper::getFormatAmount($transaction->amount);
+            } else {
+                $transaction['credit'] =  '-';
+            }
+            if ($transaction->type === 'debit') {
+                $transaction['third_party'] = @$transaction->meta['beneficiary_name'];
+            } else {
+                $transaction['third_party'] =  @$transaction->meta['sender_name'];
+            }
+           
+            $columnDetail = [
+                @$transaction->urn,
+                @$transaction['third_party'],
+                $transaction->created_at,
+                $transaction->workspace->account?->account_number,
+                $transaction['debit'],
+                $transaction['credit'],
+                @$transaction->meta['reference'],
+                $transaction->payment_method,
+                $transaction->workspace->account?->balance,
+            ];
+
+            $list->push($columnDetail);
+        }
+
+        $columnsHeading = [
+            'TRANSACTION ID',
+            'THIRD PARTY',
+            'DATE & TIME',
+            'ACCOUNT NO',
+            'DEBIT',
+            'CREDIT',
+            'REFERENCE',
+            'PAYMENT METHOD',
+            'BALANCE',
+        ];
+
+        return Excel::download(new Export($list, $columnsHeading), 'statement.' . $type . '');
     }
 
-    public static function setBuilder($workspace_id,$type): Builder
+    public static function setBuilder($workspace_id, $type): Builder
     {
         if (!$workspace_id) {
             return Statement::query()->latest();
@@ -106,7 +153,7 @@ class Statement extends Model
 
     public static function downloadPdf($records)
     {
-        ini_set("memory_limit","256M");
+        ini_set("memory_limit", "256M");
         $transactions = collect();
         foreach ($records as $record) {
             $transactions->push(Transaction::with('workspace.account')->find($record));
@@ -158,7 +205,7 @@ class Statement extends Model
                 if ($model->type === 'debit') {
                     return  '<span class="px-6 py-4 whitespace-nowrap text-sm text-right text-theme-6">' . \Kanexy\PartnerFoundation\Core\Helper::getFormatAmount($value) . '</span>';
                 } else {
-                    return '<span class="px-6 py-4 whitespace-nowrap text-sm text-right">'.'-'.'</span>';
+                    return '<span class="px-6 py-4 whitespace-nowrap text-sm text-right">' . '-' . '</span>';
                 }
             })
                 ->sortable()
@@ -170,7 +217,7 @@ class Statement extends Model
                 if ($model->type === 'credit') {
                     return  '<span class="px-6 py-4 whitespace-nowrap text-sm text-right text-success">' . \Kanexy\PartnerFoundation\Core\Helper::getFormatAmount($value) . '</span>';
                 } else {
-                    return '<span class="px-6 py-4 whitespace-nowrap text-sm text-right">'.'-'.'</span>';
+                    return '<span class="px-6 py-4 whitespace-nowrap text-sm text-right">' . '-' . '</span>';
                 }
             })
                 ->sortable()

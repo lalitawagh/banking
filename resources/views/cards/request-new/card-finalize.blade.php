@@ -57,7 +57,7 @@
 
             <div class="text-right mt-5 form-inline text-right mt-5 float-right">
                 <a id="CardCancel"
-                   href="{{ route('dashboard.cards.index', ['filter' => ['workspace_id' => \Kanexy\PartnerFoundation\Core\Helper::activeWorkspaceId()]]) }}"
+                   href="{{ route('dashboard.cards.index', ['filter' => ['workspace_id' => app('activeWorkspaceId')]]) }}"
                    class="btn btn-secondary w-24 inline-block mr-2">Cancel</a>
                 <button id="CardSubmit" type="submit" class="btn btn-primary w-24">Process</button>
             </div>

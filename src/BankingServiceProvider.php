@@ -75,7 +75,7 @@ class BankingServiceProvider extends PackageServiceProvider
             $environment = config('partner-foundation.services.wrappex.environment');
 
             if (empty($environment)) {
-                $environment = Setting::getValue('wrappex_environment');
+                config()->set('partner-foundation.services.wrappex.environment',Setting::getValue('wrappex_environment'));
             }
 
             return new WrappexService();

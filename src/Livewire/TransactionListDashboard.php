@@ -17,7 +17,7 @@ class TransactionListDashboard extends Component
         $user = Auth::user();
 
         if ($user->isSubscriber()) {
-            $currentWorkspaceId = Helper::activeWorkspaceId();
+            $currentWorkspaceId = app('activeWorkspaceId');
             $transactions = Transaction::whereWorkspaceId($currentWorkspaceId)->where('status', '!=', TransactionStatus::PENDING_CONFIRMATION)->where('ref_type', 'wrappex')->latest()->take(15)->get();
         } else {
             $transactions = Transaction::where('status', '!=', TransactionStatus::PENDING_CONFIRMATION)->where('ref_type', 'wrappex')->latest()->take(15)->get();
