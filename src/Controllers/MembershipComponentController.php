@@ -51,7 +51,6 @@ class MembershipComponentController extends Controller
 
     public function storeVerification(Request $request)
     {
-        //dd($request->ledger_id);
         $this->authorize(MembershipPolicy::UPDATE, Membership::class);
 
         $user_id = $request->input('user_id');
@@ -61,7 +60,6 @@ class MembershipComponentController extends Controller
         $support_verification = false;
         $compliance_verification = false;
         $ledger = Account::forHolder($workspace)->first();
-
 
         if($user->checkAccountRegistrationCompleted($user) == false)
         {
