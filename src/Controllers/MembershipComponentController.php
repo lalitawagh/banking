@@ -55,13 +55,12 @@ class MembershipComponentController extends Controller
 
         $user_id = $request->input('user_id');
         $user = User::find($user_id);
-      
+        $workspace = $user->workspaces()->first();
+
         $support_verification = false;
         $compliance_verification = false;
-        $ledger = Account::find($request->ledger_id);
+        $ledger = Account::forHolder($workspace)->first();
 
-        $workspace = $user->workspaces()->first();
-       
         if($user->checkAccountRegistrationCompleted($user) == false)
         {
             return redirect()->back()->with(['status'=>'failed','message'=>"Incomplete registration, can't activate the account."]);
