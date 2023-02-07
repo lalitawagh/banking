@@ -349,7 +349,7 @@
                                                                 </div>
                                                             @else
                                                                 <div class="col-span-6 sm:col-span-3">
-                                                                    @if ($extension == 'application/octet-stream')
+                                                                    @if ($extension == 'application/octet-stream' || $extension == 'application/pdf')
                                                                         <img class="rounded-md proof-default"
                                                                             alt=""
                                                                             src="{{ asset('img/pdf.png') }}">
