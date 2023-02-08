@@ -1,3 +1,4 @@
+@if (auth()->user()->isSubscriber())
 <div class="col-span-6 sm:col-span-3 lg:col-span-2 xl:col-span-1 flex items-center">
     <div class="relative">
         <div class="sm:p-0 flex gap-2 sm:gap-3">
@@ -13,4 +14,5 @@
         </div>
     </div>
 </div>
+@endif
 
