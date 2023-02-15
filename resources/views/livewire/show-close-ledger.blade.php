@@ -45,7 +45,7 @@
         </div>
     </div>
     <div class="col-span-12 md:col-span-12 lg:col-span-12 sm:col-span-12 form-inline mt-2">
-        <label for="bank_code" class="form-label sm:w-40">Bank Code <span class="text-theme-6">*</span></label>
+        <label for="bank_code" class="form-label sm:w-40">Sort Code <span class="text-theme-6">*</span></label>
         <div class="sm:w-5/6">
             <input id="bank_code" name="bank_code" value="{{ $details->meta['bank_code'] ?? '' }}" type="text"
                 class="form-control" readonly>
