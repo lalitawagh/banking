@@ -46,7 +46,7 @@ class BeneficiaryController extends Controller
             $workspace = Workspace::findOrFail($request->input('filter.workspace_id'));
         }
 
-        $beneficiaries = $contacts->beneficiaries()->where('ref_type', '!=', 'wallet')->verified()->latest()->paginate();
+        $beneficiaries = $contacts->beneficiaries()->where('ref_type', 'wrappex')->verified()->latest()->paginate();
 
 
         return view("banking::banking.beneficiaries.index", compact('beneficiaries', 'workspace'));
