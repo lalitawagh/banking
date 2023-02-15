@@ -197,6 +197,9 @@
                     <div class="my-2">
                         {{ $closeLedgerRequests->links() }}
                     </div>
+                    <div class="Livewire-datatable-modal pb-3">
+                        <livewire:data-table model='Kanexy\PartnerFoundation\Core\Models\ArchivedMember' params="{{ $workspace?->id }}" type="closeledger" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -232,3 +235,11 @@
         @livewire('close-ledger-modal')
     @endif
 @endsection
+@push('scripts')
+    <script>
+        window.addEventListener('show', event => {
+            const myModal = tailwind.Modal.getInstance(document.querySelector("#show-close-ledger"));
+            myModal.show();
+        });
+    </script>
+@endpush
