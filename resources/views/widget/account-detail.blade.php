@@ -18,6 +18,12 @@
                 <p class="w-2/3 text-sm break-all">{{ @$account->bic_swift }}</p>
             </li>
 
+            @if ($account?->status == 'closed')
+                <li class="w-full flex justify-between my-3"><span class="font-medium w-2/4">Status </span>
+                    <p class="w-2/3 text-sm text-theme-6 only:break-all">{{ ucwords(@$account->status) }}</p>
+                </li>
+            @endif
+
         </ul>
 
 

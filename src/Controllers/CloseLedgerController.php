@@ -12,8 +12,8 @@ use Kanexy\PartnerFoundation\Core\Models\ArchivedMember;
 use Kanexy\PartnerFoundation\Workspace\Models\Workspace;
 use App\Models\User;
 use Illuminate\Support\Facades\Notification;
-use Kanexy\Cms\Enums\Status;
-use Kanexy\PartnerFoundation\Banking\Notifications\CloseLedgerNotification;
+use Kanexy\Banking\Enums\AccountEnum;
+use Kanexy\Banking\Notifications\CloseLedgerNotification;
 
 class CloseLedgerController extends Controller
 {
@@ -51,7 +51,7 @@ class CloseLedgerController extends Controller
         /** @var \App\Models\User $user */
         $user = Auth::user();
 
-        $existRequest = ArchivedMember::whereName('close_ledger')->where('holder_id', $user->id)->where('status', '!=', Status::DECLINED)->first();
+        $existRequest = ArchivedMember::whereName('close_ledger')->where('holder_id', $user->id)->where('status', '!=', AccountEnum::DECLINED)->first();
         if (!is_null($existRequest)) {
             return back()->with([
                 'message' => 'Already Close Ledger Request Exists!',
@@ -73,7 +73,7 @@ class CloseLedgerController extends Controller
         $archive->holder()->associate($user);
         $archive->name = 'close_ledger';
         $archive->meta = $data;
-        $archive->status = Status::PENDING;
+        $archive->status = AccountEnum::PENDING;
         $archive->save();
         return redirect()->back()->with([
             'status' => 'success',
@@ -112,7 +112,9 @@ class CloseLedgerController extends Controller
             throw $exception;
         }
 
-        $archivedMember->update(['status' => Status::APPROVE]);
+        $archivedMember->update(['status' => AccountEnum::APPROVED]);
+        $account->update(['status' => AccountEnum::CLOSED]);
+
         return redirect()->route('dashboard.banking.closeledger.index')->with([
             'status' => 'success',
             'message' => 'Request Approved',
@@ -124,7 +126,7 @@ class CloseLedgerController extends Controller
     {
         $archivedMember = ArchivedMember::find($request->id);
 
-        $archivedMember->update(['status' => Status::DECLINED]);
+        $archivedMember->update(['status' => AccountEnum::DECLINED]);
 
         return redirect()->back()->with([
             'status' => 'success',
