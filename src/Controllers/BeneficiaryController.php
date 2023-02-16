@@ -29,6 +29,7 @@ class BeneficiaryController extends Controller
     public function __construct(WrappexService $service)
     {
         $this->service = $service;
+        
     }
 
     public function index(Request $request)
