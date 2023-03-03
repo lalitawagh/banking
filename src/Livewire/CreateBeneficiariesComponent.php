@@ -17,9 +17,11 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Kanexy\Banking\Services\WrappexService;
 use Kanexy\Banking\Dtos\CreateBeneficiaryDto;
+use Kanexy\Cms\Notifications\EmailOneTimePasswordNotification;
 use Kanexy\PartnerFoundation\Cxrm\Models\Contact;
 use Kanexy\PartnerFoundation\Cxrm\Events\ContactCreated;
 use Kanexy\Cms\Notifications\SmsOneTimePasswordNotification;
+use Kanexy\Cms\Setting\Models\Setting;
 
 class CreateBeneficiariesComponent extends Component
 {
@@ -120,6 +122,7 @@ class CreateBeneficiariesComponent extends Component
 
         $validatedData = $this->validate();
 
+        $transactionOtpService = Setting::getValue('transaction_otp_service');
         $workspace = Workspace::findOrFail($this->workspace_id);
 
         if ($validatedData['type'] == 'company') {
@@ -152,18 +155,28 @@ class CreateBeneficiariesComponent extends Component
         /** @var \App\Models\User $user */
         $user = auth()->user();
 
-        $otpInfo = $contact->generateOtp("sms");
+        //$otpInfo = $contact->generateOtp("sms");
+        
 
-        if(config('services.disable_sms_service') == false){
-            $user->notify(new SmsOneTimePasswordNotification($otpInfo));
+        if($transactionOtpService == 'email')
+        {
+            $otpInfo = $contact->generateOtp("email");
+            if (config('services.disable_email_service') == false) {
+                $user->notify(new EmailOneTimePasswordNotification($otpInfo));
+            }
+        }else
+        {
+            $otpInfo = $contact->generateOtp("sms");
+            if(config('services.disable_sms_service') == false){
+                $user->notify(new SmsOneTimePasswordNotification($otpInfo));
+            }
         }
-
 
         $this->oneTimePassword = $contact->oneTimePasswords()->first()?->id;
 
         session(['user' => $user, 'contact' => $contact, 'oneTimePassword' => $this->oneTimePassword, 'workspaceId' => $this->workspace_id]);
-
-        if ($contact->hasActiveOneTimePassword('sms')) {
+       
+        if ($contact->hasActiveOneTimePassword($transactionOtpService)) {
             $this->beneficiary_created = true;
             $this->OpenOtpVerificationOverlay();
         }

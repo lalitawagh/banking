@@ -73,21 +73,21 @@ class MakePayoutRequest extends FormRequest
                     $validator->errors()->add('amount', 'Insufficient balance in the account.');
                 }
 
-                if ($transactionLimit?->value != 0 && $transactionLimit?->value < $amount) {
-                    $validator->errors()->add('amount', 'You have exceeded the maximum transaction limit');
-                }
+                // if ($transactionLimit?->value != 0 && $transactionLimit?->value < $amount) {
+                //     $validator->errors()->add('amount', 'You have exceeded the maximum transaction limit');
+                // }
 
 
-                if(!is_null(@$feature['used']) && @$feature['used'] <= 0 || $membershipLog?->value >= $feature['used'])
-                {
-                    $validator->errors()->add('feature', 'The Transaction Feature limit is over for this subscription.');
-                }else if(is_null(@$feature['used']))
-                {
-                    if($feature?->used <= 0)
-                    {
-                        $validator->errors()->add('feature', 'The Transaction Feature limit is over for this subscription.');
-                    }
-                }
+                // if(!is_null(@$feature['used']) && @$feature['used'] <= 0 || $membershipLog?->value >= $feature['used'])
+                // {
+                //     $validator->errors()->add('feature', 'The Transaction Feature limit is over for this subscription.');
+                // }else if(is_null(@$feature['used']))
+                // {
+                //     if($feature?->used <= 0)
+                //     {
+                //         $validator->errors()->add('feature', 'The Transaction Feature limit is over for this subscription.');
+                //     }
+                // }
 
             }
         });
