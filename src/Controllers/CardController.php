@@ -306,5 +306,15 @@ class CardController extends Controller
             'status' => 'success',
         ]);
     }
-}
 
+    public function requestCardClose(Card $card)
+    {
+
+        $card->update(['status' => 'request-close']);
+
+        return redirect()->route(
+            "dashboard.cards.index",
+            ['filter' => ['workspace_id' => app('activeWorkspaceId')]]
+        )->with(['message' => 'Card close request submitted successfully . It may take a while.', 'status' => 'success']);
+    }
+}

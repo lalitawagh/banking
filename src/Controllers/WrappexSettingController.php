@@ -1,6 +1,6 @@
 <?php
 
-namespace Kanexy\PartnerFoundation\Setting\Controllers;
+namespace Kanexy\Banking\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
