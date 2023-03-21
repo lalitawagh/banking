@@ -82,10 +82,10 @@ class Card extends Model
     public static function setRecordsToDownload($records, $type)
     {
         $list = collect();
-        
+
         foreach ($records as $record) {
             $cardlist = Card::find($record);
-           
+
             $columnDetail = [
                 $cardlist->name,
                 $cardlist->mode,
@@ -107,7 +107,7 @@ class Card extends Model
 
         return Excel::download(new Export($list, $columnsHeading), 'card.' . $type . '');
     }
-   
+
     public static function downloadPdf($records)
     {
         $cardslist = collect();
@@ -193,17 +193,17 @@ class Card extends Model
                 $actions = [];
                 if (\Illuminate\Support\Facades\Auth::user()->hasPermissionTo(Permission::CARD_APPROVE)){
 
-                    $actions[] = ['icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="check" data-lucide="check" class="lucide lucide-check w-4 h-4 mr-2"><polyline points="20 6 9 17 4 12"></polyline></svg>','isOverlay' => '0','route' => route('dashboard.cards.approve', $value),'action' => 'Approve'];
+                    $actions[] = ['icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="check" data-lucide="check" class="lucide lucide-check w-4 h-4 mr-2"><polyline points="20 6 9 17 4 12"></polyline></svg>','isOverlay' => '0','method' => 'GET','route' => route('dashboard.cards.approve', $value),'action' => 'Approve'];
                 }
                 if (\Illuminate\Support\Facades\Auth::user()->hasPermissionTo(Permission::CARD_ACTIVATE)){
 
-                    $actions[] = ['icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="check-circle" data-lucide="check-circle" class="lucide lucide-check-circle w-4 h-4 mr-2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>','isOverlay' => '0','route' => route('dashboard.cards.activate', $value),'action' => 'Activate'];
+                    $actions[] = ['icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="check-circle" data-lucide="check-circle" class="lucide lucide-check-circle w-4 h-4 mr-2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>','isOverlay' => '0','method' => 'GET','route' => route('dashboard.cards.activate', $value),'action' => 'Activate'];
                 }
                 if (\Illuminate\Support\Facades\Auth::user()->hasPermissionTo(Permission::CARD_CLOSE)){
 
-                    $actions[] = ['icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="x" data-lucide="x" class="lucide lucide-x w-4 h-4 mr-2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>','isOverlay' => 'true','route' => "Livewire.emit('cardClose', $value)",'action' => 'Close'];
+                    $actions[] = ['icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="x" data-lucide="x" class="lucide lucide-x w-4 h-4 mr-2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>','isOverlay' => 'true','method' => 'GET','route' => "Livewire.emit('cardClose', $value)",'action' => 'Close'];
                 }
-                $actions[] = ['icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="eye" data-lucide="eye" class="lucide lucide-eye w-4 h-4 mr-2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>','isOverlay' => '0','route' => route('dashboard.cards.show', $value),'action' => 'Show'];
+                $actions[] = ['icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="eye" data-lucide="eye" class="lucide lucide-eye w-4 h-4 mr-2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>','isOverlay' => '0','method' => 'GET','route' => route('dashboard.cards.show', $value),'action' => 'Show'];
 
                 return view('cms::livewire.datatable-actions', ['actions' => $actions])->withUser($row);
             })
