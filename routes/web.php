@@ -8,6 +8,7 @@ use Kanexy\Banking\Controllers\PayoutController;
 use Kanexy\Banking\Controllers\RegistrationLedgerController;
 use Kanexy\Banking\Controllers\StatementController;
 use Kanexy\Banking\Controllers\TransactionController;
+use Kanexy\Banking\Controllers\WrappexSettingController;
 use Kanexy\Cms\Middleware\ColorModeMiddleware;
 use Kanexy\Cms\Middleware\ValidateRegistrationCompletedMiddleware;
 
@@ -45,6 +46,7 @@ Route::group(['middleware' => [ColorModeMiddleware::class,'auth']], function () 
         Route::name('cards.store-card-mode')->post('cards/wizard/mode', [CardController::class, 'storeCardMode']);
         Route::name('cards.show-card-mode')->get('cards/wizard/mode', [CardController::class, 'showCardMode']);
         Route::resource('cards', CardController::class)->only(['index', 'create', 'store', 'show']);
+        Route::resource('wrappex-settings', WrappexSettingController::class)->only(['index', 'create', 'store', 'show']);
 
         Route::group(['prefix' => 'banking', 'as' => 'banking.'], function () {
             Route::resource('beneficiaries', 'Kanexy\Banking\Controllers\BeneficiaryController')->except(['show']);
