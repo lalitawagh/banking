@@ -58,7 +58,7 @@ class BankingMenuItem extends Item
             $menus[] =  new MenuItem('Statement', 'activity', url: route('dashboard.banking.statement.index', ['filter' => ['workspace_id' => app('activeWorkspaceId')]]));
         }
         if ($user->hasPermissionTo(Permission::CLOSE_LEDGER_VIEW)) {
-            $menus[] =  new MenuItem('Close Ledger Requests', 'activity', url: route('dashboard.banking.closeledger.index', ['filter' => ['workspace_id' => app('activeWorkspaceId')]]));
+            $menus[] =  new MenuItem('Close Bank Account', 'activity', url: route('dashboard.banking.closeledger.index', ['filter' => ['workspace_id' => app('activeWorkspaceId')]]));
         }
 
         return $menus;
