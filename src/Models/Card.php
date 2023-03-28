@@ -228,9 +228,6 @@ class Card extends Model
                     $builder->where('cards.status', $value);
                 }),
 
-            // DateFilter::make('Created at')->filter(function (Builder $builder, string $value) {
-            //     $builder->whereDate('created_at', date('Y-m-d', strtotime($value)));
-            // }),
 
             TextFilter::make('name')->hiddenFromAll()->config(['placeholder' => 'Search', 'maxlength' => '25',])->filter(function (Builder $builder, string $value) {
                 $builder->where('cards.name', 'like', '%' . $value . '%');
@@ -241,19 +238,7 @@ class Card extends Model
             TextFilter::make('mode')->hiddenFromAll()->config(['placeholder' => 'Search', 'maxlength' => '25',])->filter(function (Builder $builder, string $value) {
                 $builder->where('cards.mode', 'like', '%' . $value . '%');
             }),
-            // TextFilter::make('meta->beneficiary_name')->hiddenFromAll()->config(['placeholder' => 'Search', 'maxlength' => '25',])->filter(function (Builder $builder, string $value) {
-            //     $builder->where('transactions.meta->beneficiary_name', 'like', '%' . $value . '%');
-            // }),
-            // TextFilter::make('meta->reference')->hiddenFromAll()->config(['placeholder' => 'Search', 'maxlength' => '25',])->filter(function (Builder $builder, string $value) {
-            //     $builder->where('transactions.meta->reference', 'like', '%' . $value . '%');
-            // }),
-            // TextFilter::make('amount')->hiddenFromAll()->config(['placeholder' => 'Search'])->filter(function (Builder $builder, string $value) {
-            //         $builder->where('transactions.amount', '=',floatval($value));
-            // }),
 
-            // TextFilter::make('workspace_id')->config(['placeholder' => 'Search', 'maxlength' => '25',])->filter(function (Builder $builder, string $value) {
-            //     $builder->where('transactions.workspace_id', 'like', '%' . $value . '%');
-            // }),
 
 
         ];

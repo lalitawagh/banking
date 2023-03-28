@@ -149,11 +149,6 @@ class CardController extends Controller
     {
         $this->authorize(CardPolicy::CREATE, Card::class);
 
-        // $request->validate([
-        //     'billing_address_id' => ['required', 'exists:addresses,id'],
-        //     'shipping_address_id' => ['required', 'exists:addresses,id'],
-        // ]);
-
         $requestCard = session('card_request');
         $requestCard['billing_address_id'] = $request->input('billing_address_id');
         $requestCard['shipping_address_id'] = $request->input('shipping_address_id');
