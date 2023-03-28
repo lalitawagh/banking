@@ -8,7 +8,7 @@
             <div class="box">
                 <div class="flex items-center px-3 py-2 border-b border-gray-200 dark:border-dark-5">
                     <h2 class="font-medium text-base mr-auto">
-                        Close Ledger Request
+                        Close Bank Account
                     </h2>
                     @if ($user->isSubscriber())
                         <div class="intro-y mt-0">
