@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Carbon;
+use Kanexy\Cms\Setting\Models\Setting;
 
 class AccountMadeActiveNotification extends Notification
 {
@@ -40,8 +41,9 @@ class AccountMadeActiveNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        $senderMail = Setting::getValue('sender_mail',[]);
 
-        return (new MailMessage)
+        return (new MailMessage)->from($senderMail, config('mail.from.name'))
                     ->line($notifiable->first_name, $notifiable->middle_name)
                     ->line($notifiable->middle_name)
                     ->action('Notification Action', url('/'))
