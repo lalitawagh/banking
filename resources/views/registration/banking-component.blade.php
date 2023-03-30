@@ -10,7 +10,7 @@
             class="w-full leading-relaxed text-white text-opacity-70 dark:text-gray-600 dark:text-opacity-100 mt-3">
             <div class="mt-5">
                 <div class="flex items-center">
-                    <div class="w-2 h-2 bg-white rounded-full mr-3"></div>
+                    <div class="w-4 h-2 bg-white rounded-full mr-3"></div>
                     <span class="">Business and personal accounts with exceptional debit card
                         features.</span>
                 </div>
@@ -19,7 +19,7 @@
                     <span class="">Multi currency bank accounts.</span>
                 </div>
                 <div class="flex items-center mt-4">
-                    <div class="w-2 h-2 bg-white rounded-full mr-3"></div>
+                    <div class="w-3 h-2 bg-white rounded-full mr-3"></div>
                     <span class="">Sort code and account number with IBAN.</span>
                 </div>
             </div>
