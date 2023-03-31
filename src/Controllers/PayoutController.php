@@ -13,6 +13,7 @@ use Kanexy\PartnerFoundation\Core\Models\Transaction;
 use Kanexy\Banking\Policies\TransactionPolicy;
 use Kanexy\Banking\Requests\MakePayoutRequest;
 use Kanexy\Banking\Services\PayoutService;
+use Kanexy\Cms\Notifications\EmailOneTimePasswordNotification;
 use Kanexy\PartnerFoundation\Cxrm\Models\Contact;
 use Kanexy\PartnerFoundation\Saas\Models\PlanSubscription;
 use Kanexy\PartnerFoundation\Workspace\Models\Workspace;
@@ -45,7 +46,7 @@ class PayoutController extends Controller
 
     public function store(MakePayoutRequest $request)
     {
-
+        $transactionOtpService = Setting::getValue('transaction_otp_service');
         $workspace = Workspace::findOrFail($request->input('workspace_id'));
 
         if ($workspace->status == WorkspaceStatus::INACTIVE){
@@ -60,16 +61,34 @@ class PayoutController extends Controller
 
         $transaction = $this->payoutService->initialize($sender, $beneficiary, $request->validated());
 
-        $transaction->notify(new SmsOneTimePasswordNotification($transaction->generateOtp("sms")));
+        if($transactionOtpService == 'email')
+        {
+            if (config('services.disable_email_service') == false) {
+                $transaction->notify(new EmailOneTimePasswordNotification($transaction->generateOtp("email")));
+            }else
+            {
+                $transaction->generateOtp("email");
+            }
 
-        return $transaction->redirectForVerification(URL::temporarySignedRoute('dashboard.banking.payouts.verify', now()->addMinutes(30), ["id" => $transaction->id]), 'sms');
+            return $transaction->redirectForVerification(URL::temporarySignedRoute('dashboard.banking.payouts.verify', now()->addMinutes(30), ["id" => $transaction->id]), 'email');
+        }else
+        {
+            if (config('services.disable_sms_service') == false) {
+                $transaction->notify(new SmsOneTimePasswordNotification($transaction->generateOtp("sms")));
+            }else
+            {
+                $transaction->generateOtp("sms");
+            }
+
+            return $transaction->redirectForVerification(URL::temporarySignedRoute('dashboard.banking.payouts.verify', now()->addMinutes(30), ["id" => $transaction->id]), 'sms');
+        }
     }
 
     function verify(Request $request)
     {
         $transaction = Transaction::find($request->query('id'));
         $sender = Account::findOrFail($transaction->meta['sender_id']);
-
+       
         try {
             $this->payoutService->process($transaction);
             PlanSubscription::reduceFeatureLimit($sender->workspaces()->first(),'Free Transactions');

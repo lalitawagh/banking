@@ -5,6 +5,7 @@ namespace Kanexy\Banking\Livewire;
 use Carbon\Carbon;
 use Kanexy\Cms\I18N\Models\Country;
 use Kanexy\Cms\Models\OneTimePassword;
+use Kanexy\Cms\Notifications\EmailOneTimePasswordNotification;
 use Kanexy\Cms\Notifications\SmsOneTimePasswordNotification;
 use Kanexy\Cms\Setting\Models\Setting;
 use Livewire\Component;
@@ -49,16 +50,24 @@ class OtpVerificationComponent extends Component
     public function resendOtp()
     {
         $oneTimePassword = OneTimePassword::find(session('oneTimePassword'));
+        $transactionOtpService = Setting::getValue('transaction_otp_service');
 
         if (Carbon::now()->gt($oneTimePassword->expires_at) && $oneTimePassword->verified_at == null) {
 
             $oneTimePassword->update(['code' => rand(100000, 999999), 'expires_at' => now()->addMinutes(OneTimePassword::getExpiringDuration())]);
         }
 
-        if(config('services.disable_sms_service') == false){
-            $oneTimePassword->holder->notify(new SmsOneTimePasswordNotification($oneTimePassword));
+        if($transactionOtpService == 'email')
+        {
+            if (config('services.disable_email_service') == false) {
+                $oneTimePassword->holder->notify(new EmailOneTimePasswordNotification($oneTimePassword));
+            }
+        }else{
+            if(config('services.disable_sms_service') == false){
+                $oneTimePassword->holder->notify(new SmsOneTimePasswordNotification($oneTimePassword));
+            }
         }
-
+     
         $this->sent_resend_otp = true;
     }
 
