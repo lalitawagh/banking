@@ -73,6 +73,7 @@ class PayoutService
 
     public function process(Transaction $transaction)
     {
+       
         $serviceTransaction = $this->service->createTransaction(
             new CreateTransactionDto($transaction)
         );

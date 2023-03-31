@@ -13,6 +13,7 @@ use Kanexy\Cms\Setting\Models\Setting;
 use Kanexy\Banking\Models\Account;
 use Kanexy\Banking\Requests\StoreBeneficiaryRequest;
 use Kanexy\Banking\Requests\UpdateBeneficiaryRequest;
+use Kanexy\Cms\Notifications\EmailOneTimePasswordNotification;
 use Kanexy\PartnerFoundation\Cxrm\Events\ContactCreated;
 use Kanexy\PartnerFoundation\Cxrm\Events\ContactDeleted;
 use Kanexy\PartnerFoundation\Cxrm\Events\ContactDeleting;
@@ -72,6 +73,7 @@ class BeneficiaryController extends Controller
     {
         $data = $request->validated();
 
+        $transactionOtpService = Setting::getValue('transaction_otp_service');
         $workspace = Workspace::findOrFail($request->input('workspace_id'));
 
         if ($data['type'] == 'company') {
@@ -99,18 +101,36 @@ class BeneficiaryController extends Controller
 
         /** @var \App\Models\User $user */
         $user = auth()->user();
-        //$user->notify(new EmailOneTimePasswordNotification($contact->generateOtp("email")));
-        if (config('services.disable_sms_service') == false) {
-            $user->notify(new SmsOneTimePasswordNotification($contact->generateOtp("sms")));
-        } else {
-            $contact->generateOtp("sms");
+
+        if($transactionOtpService == 'email')
+        {
+            if (config('services.disable_email_service') == false) {
+                $user->notify(new EmailOneTimePasswordNotification($contact->generateOtp("email")));
+            } else {
+                $contact->generateOtp("sms");
+            }
+
+            if (request()->has('callback_url') && request()->input('callback_url')) {
+                return $contact->redirectForVerification(request()->input('callback_url'), 'email');
+            }
+    
+            return $contact->redirectForVerification(route('dashboard.banking.beneficiaries.index', ['filter' => ['workspace_id' => $workspace->id]]), 'email');
+            
+        }else
+        {
+            if (config('services.disable_sms_service') == false) {
+                $user->notify(new SmsOneTimePasswordNotification($contact->generateOtp("sms")));
+            } else {
+                $contact->generateOtp("sms");
+            }
+
+            if (request()->has('callback_url') && request()->input('callback_url')) {
+                return $contact->redirectForVerification(request()->input('callback_url'), 'sms');
+            }
+    
+            return $contact->redirectForVerification(route('dashboard.banking.beneficiaries.index', ['filter' => ['workspace_id' => $workspace->id]]), 'sms');
         }
 
-        if (request()->has('callback_url') && request()->input('callback_url')) {
-            return $contact->redirectForVerification(request()->input('callback_url'), 'sms');
-        }
-
-        return $contact->redirectForVerification(route('dashboard.banking.beneficiaries.index', ['filter' => ['workspace_id' => $workspace->id]]), 'sms');
     }
 
     public function edit(Contact $beneficiary)
