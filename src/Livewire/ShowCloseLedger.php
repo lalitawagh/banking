@@ -21,6 +21,7 @@ class ShowCloseLedger extends Component
         $this->details = $details;
         $user = User::find($details->holder_id);
         $this->country_id = $user->country_id;
+        $this->dispatchBrowserEvent('show');
     }
 
     public function render()

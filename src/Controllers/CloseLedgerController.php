@@ -36,8 +36,13 @@ class CloseLedgerController extends Controller
             $closeLedgerRequests = ArchivedMember::whereName('close_ledger')->where('holder_id', $user->id)->latest()->paginate(10);
         }
 
+        $workspace = null;
 
-        return view('banking::closeledger.index', compact('closeLedgerRequests', 'user'));
+        if ($request->has('filter.workspace_id')) {
+            $workspace = Workspace::findOrFail($request->input('filter.workspace_id'));
+        }
+
+        return view('banking::closeledger.index', compact('closeLedgerRequests', 'user', 'workspace'));
     }
 
 
