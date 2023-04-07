@@ -10,6 +10,7 @@ use Kanexy\PartnerFoundation\Core\Models\Transaction;
 use Kanexy\Banking\Policies\TransactionPolicy;
 use Kanexy\PartnerFoundation\Membership\Models\MembershipLog;
 use Kanexy\PartnerFoundation\Saas\Models\PlanSubscription;
+use Kanexy\PartnerFoundation\Workspace\Models\WorkspaceMeta;
 
 class MakePayoutRequest extends FormRequest
 {
@@ -64,6 +65,10 @@ class MakePayoutRequest extends FormRequest
                 /** @var Account $senderAccount */
                 $senderAccount = Account::with('workspaces')->findOrFail($senderAccountId);
                 $amount = (float) $this->input('amount');
+                $workspaceMeta = WorkspaceMeta::where(['key' => 'address_proof_provided','workspace_id' => $senderAccount->workspaces->id])->first(); 
+                $tansactionAmount = Transaction::where(['workspace_id' => $senderAccount->workspaces->id,'status' => 'accepted','ref_type' =>'wrappex'])->sum('amount');
+                $totalAmount = $amount + $tansactionAmount;
+                
                 $transactionLimit = AccountMeta::where(['key' => 'max_per_txn_limit','account_id' => $senderAccount->getKey()])->first();
                 $membershipLog = MembershipLog::where(['key' => 'Free Transactions','holder_id' => $senderAccount->workspaces()->first()->memberships()->first()->id])->first();
 
@@ -77,6 +82,10 @@ class MakePayoutRequest extends FormRequest
                     $validator->errors()->add('amount', 'You have exceeded the maximum transaction limit');
                 }
 
+                if($totalAmount >= 1000 && !is_null($workspaceMeta) && $workspaceMeta?->value == 'false')
+                {
+                    $validator->errors()->add('feature', 'You have exceeded the maximum transaction limit without completing your KYC.');
+                }
 
                 if(!is_null(@$feature['used']) && @$feature['used'] <= 0 || $membershipLog?->value >= $feature['used'])
                 {
