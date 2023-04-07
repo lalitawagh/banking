@@ -16,6 +16,7 @@ use Kanexy\PartnerFoundation\Membership\Models\Membership;
 use Kanexy\PartnerFoundation\Membership\Policies\MembershipPolicy;
 use Kanexy\PartnerFoundation\Workspace\Models\LedgerVerification;
 use Kanexy\PartnerFoundation\Workspace\Models\Workspace;
+use Kanexy\PartnerFoundation\Workspace\Models\WorkspaceMeta;
 use Kanexy\PartnerFoundation\Workspace\Notifications\WorkspaceActivatedNotification;
 
 class MembershipComponentController extends Controller
@@ -56,6 +57,7 @@ class MembershipComponentController extends Controller
         $user_id = $request->input('user_id');
         $user = User::find($user_id);
         $workspace = $user->workspaces()->first();
+        $workspaceMeta = WorkspaceMeta::where(['key' => 'address_proof_provided','workspace_id' => $workspace->id])->first();
 
         $support_verification = false;
         $compliance_verification = false;
@@ -68,16 +70,16 @@ class MembershipComponentController extends Controller
 
         if($workspace->is_registered == true)
         {
-            $count = 4;
+            $count = (!is_null($workspaceMeta) && $workspaceMeta?->value == 'false') ? 3 : 4;
         }else{
             $count = 6;
         }
-
+      
         if($request->has("support") && count($request->input("support"))==$count)
         {
             $support_verification=true;
         }
-
+       
         if($request->has("compliance") && count($request->input("compliance"))==$count)
         {
             $compliance_verification=true;

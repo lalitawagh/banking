@@ -23,15 +23,19 @@ class PersonalBankingRegistrationStep extends Item
         $user = Auth::user();
 
         $steps = [
-            new StepItem(membership_type: 'personal', label: 'Plan & Packages', step: RegistrationStep::PLAN_AND_PACKAGES ,source :'web', url: route('customer.signup.plan.index'),priority:4000),
-            new StepItem(membership_type: 'personal', label: 'Services', step: RegistrationStep::SERVICE_NEEDED ,source :'web', url: route('customer.signup.services.index'),priority:5000),
-            new StepItem(membership_type: 'personal', label: 'Banking', step: RegistrationStep::BANKING ,source :'web', url: route('customer.signup.banking.index'),priority:6000),
-            new StepItem(membership_type: 'personal', label: 'Finance Checks', step: RegistrationStep::FINANCE_CHECKS ,source :'web', url: route('customer.signup.finance-checks.index'),priority:7000),
-            new StepItem(membership_type: 'personal', label: 'Address & DOB', step: RegistrationStep::ADDRESS ,source :'web', url: route('customer.signup.address.index'),priority:8000),
-            new StepItem(membership_type: 'personal', label: 'KYC Documents', step: RegistrationStep::DOCUMENTS ,source :'web', url: route('customer.signup.kyc.index'),priority:9000),
-
+            new StepItem(membership_type: 'personal', label: 'Plan & Packages', step: RegistrationStep::PLAN_AND_PACKAGES ,source :'web', url: route('customer.signup.plan.index'),priority:4000)
         ];
 
+        if($user->type != 'student')
+        {
+            $steps[] = new StepItem(membership_type: 'personal', label: 'Services', step: RegistrationStep::SERVICE_NEEDED ,source :'web', url: route('customer.signup.services.index'),priority:5000);
+        }
+        
+        $steps[] = new StepItem(membership_type: 'personal', label: 'Banking', step: RegistrationStep::BANKING ,source :'web', url: route('customer.signup.banking.index'),priority:6000);
+        $steps[] = new StepItem(membership_type: 'personal', label: 'Finance Checks', step: RegistrationStep::FINANCE_CHECKS ,source :'web', url: route('customer.signup.finance-checks.index'),priority:7000);
+        $steps[] = new StepItem(membership_type: 'personal', label: 'Address & DOB', step: RegistrationStep::ADDRESS ,source :'web', url: route('customer.signup.address.index'),priority:8000);
+        $steps[] = new StepItem(membership_type: 'personal', label: 'KYC Documents', step: RegistrationStep::DOCUMENTS ,source :'web', url: route('customer.signup.kyc.index'),priority:9000);
+    
         $steps[] = new StepItem(membership_type: 'personal', label: 'Account Preview', step: RegistrationStep::ACCOUNT_PREVIEW ,source :'web', url: route('customer.signup.ledger.index'),priority:10000);
         $steps[] = new StepItem(membership_type: 'personal', label: 'Ledger', step: RegistrationStep::LEDGER ,source :'web', url: route('customer.signup.ledger-show'),priority:11000);
 
