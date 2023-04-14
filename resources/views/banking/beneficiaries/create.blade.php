@@ -97,7 +97,7 @@
                                 <label for="" class="form-label sm:w-30">Email Address</label>
                                 <div class="sm:w-5/6">
                                     <input id="email" name="email" type="email"
-                                        class="form-control @error('') border-theme-6 @enderror"
+                                        class="form-control @error('email') border-theme-6 @enderror"
                                         value="{{ old('email') }}">
 
 

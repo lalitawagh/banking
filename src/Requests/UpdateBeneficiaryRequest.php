@@ -24,7 +24,7 @@ class UpdateBeneficiaryRequest extends FormRequest
             'middle_name' => ['nullable', new AlphaSpaces, 'string', 'max:40'],
             'last_name' => ['nullable', new AlphaSpaces, 'string', 'max:40'],
             'company_name' => ['required_if:type,' . ContactType::COMPANY, 'nullable', new AlphaSpaces, 'string'],
-            'email' => ['nullable', 'email'],
+            'email' => ['required', 'email'],
             'landline' => ['nullable', 'string', new LandlineNumber],
             'mobile' => ['nullable', new MobileNumber],
             'type' => ['required', 'string', Rule::in(ContactType::toArray())],

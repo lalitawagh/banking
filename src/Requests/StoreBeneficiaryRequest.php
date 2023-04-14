@@ -5,6 +5,7 @@ namespace Kanexy\Banking\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Kanexy\Cms\Rules\AlphaSpaces;
+use Kanexy\Cms\Rules\Email;
 use Kanexy\Cms\Rules\LandlineNumber;
 use Kanexy\Cms\Rules\MobileNumber;
 use Kanexy\Banking\Enums\BankEnum;
@@ -30,7 +31,7 @@ class StoreBeneficiaryRequest extends FormRequest
             'middle_name' => ['nullable', new AlphaSpaces, 'string', 'max:40'],
             'last_name' => ['nullable', new AlphaSpaces, 'string', 'max:40'],
             'company_name' => ['required_if:type,' . ContactType::COMPANY, 'nullable', new AlphaSpaces, 'string'],
-            'email' => ['nullable', 'email'],
+            'email' => ['nullable', 'email', new Email],
             'landline' => ['nullable', 'string', new LandlineNumber],
             'mobile' => ['nullable', new MobileNumber],
             'type' => ['required', 'string', Rule::in(ContactType::toArray())],
