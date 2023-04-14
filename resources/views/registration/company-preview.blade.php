@@ -90,7 +90,7 @@
 
                                         <div class="flex sm:flex-col sm:flex-row  border-b border-gray-200 mb-3">
                                             <div class="mr-auto">
-                                                <div class="text-gray-600 mt-1">Phone Number</div>
+                                                <div class="text-gray-600 mt-1">Mobile Number</div>
                                             </div>
                                             <div class="flex">
                                                 <div class="w-full sm:w-64 text-right">
