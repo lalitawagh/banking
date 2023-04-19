@@ -70,7 +70,6 @@ class BeneficiaryController extends Controller
     public function store(StoreBeneficiaryRequest $request)
     {
         $data = $request->validated();
-        dd($data);
 
         $workspace = Workspace::findOrFail($request->input('workspace_id'));
 

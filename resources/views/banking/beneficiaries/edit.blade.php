@@ -321,6 +321,7 @@
                 $(".contact-personal").addClass('visible');
                 $(".contact-personal #first_name, #last_name").attr('required', 'required');
                 $(".contact-personal #middle_name").removeAttr('required');
+                $(".contact-personal #email").removeAttr('required');
                 $("#company_name").val('');
             }
         }
