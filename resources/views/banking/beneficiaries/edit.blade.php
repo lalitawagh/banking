@@ -140,7 +140,7 @@
                                 <div class="sm:w-5/6">
                                     <input id="email" name="email" type="email"
                                         class="form-control @error('email') border-theme-6 @enderror"
-                                        value="{{ old('email', $beneficiary->email) }}" required>
+                                        value="{{ old('email', $beneficiary->email) }}">
 
                                     @error('email')
                                         <span class="block text-theme-6 mt-2">{{ $message }}</span>
