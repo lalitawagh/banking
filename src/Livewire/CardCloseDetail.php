@@ -19,6 +19,11 @@ class CardCloseDetail extends Component
         'cardClose',
     ];
 
+    public function closeModal()
+    {
+        $this->dispatchBrowserEvent('close-modal');
+    }
+
     public function cardClose(Card $card)
     {
         $this->card = $card;
