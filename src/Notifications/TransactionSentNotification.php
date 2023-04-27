@@ -35,10 +35,7 @@ class TransactionSentNotification extends Notification
 
     public function toTwilio($notifiable)
     {
-        $senderMail = Setting::getValue('sender_mail',[]);
-
         return (new TwilioSmsMessage())
-            ->from($senderMail, config('mail.from.name'))
             ->content(config('app.name') . ": Your security code is {$this->oneTimePassword->code}. It expires in {$this->oneTimePassword->getExpiringDuration()} minutes. Don't share this code with anyone.");
     }
 
