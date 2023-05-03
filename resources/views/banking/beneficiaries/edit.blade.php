@@ -89,7 +89,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-span-12 md:col-span-6 form-inline mt-2">
+                            {{-- <div class="col-span-12 md:col-span-6 form-inline mt-2">
                                 <label for="email" class="form-label sm:w-30">Email Address</label>
                                 <div class="sm:w-5/6">
                                     <input id="email" name="email" type="email"
@@ -100,7 +100,7 @@
                                         <span class="block text-theme-6 mt-2">{{ $message }}</span>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
 
                         <div class="grid grid-cols-12 md:gap-0 lg:gap-3 xl:gap-8 mt-0 contact-company hidden">
@@ -118,6 +118,23 @@
                                 </div>
                             </div>
 
+                            
+
+                            {{-- <div class="col-span-12 md:col-span-6 form-inline mt-2">
+                                <label for="email" class="form-label sm:w-30">Email Address</label>
+                                <div class="sm:w-5/6">
+                                    <input id="email" name="email" type="email"
+                                        class="form-control @error('email') border-theme-6 @enderror"
+                                        value="{{ old('email', $beneficiary->email) }}">
+
+                                    @error('email')
+                                        <span class="block text-theme-6 mt-2">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div> --}}
+                        </div>
+
+                        <div class="grid grid-cols-12 md:gap-0 lg:gap-3 xl:gap-8 mt-0">
                             <div class="col-span-12 md:col-span-6 form-inline mt-2">
                                 <label for="email" class="form-label sm:w-30">Email Address</label>
                                 <div class="sm:w-5/6">
