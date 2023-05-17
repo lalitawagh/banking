@@ -4,6 +4,7 @@ namespace Kanexy\Banking\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use Kanexy\Cms\Setting\Models\Setting;
 use NotificationChannels\Twilio\TwilioChannel;
 use NotificationChannels\Twilio\TwilioSmsMessage;
 

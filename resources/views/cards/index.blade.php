@@ -44,5 +44,10 @@
                 "#card-close-modal"));
             myModal.show();
         });
+        window.addEventListener('close-modal', event => {
+            const myModal = tailwind.Modal.getInstance(document.querySelector(
+                "#card-close-modal"));
+            myModal.hide();
+        })
     </script>
 @endpush

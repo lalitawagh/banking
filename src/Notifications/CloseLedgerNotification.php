@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Carbon;
+use Kanexy\Cms\Setting\Models\Setting;
 
 class CloseLedgerNotification extends Notification
 {
@@ -19,7 +20,7 @@ class CloseLedgerNotification extends Notification
      */
     public function __construct()
     {
-        // 
+        //
     }
 
     /**
@@ -41,8 +42,9 @@ class CloseLedgerNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        $senderMail = Setting::getValue('sender_mail',[]);
 
-        return (new MailMessage)
+        return (new MailMessage)->from($senderMail, config('mail.from.name'))
             ->line($notifiable->full_name)
             ->line('You are having balance in your account, cannot approve your request')
             ->line('Please transfer your balance and request again')

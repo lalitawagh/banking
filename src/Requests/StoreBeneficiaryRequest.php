@@ -5,6 +5,7 @@ namespace Kanexy\Banking\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Kanexy\Cms\Rules\AlphaSpaces;
+use Kanexy\Cms\Rules\Email;
 use Kanexy\Cms\Rules\LandlineNumber;
 use Kanexy\Cms\Rules\MobileNumber;
 use Kanexy\Banking\Enums\BankEnum;
