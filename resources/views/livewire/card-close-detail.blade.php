@@ -34,7 +34,7 @@
             <div class="form-inline">
                 <label class="form-label sm:w-28"></label>
                 <div class="sm:w-4/6 pb-20">
-                    <a id="cardCloseCancel" data-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">Cancel</a>
+                    <a id="cardCloseCancel" data-bs-dismiss="modal" wire:click="closeModal" class="btn btn-outline-secondary w-20 mr-1">Cancel</a>
                     <button id="cardCloseSubmit" type="submit" class="btn btn-primary w-20 mr-2">Submit</button>
                 </div>
             </div>
