@@ -118,7 +118,7 @@
                                 </div>
                             </div>
 
-                            
+
 
                             {{-- <div class="col-span-12 md:col-span-6 form-inline mt-2">
                                 <label for="email" class="form-label sm:w-30">Email Address</label>

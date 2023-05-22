@@ -54,7 +54,7 @@
                                             @endforeach
                                         </span>
 
-                                        <select id="countryWithPhone" name="country_code" class="w-full">
+                                        <select id="countryWithPhone" name="country_code" class="w-full form-control">
                                             @foreach ($countryWithFlags as $country)
                                                 <option data-source="{{ $country->flag }}" value="{{ $country->id }}"
                                                     @if ($country->id == old('country_code', $user->country_id)) selected @endif>
