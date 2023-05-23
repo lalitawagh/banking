@@ -38,7 +38,7 @@
                             <label for="amount" class="form-label sm:w-40"> Mobile <span
                                     class="text-theme-6">*</span></label>
                             <div class="sm:w-5/6 tillselect-marging">
-                                <div class="input-group flex flex-col sm:flex-row">
+                                <div class="input-group flex flex-col sm:flex-row sm:gap-0 gap-2">
                                     <div id="input-group-phone" wire:ignore class="input-group-text flex form-inline"
                                         style="padding: 0 5px;">
 
