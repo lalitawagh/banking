@@ -33,7 +33,7 @@ class StoreBeneficiaryRequest extends FormRequest
             'company_name' => ['required_if:type,' . ContactType::COMPANY, 'nullable', new AlphaSpaces, 'string'],
             'email' => ['nullable', 'email'],
             'landline' => ['nullable', 'string', new LandlineNumber],
-            'mobile' => ['nullable', new MobileNumber],
+            'mobile' => ['nullable', 'numeric', new MobileNumber],
             'type' => ['required', 'string', Rule::in(ContactType::toArray())],
             'is_partner_account' => ['nullable'],
             'avatar' => ['nullable', 'max:5120', 'mimes:png,jpg,jpeg', 'file'],
@@ -64,6 +64,7 @@ class StoreBeneficiaryRequest extends FormRequest
             'meta.bank_code' => 'bank sort code',
             'meta.bank_account_name' => 'bank account name',
             'meta.bank_country' => 'bank country',
+            'mobile' => 'Mobile No. should accept only numeric values',
         ];
     }
 
