@@ -64,7 +64,7 @@ class StoreBeneficiaryRequest extends FormRequest
             'meta.bank_code' => 'bank sort code',
             'meta.bank_account_name' => 'bank account name',
             'meta.bank_country' => 'bank country',
-            'mobile' => 'Mobile No. should accept only numeric values',
+            'mobile' => 'Mobile No should accept only numeric values',
         ];
     }
 
