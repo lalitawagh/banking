@@ -185,7 +185,7 @@
                                         value="{{ old('meta.bank_account_number') }}" required>
 
                                     @error('meta.bank_account_number')
-                                        <span class="block text-theme-6 mt-2">{{ $message }}</span>
+                                        <span class="block text-theme-6 mt-2 removeAccount">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -201,7 +201,7 @@
                                         value="{{ old('meta.bank_code') }}" required>
 
                                     @error('meta.bank_code')
-                                        <span class="block text-theme-6 mt-2">{{ $message }}</span>
+                                        <span class="block text-theme-6 mt-2 removeSort">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -290,6 +290,10 @@
 
         $(".contact-type").click(function() {
             contactTypeChange($(this).val());
+            if ($(this).is(':checked')) {
+                $('.removeAccount').empty();
+                $('.removeSort').empty();
+            }
         });
     </script>
 @endpush
