@@ -83,9 +83,9 @@ class CreateBeneficiariesComponent extends Component
     {
         return [
             'workspace_id' => "required|exists:workspaces,id",
-            'first_name' => ['required_if:type,' . ContactType::PERSONAL, 'nullable', new AlphaSpaces, 'string'],
-            'middle_name' => ['nullable', new AlphaSpaces, 'string'],
-            'last_name' => ['required_if:type,' . ContactType::PERSONAL, 'nullable', new AlphaSpaces, 'string'],
+            'first_name' => ['required_if:type,' . ContactType::PERSONAL, 'nullable', new AlphaSpaces, 'string','max:40'],
+            'middle_name' => ['nullable', new AlphaSpaces, 'string','max:40'],
+            'last_name' => ['required_if:type,' . ContactType::PERSONAL, 'nullable', new AlphaSpaces, 'string','max:40'],
             'company_name' => ['required_if:type,' . ContactType::COMPANY, 'nullable', new AlphaSpaces, 'string'],
             'email' => ['nullable', 'email'],
             'landline' => ['nullable', 'string', new LandlineNumber],
@@ -156,7 +156,7 @@ class CreateBeneficiariesComponent extends Component
         $user = auth()->user();
 
         //$otpInfo = $contact->generateOtp("sms");
-        
+
 
         if($transactionOtpService == 'email')
         {
@@ -175,7 +175,7 @@ class CreateBeneficiariesComponent extends Component
         $this->oneTimePassword = $contact->oneTimePasswords()->first()?->id;
 
         session(['user' => $user, 'contact' => $contact, 'oneTimePassword' => $this->oneTimePassword, 'workspaceId' => $this->workspace_id]);
-       
+
         if ($contact->hasActiveOneTimePassword($transactionOtpService)) {
             $this->beneficiary_created = true;
             $this->OpenOtpVerificationOverlay();
