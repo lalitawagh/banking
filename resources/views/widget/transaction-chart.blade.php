@@ -51,13 +51,17 @@
 
             var creditChartTransaction = document.getElementById("updateCredit").innerHTML;
             var debitChartTransaction = document.getElementById("updateDebit").innerHTML;
-
+            @if(session()->get('dark_mode'))
+                color = '#316395';
+            @else
+                color = '#002366';
+            @endif
             const data = {
                 labels: labels,
                 datasets: [{
                     label: 'PAID IN',
                     fill: false,
-                    borderColor: '#002366', // Add custom color border (Line)
+                    borderColor: color, // Add custom color border (Line)
                     data: JSON.parse(creditChartTransaction),
                 },
                 {
