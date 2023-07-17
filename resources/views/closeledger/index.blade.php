@@ -34,7 +34,7 @@
             </div>
         </div>
     </div>
-    <div id="show-close-ledger" class="modal modal-slide-over" data-tw-backdrop="static" tabindex="-1"
+    <div id="show-close-ledger" class="modal modal-slide-over" tabindex="-1"
         aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">

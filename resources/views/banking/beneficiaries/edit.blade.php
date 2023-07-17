@@ -18,11 +18,11 @@
                         @csrf
                         @method('PUT')
 
-                        <div class="grid grid-cols-12 md:gap-0 lg:gap-3 xl:gap-8 mt-0 mb-3">
-                            <div class="col-span-12 md:col-span-6 form-inline mt-2">
+                        <div class="grid grid-cols-12 md:gap-0 lg:gap-3 xl:gap-8 mt-0 mb-0">
+                            <div class="col-span-12 md:col-span-12 lg:col-span-6 form-inline mb-2">
                                 <label class="form-label sm:w-30">Contact Type <span class="text-theme-6">*</span></label>
-                                <div class="sm:w-5/6">
-                                    <div class="flex sm:flex-col sm:flex-row mt-0">
+                                <div class="sm:w-5/6 sm:pt-1">
+                                    <div class="flex sm:flex-row mt-2">
                                         <div class="form-check mr-2">
                                             <input id="type-personal" class="form-check-input contact-type" type="radio"
                                                 name="type" value="personal"
@@ -89,6 +89,18 @@
                                 </div>
                             </div>
 
+                            <div class="col-span-12 md:col-span-6 form-inline mt-2" id="personal-email">
+                                <label for="email" class="form-label sm:w-30">Email Address</label>
+                                <div class="sm:w-5/6">
+                                    <input id="email" name="email" type="email"
+                                        class="form-control @error('email') border-theme-6 @enderror"
+                                        value="{{ old('email', $beneficiary->email) }}">
+
+                                    @error('email')
+                                        <span class="block text-theme-6 mt-2">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
                             {{-- <div class="col-span-12 md:col-span-6 form-inline mt-2">
                                 <label for="email" class="form-label sm:w-30">Email Address</label>
                                 <div class="sm:w-5/6">
@@ -118,7 +130,10 @@
                                 </div>
                             </div>
 
-                            
+                            <div class="col-span-12 md:col-span-6 form-inline mt-2" id="company-email">
+
+                            </div>
+
 
                             {{-- <div class="col-span-12 md:col-span-6 form-inline mt-2">
                                 <label for="email" class="form-label sm:w-30">Email Address</label>
@@ -134,7 +149,7 @@
                             </div> --}}
                         </div>
 
-                        <div class="grid grid-cols-12 md:gap-0 lg:gap-3 xl:gap-8 mt-0">
+                        {{-- <div class="grid grid-cols-12 md:gap-0 lg:gap-3 xl:gap-8 mt-0">
                             <div class="col-span-12 md:col-span-6 form-inline mt-2">
                                 <label for="email" class="form-label sm:w-30">Email Address</label>
                                 <div class="sm:w-5/6">
@@ -147,7 +162,7 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="grid grid-cols-12 md:gap-0 lg:gap-3 xl:gap-8 mt-0">
                             <div class="col-span-12 md:col-span-6 form-inline mt-2">
@@ -310,6 +325,10 @@
                 $(".contact-personal").removeClass('visible');
                 $(".contact-personal").addClass('hidden hiddenform');
                 $(".contact-personal #first_name, #last_name").removeAttr('required');
+                $("#personal-email").empty();
+                $("#company-email").html(
+                    '<label for="email" class="form-label sm:w-30">Email Address</label><div class="sm:w-5/6"><input id="email" name="email" type="email" class="form-control @error('email') border-theme-6 @enderror" value="{{ old('email', $beneficiary->email) }}">@error('email')<span class="block text-theme-6 mt-2">{{ $message }}</span>@enderror</div>'
+                );
             } else {
                 $(".contact-company").removeClass('visible');
                 $(".contact-company").addClass('hidden hiddenform');
@@ -323,6 +342,9 @@
                 $(".contact-personal #middle_name").removeAttr('required');
                 $(".contact-personal #email").removeAttr('required');
                 $("#company_name").val('');
+                $("#personal-email").html(
+                    '<label for="email" class="form-label sm:w-30">Email Address</label><div class="sm:w-5/6"><input id="email" name="email" type="email" class="form-control @error('email') border-theme-6 @enderror" value="{{ old('email', $beneficiary->email) }}">@error('email')<span class="block text-theme-6 mt-2">{{ $message }}</span>@enderror</div>'
+                );
             }
         }
         $(".contact-type").each(function() {

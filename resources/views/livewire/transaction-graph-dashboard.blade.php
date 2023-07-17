@@ -18,7 +18,12 @@
                     <li>
                         @foreach ($years as $year)
                             <a id="selectYear" wire:click="selectYear({{ $year }})"
+                                @if(session()->get('dark_mode'))
+                                    class="flex items-center block p-2 transition duration-300  text-black  ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                                @else
                                 class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                                @endif
+                                
                                 {{ $year }}
                             </a>
                         @endforeach
