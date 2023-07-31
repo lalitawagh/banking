@@ -245,20 +245,29 @@ class CardController extends Controller
         try {
 
             $serviceResponse = $this->service->createCard(new CreateCardDto($card));
+
+            $card->update([
+                'ref_id' => $serviceResponse['id'],
+                'ref_type' => 'wrappex',
+                'status' => 'approved',
+            ]);
+
+            $message='Processing the card. It may take a while.';
+
+            $status  = 'success';
+
         } catch (\Exception $exception) {
 
-            throw FailedToApproveCardException::create();
+            $message='Something went wrong';
+            
+            $status='error';
+
+            // throw FailedToApproveCardException::create();
         }
 
-        $card->update([
-            'ref_id' => $serviceResponse['id'],
-            'ref_type' => 'wrappex',
-            'status' => 'approved',
-        ]);
-
         return redirect()->route("dashboard.cards.index")->with([
-            'message' => 'Processing the card. It may take a while.',
-            'status' => 'success',
+            'message' => $message,
+            'status' => $status,
         ]);
     }
 
