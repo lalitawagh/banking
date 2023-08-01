@@ -12,11 +12,11 @@
                     </h2>
                     @can(\Kanexy\Banking\Policies\CardPolicy::CREATE, \Kanexy\Banking\Models\Card::class)
                         <a href="{{ route('dashboard.cards.create', ['workspace_id' => $workspace?->id]) }}"
-                        class="btn btn-sm btn-primary shadow-md sm:ml-1 sm:-mt-2 sm:mb-0 mb-2 py-2">Request
-                        New Card</a>
+                            class="btn btn-sm btn-primary shadow-md sm:ml-1 sm:mb-0 mb-2 py-2">Request
+                            New Card</a>
                     @endcan
                 </div>
-                
+
                 <div class="Livewire-datatable-modal pb-3">
                     <livewire:data-table model='Kanexy\Banking\Models\Card' params="{{ $workspace?->id }}" type='cards' />
                 </div>
