@@ -67,7 +67,7 @@ class OtpVerificationComponent extends Component
                 $oneTimePassword->holder->notify(new SmsOneTimePasswordNotification($oneTimePassword));
             }
         }
-     
+
         $this->sent_resend_otp = true;
     }
 
@@ -75,7 +75,10 @@ class OtpVerificationComponent extends Component
     {
 
         $data = $this->validate([
-            'code' => 'required',
+            'code' => 'required|min:6',
+        ],[
+            'code.required' => 'The otp field is required.',
+            'code.min' => 'The otp must be 6 digits.',
         ]);
 
         $this->user = session('contact');
