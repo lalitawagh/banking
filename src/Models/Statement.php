@@ -163,10 +163,11 @@ class Statement extends Model
 
     public static function downloadPdf($records)
     {
-        ini_set("memory_limit", "256M");
+        ini_set("memory_limit", "-1");
         $transactions = collect();
+        $records=Transaction::with('workspace.account')->whereIn('id',$records)->get();
         foreach ($records as $record) {
-            $transactions->push(Transaction::with('workspace.account')->find($record));
+            $transactions->push($record);
         }
         $account = auth()->user()->workspaces()->first()?->accounts()->first();
         $user = Auth::user();
