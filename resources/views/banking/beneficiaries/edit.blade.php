@@ -342,6 +342,9 @@
                 $(".contact-personal #middle_name").removeAttr('required');
                 $(".contact-personal #email").removeAttr('required');
                 $("#company_name").val('');
+                $("#first_name").val("{{ old('first_name', $beneficiary->first_name) }}");
+                $("#middle_name").val("{{ old('middle_name', $beneficiary->middle_name) }}");
+                $("#last_name").val("{{ old('last_name', $beneficiary->last_name) }}");
                 $("#personal-email").html(
                     '<label for="email" class="form-label sm:w-30">Email Address</label><div class="sm:w-5/6"><input id="email" name="email" type="email" class="form-control @error('email') border-theme-6 @enderror" value="{{ old('email', $beneficiary->email) }}">@error('email')<span class="block text-theme-6 mt-2">{{ $message }}</span>@enderror</div>'
                 );
