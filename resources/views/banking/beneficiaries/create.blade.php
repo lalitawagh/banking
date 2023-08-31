@@ -171,7 +171,7 @@
                                         value="{{ old('meta.bank_account_name') }}" required>
 
                                     @error('meta.bank_account_name')
-                                        <span class="block text-theme-6 mt-2">{{ $message }}</span>
+                                        <span class="block text-theme-6 mt-2 removeAccountName">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -292,6 +292,7 @@
             contactTypeChange($(this).val());
             if ($(this).is(':checked')) {
                 $('.removeAccount').empty();
+                $('.removeAccountName').empty();
                 $('.removeSort').empty();
             }
         });
