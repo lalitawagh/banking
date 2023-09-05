@@ -72,7 +72,6 @@
                 <th style="white-space: nowrap;">Credit</th>
                 <th style="white-space: nowrap;">Reference</th>
                 <th style="white-space: nowrap;">Payment method</th>
-                <th style="white-space: nowrap;">Balance</th>
             </tr>
         </thead>
         <tbody style="text-align:left; font-size: 20px;">
@@ -98,7 +97,6 @@
                     @endif
                     <td style="white-space: nowrap;">{{ @$transaction->meta['reference'] }}</td>
                     <td style="white-space: nowrap;">{{ ucfirst($transaction->payment_method) }}</td>
-                    <td style="white-space: nowrap;">{{ \Kanexy\PartnerFoundation\Core\Helper::getFormatAmount($transaction->workspace->account?->balance) }}</td>
                 </tr>
             @endforeach
         </tbody>
