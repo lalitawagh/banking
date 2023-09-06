@@ -1,6 +1,6 @@
 
 
-<div class="text-center sm:text-left bg-gray-200 col-span-12 sm:col-span-6 xxl:col-span-6 box p-5 cursor-pointer zoom-in">
+<div class="flex flex-col px-3 text-center sm:text-left bg-gray-300 box py-2 cursor-pointer">
     @if ($account?->account_number)
     <div class="sm:pl-1">
         <div class="font-medium text-theme-1 dark:text-theme-10 text-l">Sort Code</div>
