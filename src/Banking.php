@@ -23,6 +23,7 @@ use Kanexy\PartnerFoundation\Core\Models\Transaction;
 use Livewire\Livewire;
 use Illuminate\Support\Facades\Gate;
 use Kanexy\Banking\Components\TopbarSendMoney;
+use Kanexy\Banking\Contracts\TransactionContract;
 use Kanexy\Banking\Dashboard\CardWidget;
 use Kanexy\Banking\Dashboard\DashboardTileWidget;
 use Kanexy\Banking\Dashboard\TransactionWidget;
@@ -44,7 +45,7 @@ class Banking
 {
     private array $policies = [
         Card::class => CardPolicy::class,
-        Transaction::class => TransactionPolicy::class,
+        TransactionContract::class => TransactionPolicy::class,
         Statement::class => StatementPolicy::class,
         ArchivedMember::class => CloseLedgerPolicy::class
     ];

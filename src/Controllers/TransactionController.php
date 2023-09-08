@@ -4,6 +4,8 @@ namespace Kanexy\Banking\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Kanexy\Banking\Contracts\TransactionContract;
+use Kanexy\Banking\Models\Statement;
 use Kanexy\Banking\Policies\TransactionPolicy;
 use Kanexy\Cms\Controllers\Controller;
 use Kanexy\PartnerFoundation\Core\Models\Transaction;
@@ -11,9 +13,9 @@ use Kanexy\PartnerFoundation\Workspace\Models\Workspace;
 
 class TransactionController extends Controller
 {
-    public function __invoke(Request $request)
+    public function index(Request $request)
     {
-        $this->authorize(TransactionPolicy::INDEX, Transaction::class);
+        $this->authorize(TransactionPolicy::INDEX, TransactionContract::class);
 
         $workspace = null;
 

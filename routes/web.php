@@ -52,7 +52,7 @@ Route::group(['middleware' => ['web']], function () {
             Route::group(['prefix' => 'banking', 'as' => 'banking.'], function () {
                 Route::resource('beneficiaries', 'Kanexy\Banking\Controllers\BeneficiaryController')->except(['show']);
                 Route::post('beneficiaries/getPartnerAccount', [BeneficiaryController::class, 'getPartnerAccount'])->name("beneficiaries.getPartnerAccount");
-                Route::name('transactions.index')->get('transactions', TransactionController::class);
+                Route::name('transactions.index')->get('transactions', [TransactionController::class,'index']);
                 Route::put('transactions/{transaction}', [TransactionController::class, 'update'])->name('transactions.update');
                 Route::get('payouts/verify', [PayoutController::class, 'verify'])->name("payouts.verify");
                 Route::resource('payouts', PayoutController::class);
