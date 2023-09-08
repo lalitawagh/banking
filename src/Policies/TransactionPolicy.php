@@ -32,6 +32,7 @@ class TransactionPolicy
 
     public function index(User $user)
     {
+       
         if ($user->hasPermissionTo(Permission::TRANSACTION_VIEW) && !$user->isSubscriber()) {
             return true;
         }
@@ -47,6 +48,7 @@ class TransactionPolicy
 
     public function show(User $user, Transaction $transaction)
     {
+      
         if ($user->hasPermissionTo(Permission::TRANSACTION_VIEW) && !$user->isSubscriber()) {
             return true;
         }
@@ -56,6 +58,7 @@ class TransactionPolicy
 
     public function create(User $user)
     {
+       
         if ($user->hasPermissionTo(Permission::TRANSACTION_CREATE) && !$user->isSubscriber()) {
             return true;
         }
@@ -79,6 +82,7 @@ class TransactionPolicy
 
     public function edit(User $user, Transaction $transaction)
     {
+      
         if ($user->hasPermissionTo(Permission::TRANSACTION_EDIT) && !$user->isSubscriber()) {
             return true;
         }

@@ -171,7 +171,7 @@
                                         value="{{ old('meta.bank_account_name') }}" required>
 
                                     @error('meta.bank_account_name')
-                                        <span class="block text-theme-6 mt-2">{{ $message }}</span>
+                                        <span class="block text-theme-6 mt-2 removeAccountName">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -267,6 +267,8 @@
                 $(".contact-personal").removeClass('visible');
                 $(".contact-personal").addClass('hidden hiddenform');
                 $(".contact-personal #first_name, #last_name").removeAttr('required');
+                $(".contact-personal #email").attr('name','emails');
+                $(".contact-company #email").attr('name','email');
             } else {
                 $(".contact-company").removeClass('visible');
                 $(".contact-company").addClass('hidden hiddenform');
@@ -279,6 +281,8 @@
                 $(".contact-personal #first_name, #last_name").attr('required', 'required');
                 $(".contact-personal #middle_name").removeAttr('required');
                 $(".contact-personal #email").removeAttr('required');
+                $(".contact-company #email").attr('name','emails');
+                $(".contact-personal #email").attr('name','email');
                 $("#company_name").val('');
             }
         }
@@ -292,6 +296,7 @@
             contactTypeChange($(this).val());
             if ($(this).is(':checked')) {
                 $('.removeAccount').empty();
+                $('.removeAccountName').empty();
                 $('.removeSort').empty();
             }
         });
