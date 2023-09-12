@@ -1,4 +1,4 @@
-<div id="close-ledger-modal" class="modal modal-slide-over" data-tw-backdrop="static" tabindex="-1" aria-hidden="true">
+<div id="close-ledger-modal" class="modal modal-slide-over" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-xl ihphone-scroll-height">
         <div class="modal-content">
             <!-- BEGIN: Slide Over Header -->
