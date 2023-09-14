@@ -3,7 +3,10 @@
 namespace Kanexy\Banking\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
+use Kanexy\Banking\Mail\SendMoneyLocalCreditAlertEmail;
+use Kanexy\Banking\Mail\SendMoneyLocalDebitAlertEmail;
 use Kanexy\Cms\Controllers\Controller;
 use Kanexy\Cms\I18N\Models\Country;
 use Kanexy\Cms\Notifications\SmsOneTimePasswordNotification;
@@ -18,6 +21,7 @@ use Kanexy\PartnerFoundation\Cxrm\Models\Contact;
 use Kanexy\PartnerFoundation\Saas\Models\PlanSubscription;
 use Kanexy\PartnerFoundation\Workspace\Models\Workspace;
 use Kanexy\PartnerFoundation\Workspace\Enums\WorkspaceStatus;
+
 class PayoutController extends Controller
 {
     private PayoutService $payoutService;
@@ -49,9 +53,9 @@ class PayoutController extends Controller
         $transactionOtpService = Setting::getValue('transaction_otp_service');
         $workspace = Workspace::findOrFail($request->input('workspace_id'));
 
-        if ($workspace->status == WorkspaceStatus::INACTIVE){
+        if ($workspace->status == WorkspaceStatus::INACTIVE) {
 
-              return redirect()->back();
+            return redirect()->back();
         }
         /** @var Account $sender */
         $sender = Account::findOrFail($request->input('sender_account_id'));
@@ -84,14 +88,20 @@ class PayoutController extends Controller
         }
     }
 
-    function verify(Request $request)
+    public function verify(Request $request)
     {
         $transaction = Transaction::find($request->query('id'));
         $sender = Account::findOrFail($transaction->meta['sender_id']);
-       
+
+        $beneficiaryInfo = Contact::find($transaction->meta['beneficiary_ref_id']);
         try {
             $this->payoutService->process($transaction);
-            PlanSubscription::reduceFeatureLimit($sender->workspaces()->first(),'Free Transactions');
+
+            Mail::to($beneficiaryInfo->email)->queue(new SendMoneyLocalCreditAlertEmail($beneficiaryInfo, $transaction));
+
+            Mail::to(auth()->user()->email)->queue(new SendMoneyLocalDebitAlertEmail(auth()->user(), $transaction));
+
+            PlanSubscription::reduceFeatureLimit($sender->workspaces()->first(), 'Free Transactions');
 
         } catch (\Exception $exception) {
             if ($exception->getCode() === 500) {
@@ -110,7 +120,8 @@ class PayoutController extends Controller
         ]);
     }
 
-    public static function payoutInitialize($sender,$beneficiary,$info){
+    public static function payoutInitialize($sender, $beneficiary, $info)
+    {
         /** @var Account $sender */
         $sender = Account::findOrFail($request->input('sender_account_id'));
     }
