@@ -4,6 +4,8 @@ namespace Kanexy\Banking\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Kanexy\Banking\Mail\CloseLedgerRequestMail;
 use Kanexy\Banking\Services\WrappexService;
 use Kanexy\Cms\Controllers\Controller;
 use Kanexy\Banking\Policies\CloseLedgerPolicy;
@@ -48,6 +50,7 @@ class CloseLedgerController extends Controller
 
     public function store(StoreCloseLedgerRequest $request)
     {
+
         $this->authorize(CloseLedgerPolicy::CREATE, ArchivedMember::class);
 
         $data = $request->validated();
@@ -64,12 +67,12 @@ class CloseLedgerController extends Controller
             ]);
         }
 
-        $workspace  = Workspace::whereAdminId($user->id)->first();
+        $workspace = Workspace::whereAdminId($user->id)->first();
         $account = $workspace->account()->first();
 
         if ($account->balance > 0) {
             return redirect()->back()->with([
-                'message' => 'Please Transfer your balance, before making requests',
+                'message' => 'Pleases Transfer your balance, before making requests',
                 'status' => 'failed',
             ]);
         }
@@ -79,7 +82,13 @@ class CloseLedgerController extends Controller
         $archive->name = 'close_ledger';
         $archive->meta = $data;
         $archive->status = AccountEnum::PENDING;
-        $archive->save();
+        $isArchived = $archive->save();
+
+        if ($isArchived) {
+            Mail::to(auth()->user()->email)->queue(new CloseLedgerRequestMail(auth()->user()));
+        }
+
+
         return redirect()->back()->with([
             'status' => 'success',
             'message' => 'Request submitted successfully.',
@@ -91,12 +100,12 @@ class CloseLedgerController extends Controller
     {
         $archivedMember = ArchivedMember::find($request->id);
         $user = User::find($archivedMember->holder_id);
-        $workspace  = Workspace::whereAdminId($user->id)->first();
+        $workspace = Workspace::whereAdminId($user->id)->first();
         $account = $workspace->account()->first();
 
         if ($account->balance > 0) {
 
-            Notification::sendNow($user, new  CloseLedgerNotification($user));
+            Notification::sendNow($user, new CloseLedgerNotification($user));
 
             return redirect()->back()->with([
                 'message' => 'User having balance in the account',
