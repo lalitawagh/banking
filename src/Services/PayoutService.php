@@ -91,5 +91,7 @@ class PayoutService
             'reasons' => array_merge($serviceTransaction['failure_reasons'] ?? [], $serviceTransaction['rejection_reasons'] ?? []),
             'status' => $serviceTransaction['status'],
         ]);
+
+
     }
 }

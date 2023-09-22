@@ -317,6 +317,7 @@
 
                                                     @foreach ($documents as $document)
                                                         @php
+
                                                             $extension = substr($document->media, strpos($document->media, '.') + 1);
                                                         @endphp
 
@@ -343,7 +344,7 @@
                                                                 <div class="col-span-6 sm:col-span-3">
                                                                     <img class="w-full sm:h-48"
                                                                         src="{{ \Illuminate\Support\Facades\Storage::disk('azure')->temporaryUrl($document->media, now()->addMinutes(5)) }}">
-                                                                    <button type="button" onclick="getChangeDocument(3)"
+                                                                    <button type="button" onclick="getChangeDocument('{{$document->type}}')"
                                                                         class="btn btn-elevated-primary w-24 mr-1 m-2">
                                                                         Change</button>
                                                                 </div>
@@ -391,12 +392,10 @@
 @push('scripts')
     <script>
         function getChangeDocument(value) {
-            if (value == 1) {
-                $('#document_type').val("{{ \Kanexy\Cms\Enums\RegistrationStep::DOCUMENTS }}");
-            } else if (value == 2) {
-                $('#document_type').val("{{ \Kanexy\Cms\Enums\RegistrationStep::SELFIE_AND_VIDEO }}");
-            } else {
+            if (value == 'business_document_two' || value == 'business_document_one') {
                 $('#document_type').val("{{ \Kanexy\Cms\Enums\RegistrationStep::COMPANY_DOCUMENTS }}");
+            } else {
+                $('#document_type').val("course_document");
             }
             $('#callback_url').val("{{ route('customer.signup.ledger.index') }}");
             $('#previewForm').submit();
