@@ -86,7 +86,7 @@ class CreateBeneficiariesComponent extends Component
             'first_name' => ['required_if:type,' . ContactType::PERSONAL, 'nullable', new AlphaSpaces, 'string','max:40'],
             'middle_name' => ['nullable', new AlphaSpaces, 'string','max:40'],
             'last_name' => ['required_if:type,' . ContactType::PERSONAL, 'nullable', new AlphaSpaces, 'string','max:40'],
-            'company_name' => ['required_if:type,' . ContactType::COMPANY, 'nullable', new AlphaSpaces, 'string'],
+            'company_name' => ['required_if:type,' . ContactType::COMPANY, 'nullable', new AlphaSpaces, 'string','max:40'],
             'email' => ['nullable', 'email'],
             'landline' => ['nullable', 'string', new LandlineNumber],
             'mobile' => ['nullable', new MobileNumber],
